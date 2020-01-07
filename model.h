@@ -14,6 +14,9 @@
 #include <QWidget>
 #include <QTableView>
 #include <QStandardItemModel>
+#include <QThread>
+#include "controller.h"
+#include <QTimer>
 
 
 #define StandardFrame 0
@@ -24,6 +27,8 @@
 
 using namespace std;
 
+
+extern double angle[10];
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Model; }
@@ -40,10 +45,12 @@ public:
     int DouHex2Dec(QString s);
     void CanSend();
 
+
 public:
     DWORD devindex;//CAN设备索引
     DWORD devtype;//CAN设备类型
     VCI_CAN_OBJ sendbuf[1];//发送帧
+
 
 
 private slots:
@@ -57,5 +64,9 @@ private slots:
 
 private:
     Ui::Model *ui;
+
+    QThread *threadReceive;
+    Contorller *mythread;
 };
+
 #endif // MODEL_H

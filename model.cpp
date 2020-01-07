@@ -13,11 +13,23 @@ Model::Model(QWidget *parent)
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
+
+    threadReceive=new QThread;
+    mythread=new Contorller();
+
+    mythread->moveToThread(threadReceive);
+    connect(threadReceive,SIGNAL(started()),mythread,SLOT(receive()));
+    connect(threadReceive,SIGNAL(finished()),threadReceive,SLOT(deleteLater()));
+
+    threadReceive->start();
 }
 
 Model::~Model()
 {
     delete ui;
+    mythread->flagReceive=2;
+    threadReceive->quit();
+    threadReceive->wait();
 }
 
 
@@ -55,6 +67,7 @@ void Model::on_btnOpen_clicked()
         return;
     }
     qDebug()<<"Open CAN success!";
+    mythread->flagReceive=1;
 }
 
 void Model::on_btnClose_clicked()
@@ -65,6 +78,7 @@ void Model::on_btnClose_clicked()
                                  QString::fromLocal8Bit("Close failed!"));
         return;
     }
+    mythread->flagReceive=2;
 
     QMessageBox::information(this,QString::fromLocal8Bit("Information"),
                              QString::fromLocal8Bit("Close success!"));
