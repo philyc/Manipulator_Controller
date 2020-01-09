@@ -9,8 +9,8 @@ Controller::Controller()
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
-//    View *m_view=new View();
-//    connect(this,&Controller::rec,m_model,)
+    //    View *m_view=new View();
+    //    connect(this,&Controller::rec,m_model,)
 
 }
 
@@ -192,7 +192,7 @@ void Controller::CanSend()
     if(NumCanSend<1){
         switch (NumCanSend) {
         case -1:qDebug()<<"Device isn't open";return;
-        case 0:qDebug()<<"send error";return;
+            //        case 0:qDebug()<<"send error";return;
         default:return;
         }
     }
@@ -231,9 +231,48 @@ void Controller::btnEnableClick()
     Sleep(50);
 }
 
+void Controller::inquire()
+{
+    int i=0;
+    while(flagReceive)
+    {
+        sendbuf->ID=0x00000302;
+        sendbuf->Data[0]=0x41;
+        sendbuf->Data[1]=0x45;
+        sendbuf->Data[2]=0x01;
+        CanSend();
+        Sleep(50);
+
+        //        sendbuf->ID=0x00000303;
+        //        sendbuf->Data[0]=0x41;
+        //        sendbuf->Data[1]=0x45;
+        //        sendbuf->Data[2]=0x01;
+        //        CanSend();
+        //        Sleep(50);
+
+        //        sendbuf->ID=0x00000304;
+        //        sendbuf->Data[0]=0x41;
+        //        sendbuf->Data[1]=0x45;
+        //        sendbuf->Data[2]=0x01;
+        //        CanSend();
+        //        Sleep(50);
+
+        Sleep(1000);
+        QString log;
+        log.sprintf("%p",QThread::currentThread());
+        qDebug()<<"testinquire"<<++i<<log;
+        Sleep(1000);
+        if(flagReceive==2)
+        {
+            return;
+        }
+    }
+}
+
 
 void Controller::receive()
 {
+    int i=0;
     while(flagReceive)
     {
         VCI_CAN_OBJ pCanObj[200];
@@ -242,44 +281,51 @@ void Controller::receive()
         NumCanReceive=VCI_Receive(devtype,devindex,0,pCanObj,200,0);
         if(NumCanReceive<=0)
         {
-            qDebug()<<"receive error";
+            //            qDebug()<<"receive error";
+//            QString log;
+//            log.sprintf("%p",QThread::currentThread());
+//            qDebug()<<"test"<<++i<<log;
         }
         else
         {
+            QString log;
+            log.sprintf("%p",QThread::currentThread());
+            qDebug()<<"test"<<++i<<log;
             for(int ind=0;ind<NumCanReceive;++ind)
             {
                 ReceiveId=pCanObj[ind].ID;
                 for(int i=0;i<8;++i)
                 {
-                    ReceiveData[i]=pCanObj->Data[i];
+                    ReceiveData[i]=pCanObj[ind].Data[i];
                     str=QString::number(ReceiveData[i],16);
+                    str=QString("%2").arg(ReceiveData[i],2,16,QLatin1Char('0'));
                     if(i<7)
                     {
-                        strRecData=str+" ";
+                        strRecData=strRecData+str+" ";
                     }
-                    else strRecData+=str;
+                    else
+                    {
+                        strRecData+=str;
+                        strRecData=strRecData.toUpper();
+                    }
                 }
-                strRecId=QString::number(ReceiveId,16);
+                strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
+
                 emit rec(strRecId,strRecData);
+
+
+                if(ReceiveId==0x281)
+                {
+
+                }
+
 
             }
         }
-        //        while(flagReceive)
-        //        {
-        //            QString log;
-        //            log.sprintf("%p",QThread::currentThread());
-        //            qDebug()<<"test"<<++i<<log;
-        //            m_model->sendbuf->ID=0x00000302;
-        //            m_model->sendbuf->Data[0]=0x41;
-        //            m_model->sendbuf->Data[1]=0x45;
-        //            m_model->sendbuf->Data[2]=0x01;
-
-
         Sleep(1000);
         if(flagReceive==2)
         {
             return;
         }
     }
-
 }

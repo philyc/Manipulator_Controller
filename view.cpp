@@ -7,19 +7,20 @@ View::View(QWidget *parent)
 {
     ui->setupUi(this);
 
+    QString log;
+    log.sprintf("%p",QThread::currentThread());
+    qDebug()<<"Main test"<<log;
+
     m_controller=new Controller();
+    m_receiver=new Controller();//receive线程对应的QObject
+    m_inquirer=new Controller();//inquire线程对应的QObject
 
     connect(this,&View::open,m_controller,&Controller::btnOpenClick);
     connect(this,&View::close,m_controller,&Controller::btnCloseClick);
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
 
-    //        receiveThread=new QThread;
-    //    m_controller->moveToThread(receiveThread);
-    //    connect(receiveThread,SIGNAL(started()),m_controller,SLOT(receive()));
-    //    connect(receiveThread,SIGNAL(finished()),receiveThread,SLOT(deleteLater()));
-    connect(m_controller,&Controller::rec,this,&View::updateWindows);
-    //    receiveThread->start();
+    connect(m_receiver,&Controller::rec,this,&View::updateTest);
 }
 
 View::~View()
@@ -35,17 +36,23 @@ void View::on_btnOpen_clicked()
 {
     emit open();
 
-    //------receiveThread在点open按钮时初始化------------//
+
+    //    //------inquireThread、receiveThread在点open按钮时初始化------------//
+    inquireThread=new QThread;
     receiveThread=new QThread;
     if(flagReceive==0)
     {
-        m_controller->moveToThread(receiveThread);//只有第一次需要进行movetothread;
+        m_inquirer->moveToThread(inquireThread);//只有第一次需要进行movetothread;
+        m_receiver->moveToThread(receiveThread);//只有第一次需要进行movetothread;
     }
-    connect(receiveThread,SIGNAL(started()),m_controller,SLOT(receive()));
-    connect(receiveThread,SIGNAL(finished()),receiveThread,SLOT(deleteLater()));
+    connect(inquireThread,&QThread::started,m_inquirer,&Controller::inquire);
+    connect(inquireThread,&QThread::finished,inquireThread,&QThread::deleteLater);
+    connect(receiveThread,&QThread::started,m_receiver,&Controller::receive);
+    connect(receiveThread,&QThread::finished,receiveThread,&QThread::deleteLater);
+    inquireThread->start();
     receiveThread->start();
+
     flagReceive=1;
-    //-------无论如何关闭，receive函数均在子线程下运行--------------//
 }
 
 void View::on_btnClose_clicked()
@@ -66,7 +73,9 @@ void View::on_BtnEnable_clicked()
     emit enable();
 }
 
-void View::updateWindows(QString receiveId,QString receiveData)
+void View::updateTest(QString receiveId,QString receiveData)
 {
 
+    ui->edttest1->setText(receiveId);
+    ui->edttest2->setText(receiveData);
 }

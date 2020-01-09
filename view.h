@@ -21,12 +21,15 @@ public:
     ~View();
 
 public:
-    Controller* m_controller;
+    Controller* m_receiver;//receive线程对应的QObject
+    Controller* m_inquirer;//inquire线程对应的QObject
+    Controller* m_controller;//其他引用函数
+
     Model* m_model;
 
     QThread *receiveThread;
+    QThread *inquireThread;
 
-    int flag_temp=0;
 
 signals:
 
@@ -34,7 +37,7 @@ signals:
     void close();
     void send(QString Id,QString Data);
     void enable();
-    void updateWindows(QString receiveId,QString receiveData);
+
 
 
 public slots:
@@ -48,6 +51,8 @@ private slots:
     void on_btnSend_clicked();
 
     void on_BtnEnable_clicked();
+
+    void updateTest(QString receiveId,QString receiveData);
 
 private:
     Ui::View *ui;
