@@ -233,7 +233,6 @@ void Controller::btnEnableClick()
 
 void Controller::inquire()
 {
-    int i=0;
     while(flagReceive)
     {
         sendbuf->ID=0x00000302;
@@ -243,25 +242,24 @@ void Controller::inquire()
         CanSend();
         Sleep(50);
 
-        //        sendbuf->ID=0x00000303;
-        //        sendbuf->Data[0]=0x41;
-        //        sendbuf->Data[1]=0x45;
-        //        sendbuf->Data[2]=0x01;
-        //        CanSend();
-        //        Sleep(50);
+        sendbuf->ID=0x00000303;
+        sendbuf->Data[0]=0x41;
+        sendbuf->Data[1]=0x45;
+        sendbuf->Data[2]=0x01;
+        CanSend();
+        Sleep(50);
 
-        //        sendbuf->ID=0x00000304;
-        //        sendbuf->Data[0]=0x41;
-        //        sendbuf->Data[1]=0x45;
-        //        sendbuf->Data[2]=0x01;
-        //        CanSend();
-        //        Sleep(50);
+        sendbuf->ID=0x00000304;
+        sendbuf->Data[0]=0x41;
+        sendbuf->Data[1]=0x45;
+        sendbuf->Data[2]=0x01;
+        CanSend();
+        Sleep(50);
 
         Sleep(1000);
-        QString log;
-        log.sprintf("%p",QThread::currentThread());
-        qDebug()<<"testinquire"<<++i<<log;
-        Sleep(1000);
+//        QString log;
+//        log.sprintf("%p",QThread::currentThread());
+//        qDebug()<<"testinquire"<<++i<<log;
         if(flagReceive==2)
         {
             return;
@@ -282,9 +280,9 @@ void Controller::receive()
         if(NumCanReceive<=0)
         {
             //            qDebug()<<"receive error";
-//            QString log;
-//            log.sprintf("%p",QThread::currentThread());
-//            qDebug()<<"test"<<++i<<log;
+            //            QString log;
+            //            log.sprintf("%p",QThread::currentThread());
+            //            qDebug()<<"test"<<++i<<log;
         }
         else
         {
@@ -313,11 +311,27 @@ void Controller::receive()
 
                 emit rec(strRecId,strRecData);
 
+                int index=ReceiveId-0x280;
+                absNum[index]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                absAngle[index]=static_cast<double>(absNum[index])/65536*180;
 
-                if(ReceiveId==0x281)
-                {
 
-                }
+
+//                if(ReceiveId==0x282)
+//                {
+//                    absNum[1]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+//                    absAngle[1]=static_cast<double>(absNum[1])/65536*180;
+//                }
+//                else if(ReceiveId==0x283)
+//                {
+//                    absNum[2]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+//                    absAngle[2]=static_cast<double>(absNum[2])/65536*180;
+//                }
+//                 else if(ReceiveId==0x284)
+//                {
+//                    absNum[3]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+//                    absAngle[3]=static_cast<double>(absNum[3])/65536*180;
+//                }
 
 
             }
