@@ -3,8 +3,11 @@
 #pragma once
 
 #include <QMainWindow>
+#include <QTime>
+#include <QTimer>
 #include "controller.h"
 #include "model.h"
+#include "qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
@@ -18,6 +21,9 @@ class View : public QMainWindow
 
 public:
     View(QWidget *parent = nullptr);
+
+    void widgetshow(QCustomPlot *widget,int recIndex);
+
     ~View();
 
 public:
@@ -56,7 +62,9 @@ private slots:
 
     void updateAbsAngle(vector<double> absAngle);
 
-    void updateIncAngle(vector<double> incAngle);
+    void updateIncNum(vector<long> incNum);
+
+    void timeUpdate();
 
 private:
     Ui::View *ui;

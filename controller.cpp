@@ -43,7 +43,7 @@ void Controller::btnOpenClick()
         qDebug()<<"CAN init failed!";
         return;
     }
-    Sleep(100);
+    Sleep(10);
     if(VCI_StartCAN(devtype,devindex,0)!=1)//开启通道0
     {
         //        QMessageBox::warning(this,QString::fromLocal8Bit("Warning"),
@@ -204,7 +204,6 @@ void Controller::CanSend()
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
-    Sleep(10);
 }
 
 void Controller::btnEnableClick()
@@ -243,7 +242,7 @@ void Controller::inquire()
             sendbuf->Data[1]=0x45;
             sendbuf->Data[2]=0x01;
             CanSend();
-            Sleep(50);
+            Sleep(10);
         }
 
         flagAbsOrInc=true;
@@ -253,10 +252,10 @@ void Controller::inquire()
             sendbuf->Data[0]=0x50;
             sendbuf->Data[1]=0x58;
             CanSend();
-            Sleep(50);
+            Sleep(10);
         }
 
-        Sleep(1000);
+        Sleep(10);
 //        QString log;
 //        log.sprintf("%p",QThread::currentThread());
 //        qDebug()<<"testinquire"<<++i<<log;
@@ -320,21 +319,12 @@ void Controller::receive()
                 else
                 {
                     incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
-                    emit recIncAngle(incAngle);
+//                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
+                    emit recIncNum(incNum);
                 }
-
-
-
-
-
-
-
-
-
             }
         }
-        Sleep(50);
+        Sleep(10);
         if(flagRecAndInq==2)
         {
             return;

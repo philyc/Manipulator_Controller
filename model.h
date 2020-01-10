@@ -14,7 +14,7 @@ extern vector<double> incAngle;//相对式编码器值转化为角度
 extern DWORD devindex;//CAN设备索引
 extern DWORD devtype;//CAN设备类型
 extern vector<int> absNum;//绝对式编码器值
-extern vector<int> incNum;//相对式编码器值
+extern vector<long> incNum;//相对式编码器值
 extern UINT recIndex;//接收时电机序号，从0-5  //值= id-0x281
 extern UINT sendIndex;//发送是电机序号，从0-5 //值= id-0x301
 

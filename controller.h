@@ -54,7 +54,7 @@ signals:
 
     void recAbsAngle(vector<double> absAngle);
 
-    void recIncAngle(vector<double> incAngle);
+    void recIncNum(vector<long> incNum);
 
 public slots:
     void btnOpenClick();

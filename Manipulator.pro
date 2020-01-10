@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,12 +19,14 @@ SOURCES += \
     controller.cpp \
     main.cpp \
     model.cpp \
+    qcustomplot.cpp \
     view.cpp
 
 HEADERS += \
     ControlCAN.h \
     controller.h \
     model.h \
+    qcustomplot.h \
     view.h
 
 FORMS += \
