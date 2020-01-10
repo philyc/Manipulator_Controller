@@ -235,23 +235,23 @@ void Controller::inquire()
 {
     while(flagRecAndInq)
     {
+        flagAbsOrInc=false;
         for(UINT i=1;i<7;++i)
         {
             sendbuf->ID=0x0000300+i;
             sendbuf->Data[0]=0x41;
             sendbuf->Data[1]=0x45;
             sendbuf->Data[2]=0x01;
-            sendbuf->Reserved[0]=false;
             CanSend();
             Sleep(50);
         }
 
+        flagAbsOrInc=true;
         for(UINT i=1;i<7;++i)
         {
             sendbuf->ID=0x300+i;
             sendbuf->Data[0]=0x50;
             sendbuf->Data[1]=0x58;
-            sendbuf->Reserved[0]=true;
             CanSend();
             Sleep(50);
         }
@@ -291,7 +291,6 @@ void Controller::receive()
             qDebug()<<"test"<<++i<<log;
             for(int ind=0;ind<NumCanReceive;++ind)
             {
-                flagAbsOrInc=pCanObj[ind].Reserved[0];
                 ReceiveId=pCanObj[ind].ID;
                 for(int i=0;i<8;++i)
                 {
@@ -321,7 +320,7 @@ void Controller::receive()
                 else
                 {
                     incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                    incAngle[recIndex]=static_cast<double>(absNum[recIndex])/65536*180;
+                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                     emit recIncAngle(incAngle);
                 }
 
