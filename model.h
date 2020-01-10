@@ -3,14 +3,20 @@
 
 #include <QObject>
 #include "ControlCAN.h"
+#include <vector>
 
-extern int flagReceive;//线程启动与关闭
-extern double absAngle[10];//绝对式编码器值转化为角度
-extern double incAngle[10];//相对式编码器值转化为角度
+using namespace std;
+
+extern int flagRecAndInq;//Rec线程和Inq线程启动与关闭
+extern bool flagAbsOrInc;//绝对式编码器与相对式编码器切换，false为绝对式，true为相对式
+extern vector<double> absAngle;//绝对式编码器值转化为角度
+extern vector<double> incAngle;//相对式编码器值转化为角度
 extern DWORD devindex;//CAN设备索引
 extern DWORD devtype;//CAN设备类型
-extern int absNum[10];//绝对式编码器值
-extern int incNum[10];//相对式编码器值
+extern vector<int> absNum;//绝对式编码器值
+extern vector<int> incNum;//相对式编码器值
+extern UINT recIndex;//接收时电机序号，从0-5  //值= id-0x281
+extern UINT sendIndex;//发送是电机序号，从0-5 //值= id-0x301
 
 class Model: public QObject
 {
@@ -21,7 +27,7 @@ public:
 
 
 public:
-    double Angel[10];
+
 };
 
 #endif // MODEL_H

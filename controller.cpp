@@ -233,34 +233,34 @@ void Controller::btnEnableClick()
 
 void Controller::inquire()
 {
-    while(flagReceive)
+    while(flagRecAndInq)
     {
-        sendbuf->ID=0x00000302;
-        sendbuf->Data[0]=0x41;
-        sendbuf->Data[1]=0x45;
-        sendbuf->Data[2]=0x01;
-        CanSend();
-        Sleep(50);
+        for(UINT i=1;i<7;++i)
+        {
+            sendbuf->ID=0x0000300+i;
+            sendbuf->Data[0]=0x41;
+            sendbuf->Data[1]=0x45;
+            sendbuf->Data[2]=0x01;
+            sendbuf->Reserved[0]=false;
+            CanSend();
+            Sleep(50);
+        }
 
-        sendbuf->ID=0x00000303;
-        sendbuf->Data[0]=0x41;
-        sendbuf->Data[1]=0x45;
-        sendbuf->Data[2]=0x01;
-        CanSend();
-        Sleep(50);
-
-        sendbuf->ID=0x00000304;
-        sendbuf->Data[0]=0x41;
-        sendbuf->Data[1]=0x45;
-        sendbuf->Data[2]=0x01;
-        CanSend();
-        Sleep(50);
+        for(UINT i=1;i<7;++i)
+        {
+            sendbuf->ID=0x300+i;
+            sendbuf->Data[0]=0x50;
+            sendbuf->Data[1]=0x58;
+            sendbuf->Reserved[0]=true;
+            CanSend();
+            Sleep(50);
+        }
 
         Sleep(1000);
 //        QString log;
 //        log.sprintf("%p",QThread::currentThread());
 //        qDebug()<<"testinquire"<<++i<<log;
-        if(flagReceive==2)
+        if(flagRecAndInq==2)
         {
             return;
         }
@@ -271,7 +271,7 @@ void Controller::inquire()
 void Controller::receive()
 {
     int i=0;
-    while(flagReceive)
+    while(flagRecAndInq)
     {
         VCI_CAN_OBJ pCanObj[200];
         int NumCanReceive;
@@ -291,6 +291,7 @@ void Controller::receive()
             qDebug()<<"test"<<++i<<log;
             for(int ind=0;ind<NumCanReceive;++ind)
             {
+                flagAbsOrInc=pCanObj[ind].Reserved[0];
                 ReceiveId=pCanObj[ind].ID;
                 for(int i=0;i<8;++i)
                 {
@@ -310,34 +311,32 @@ void Controller::receive()
                 strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
 
                 emit rec(strRecId,strRecData);
+                recIndex=ReceiveId-0x281;
+                if(false==flagAbsOrInc)
+                {
+                    absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                    absAngle[recIndex]=static_cast<double>(absNum[recIndex])/65536*180;
+                    emit recAbsAngle(absAngle);
+                }
+                else
+                {
+                    incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                    incAngle[recIndex]=static_cast<double>(absNum[recIndex])/65536*180;
+                    emit recIncAngle(incAngle);
+                }
 
-                int index=ReceiveId-0x280;
-                absNum[index]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                absAngle[index]=static_cast<double>(absNum[index])/65536*180;
 
 
 
-//                if(ReceiveId==0x282)
-//                {
-//                    absNum[1]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-//                    absAngle[1]=static_cast<double>(absNum[1])/65536*180;
-//                }
-//                else if(ReceiveId==0x283)
-//                {
-//                    absNum[2]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-//                    absAngle[2]=static_cast<double>(absNum[2])/65536*180;
-//                }
-//                 else if(ReceiveId==0x284)
-//                {
-//                    absNum[3]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-//                    absAngle[3]=static_cast<double>(absNum[3])/65536*180;
-//                }
+
+
+
 
 
             }
         }
-        Sleep(1000);
-        if(flagReceive==2)
+        Sleep(50);
+        if(flagRecAndInq==2)
         {
             return;
         }

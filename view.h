@@ -54,6 +54,10 @@ private slots:
 
     void updateTest(QString receiveId,QString receiveData);
 
+    void updateAbsAngle(vector<double> absAngle);
+
+    void updateIncAngle(vector<double> incAngle);
+
 private:
     Ui::View *ui;
 

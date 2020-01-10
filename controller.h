@@ -52,6 +52,10 @@ public:
 signals:
     void rec(QString receiveId,QString receiveData);
 
+    void recAbsAngle(vector<double> absAngle);
+
+    void recIncAngle(vector<double> incAngle);
+
 public slots:
     void btnOpenClick();
     void btnCloseClick();
