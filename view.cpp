@@ -7,14 +7,9 @@ View::View(QWidget *parent)
 {
     ui->setupUi(this);
 
-//    QString log;
-//    log.sprintf("%p",QThread::currentThread());
-//    qDebug()<<"Main test"<<log;
-
-    QTimer *timer=new QTimer(this);
-    timer->start(1000);
-
-    connect(timer,&QTimer::timeout,this,&View::timeUpdate);
+    //    QString log;
+    //    log.sprintf("%p",QThread::currentThread());
+    //    qDebug()<<"Main test"<<log;
 
     m_controller=new Controller();
     m_receiver=new Controller();//receive线程对应的QObject
@@ -28,6 +23,32 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
+
+
+    //绘图使用
+    QTimer *timer=new QTimer(this);
+    timer->start(30);
+    connect(timer,&QTimer::timeout,this,&View::getNow);
+//    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);//日期做X轴
+//    dateTicker->setDateTimeFormat("hh:mm:ss");//日期格式(可参考QDateTime::fromString()函数)
+//    ui->wgtMoter1->xAxis->setTicker(dateTicker);//设置X轴为时间轴
+//    ui->wgtMoter1->xAxis->setLabel("Time/s");
+//    ui->wgtMoter1->yAxis->setLabel("Angle/°");
+
+    ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
+
+    ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
+
+    ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
+                                | QCP::iSelectPlottables//使所有图例可见
+                                | QCP::iRangeZoom); //可滚轮缩放
+//                              | QCP::iSelectLegend );//可选中图例
+
+    ui->wgtMoter1->yAxis->setRange(-180, 180);//设置y轴范围为-180至180
+    refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
+    sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
+    lastPoint.setX(timecount);
+    lastPoint.setY(absAngle[0]);
 }
 
 View::~View()
@@ -38,31 +59,45 @@ View::~View()
     delete ui;
 }
 
-
-
-void View::widgetshow(QCustomPlot *widget,int recIndex)
+//-----------------------以下为图表绘图部分-------------------------//
+void View::getNow()
 {
-    QVector<int> i;
-    widget->addGraph();
-    widget->graph(0)->setPen(QPen(Qt::red));
-    widget->xAxis->setLabel("Time(s)");
-    widget->yAxis->setLabel("Angle(°)");
+    timecount+=0.03;
+//    return static_cast<double>(QDateTime::currentMSecsSinceEpoch()) / 1000.0;
 }
 
-
-void View::timeUpdate()
+void View::timerEvent(QTimerEvent *event)
 {
-    QTime t;
-    t=QTime::currentTime();
-    widgetshow(ui->wgtMoter1,recIndex);
 
+    if(event->timerId() == refreshTimer)//30ms-图表刷新时间
+    {
+        ui->wgtMoter1->replot();
+    }
+
+    if(event->timerId() == sampleTimer)//30ms-数据采样时间
+    {
+        newPoint.setX(timecount);
+        newPoint.setY(timecount*timecount);
+        qDebug() << newPoint.x() <<  newPoint.y();
+        /*在新的点和上一个采样点之间，线性插值100个点*/
+//        int n = 100;
+//        double dx = (newPoint.x() - lastPoint.x()) / 100.0;//线性插值
+//        double dy = (newPoint.y() - lastPoint.y()) / 100.0;//线性插值
+//        for(int i = 1; i <= n; i++)
+//        {
+//            ui->wgtMoter1->graph(0)->addData(lastPoint.x() + dx * i, lastPoint.y() + dy * i);
+//        }
+        ui->wgtMoter1->graph(0)->addData(lastPoint.x(),lastPoint.y());
+        ui->wgtMoter1->graph(0)->rescaleKeyAxis(true);//根据x轴最高点自动缩放坐标轴
+        lastPoint.setX(newPoint.x());
+        lastPoint.setY(newPoint.y());
+    }
 }
-
+//-----------------------图表绘图部分结束-------------------------//
 
 void View::on_btnOpen_clicked()
 {
     emit open();
-
 
     //    //------inquireThread、receiveThread在点open按钮时初始化------------//
     inquireThread=new QThread;

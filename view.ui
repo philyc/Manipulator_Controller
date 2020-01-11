@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>View</class>
  <widget class="QMainWindow" name="View">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>991</width>
-    <height>647</height>
+    <width>1280</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -344,60 +347,60 @@
    <widget class="QCustomPlot" name="wgtMoter1" native="true">
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>610</x>
       <y>190</y>
-      <width>121</width>
-      <height>91</height>
+      <width>231</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter2" native="true">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>850</x>
       <y>190</y>
-      <width>121</width>
-      <height>91</height>
+      <width>221</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter3" native="true">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>300</y>
-      <width>121</width>
-      <height>91</height>
+      <x>610</x>
+      <y>340</y>
+      <width>231</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter4" native="true">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>300</y>
-      <width>121</width>
-      <height>91</height>
+      <x>850</x>
+      <y>340</y>
+      <width>221</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter5" native="true">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>410</y>
-      <width>121</width>
-      <height>91</height>
+      <x>610</x>
+      <y>490</y>
+      <width>231</width>
+      <height>131</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter6" native="true">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>410</y>
-      <width>121</width>
-      <height>91</height>
+      <x>850</x>
+      <y>490</y>
+      <width>221</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
@@ -407,7 +410,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>991</width>
+     <width>1280</width>
      <height>23</height>
     </rect>
    </property>
