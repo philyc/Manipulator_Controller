@@ -43,10 +43,13 @@ public:
     double timecount=0;//计时
     int refreshTimer;//刷新图像的定时器
     int sampleTimer;//模拟采样的定时器
-    QPointF newPoint;
-    QPointF lastPoint;//两点绘图，减少数据量
+    QPointF newPoint[6];
+    QPointF lastPoint[6];//两点绘图，减少数据量
+    void initChart();
     void getNow();//更新timecount,现为每30ms更新一次
     void timerEvent(QTimerEvent *event);//绘图主函数
+
+
 
 
 signals:

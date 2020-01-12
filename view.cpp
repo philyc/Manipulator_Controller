@@ -19,36 +19,15 @@ View::View(QWidget *parent)
     connect(this,&View::close,m_controller,&Controller::btnCloseClick);
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
+    connect(this,&View::open,this,&View::initChart);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
 
 
-    //绘图使用
-    QTimer *timer=new QTimer(this);
-    timer->start(30);
-    connect(timer,&QTimer::timeout,this,&View::getNow);
-//    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);//日期做X轴
-//    dateTicker->setDateTimeFormat("hh:mm:ss");//日期格式(可参考QDateTime::fromString()函数)
-//    ui->wgtMoter1->xAxis->setTicker(dateTicker);//设置X轴为时间轴
-//    ui->wgtMoter1->xAxis->setLabel("Time/s");
-//    ui->wgtMoter1->yAxis->setLabel("Angle/°");
 
-    ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
 
-    ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
-
-    ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
-                                | QCP::iSelectPlottables//使所有图例可见
-                                | QCP::iRangeZoom); //可滚轮缩放
-//                              | QCP::iSelectLegend );//可选中图例
-
-    ui->wgtMoter1->yAxis->setRange(-180, 180);//设置y轴范围为-180至180
-    refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
-    sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
-    lastPoint.setX(timecount);
-    lastPoint.setY(absAngle[0]);
 }
 
 View::~View()
@@ -59,7 +38,92 @@ View::~View()
     delete ui;
 }
 
-//-----------------------以下为图表绘图部分-------------------------//
+//-----------------------以下为绘图部分-------------------------//
+void View::initChart()
+{
+    //绘图使用
+    QTimer *timer=new QTimer(this);
+    timer->start(30);
+    connect(timer,&QTimer::timeout,this,&View::getNow);
+    //    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);//日期做X轴
+    //    dateTicker->setDateTimeFormat("hh:mm:ss");//日期格式(可参考QDateTime::fromString()函数)
+    //    ui->wgtMoter1->xAxis->setTicker(dateTicker);//设置X轴为时间轴
+    //    ui->wgtMoter1->xAxis->setLabel("Time/s");
+    //    ui->wgtMoter1->yAxis->setLabel("Angle/°");
+    refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
+    sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
+    for(UINT i=0;i<6;++i)
+    {
+        lastPoint[i].setX(timecount);
+        lastPoint[i].setY(absAngle[i]);
+    }
+
+    ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
+    ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+    ui->wgtMoter1->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+    ui->wgtMoter2->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter2->addGraph(ui->wgtMoter2->xAxis, ui->wgtMoter2->yAxis);
+    ui->wgtMoter2->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+    ui->wgtMoter2->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+    ui->wgtMoter3->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter3->addGraph(ui->wgtMoter3->xAxis, ui->wgtMoter3->yAxis);
+    ui->wgtMoter3->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+
+    ui->wgtMoter3->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+    ui->wgtMoter4->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter4->addGraph(ui->wgtMoter4->xAxis, ui->wgtMoter4->yAxis);
+    ui->wgtMoter4->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+    ui->wgtMoter4->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+
+    ui->wgtMoter5->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter5->addGraph(ui->wgtMoter5->xAxis, ui->wgtMoter5->yAxis);
+    ui->wgtMoter5->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+    ui->wgtMoter5->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+    ui->wgtMoter6->xAxis->setTickLabels(true);//显示刻度标签
+    ui->wgtMoter6->addGraph(ui->wgtMoter6->xAxis, ui->wgtMoter6->yAxis);
+    ui->wgtMoter6->setInteractions(QCP::iRangeDrag //可平移
+                                   | QCP::iSelectPlottables//使所有图例可见
+                                   | QCP::iRangeZoom); //可滚轮缩放
+    //                              | QCP::iSelectLegend );//可选中图例
+    ui->wgtMoter6->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+}
+
 void View::getNow()
 {
     timecount+=0.03;
@@ -72,25 +136,52 @@ void View::timerEvent(QTimerEvent *event)
     if(event->timerId() == refreshTimer)//30ms-图表刷新时间
     {
         ui->wgtMoter1->replot();
+        ui->wgtMoter2->replot();
+        ui->wgtMoter3->replot();
+        ui->wgtMoter4->replot();
+        ui->wgtMoter5->replot();
+        ui->wgtMoter6->replot();
     }
 
     if(event->timerId() == sampleTimer)//30ms-数据采样时间
     {
-        newPoint.setX(timecount);
-        newPoint.setY(timecount*timecount);
-        qDebug() << newPoint.x() <<  newPoint.y();
+        for(UINT i=0;i<6;++i)
+        {
+            newPoint[i].setX(timecount);
+            newPoint[i].setY(absAngle[i]);
+//            qDebug() << newPoint[i].x() <<  newPoint[i].y();
+        }
+
         /*在新的点和上一个采样点之间，线性插值100个点*/
-//        int n = 100;
-//        double dx = (newPoint.x() - lastPoint.x()) / 100.0;//线性插值
-//        double dy = (newPoint.y() - lastPoint.y()) / 100.0;//线性插值
-//        for(int i = 1; i <= n; i++)
-//        {
-//            ui->wgtMoter1->graph(0)->addData(lastPoint.x() + dx * i, lastPoint.y() + dy * i);
-//        }
-        ui->wgtMoter1->graph(0)->addData(lastPoint.x(),lastPoint.y());
-        ui->wgtMoter1->graph(0)->rescaleKeyAxis(true);//根据x轴最高点自动缩放坐标轴
-        lastPoint.setX(newPoint.x());
-        lastPoint.setY(newPoint.y());
+        //        int n = 100;
+        //        double dx = (newPoint.x() - lastPoint.x()) / 100.0;//线性插值
+        //        double dy = (newPoint.y() - lastPoint.y()) / 100.0;//线性插值
+        //        for(int i = 1; i <= n; i++)
+        //        {
+        //            ui->wgtMoter1->graph(0)->addData(lastPoint.x() + dx * i, lastPoint.y() + dy * i);
+        //        }
+        ui->wgtMoter1->graph(0)->addData(lastPoint[0].x(),lastPoint[0].y());
+        ui->wgtMoter2->graph(0)->addData(lastPoint[1].x(),lastPoint[1].y());
+        ui->wgtMoter3->graph(0)->addData(lastPoint[2].x(),lastPoint[2].y());
+        ui->wgtMoter4->graph(0)->addData(lastPoint[3].x(),lastPoint[3].y());
+        ui->wgtMoter5->graph(0)->addData(lastPoint[4].x(),lastPoint[4].y());
+        ui->wgtMoter6->graph(0)->addData(lastPoint[5].x(),lastPoint[5].y());
+
+//        ui->wgtMoter1->graph(0)->rescaleKeyAxis(true);//根据x轴最高点自动缩放坐标轴
+//        ui->wgtMoter1->graph(0)->rescaleValueAxis(true);//根据y轴最高点自动缩放坐标轴
+        ui->wgtMoter1->graph(0)->rescaleAxes(true);
+        ui->wgtMoter2->graph(0)->rescaleAxes(true);
+        ui->wgtMoter3->graph(0)->rescaleAxes(true);
+        ui->wgtMoter4->graph(0)->rescaleAxes(true);
+        ui->wgtMoter5->graph(0)->rescaleAxes(true);
+        ui->wgtMoter6->graph(0)->rescaleAxes(true);
+
+        for(UINT i=0;i<6;++i)
+        {
+            lastPoint[i].setX(newPoint[i].x());
+            lastPoint[i].setY(newPoint[i].y());
+        }
+
     }
 }
 //-----------------------图表绘图部分结束-------------------------//
