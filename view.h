@@ -11,6 +11,8 @@
 #include "qcustomplot.h"
 
 
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class View; }
 QT_END_NAMESPACE
@@ -48,8 +50,6 @@ public:
     void initChart();
     void getNow();//更新timecount,现为每30ms更新一次
     void timerEvent(QTimerEvent *event);//绘图主函数
-
-
 
 
 signals:

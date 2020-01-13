@@ -1,4 +1,4 @@
-QT       += core gui printsupport
+QT       += core gui printsupport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,6 +20,7 @@ SOURCES += \
     main.cpp \
     model.cpp \
     qcustomplot.cpp \
+    qmysql.cpp \
     view.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     controller.h \
     model.h \
     qcustomplot.h \
+    qmysql.h \
     view.h
 
 FORMS += \

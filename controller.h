@@ -19,7 +19,6 @@
 #include <QTimer>
 #include "model.h"
 
-
 #define StandardFrame 0
 #define ExpandFrame 1
 #define DataFrame 0

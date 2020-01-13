@@ -25,9 +25,6 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
 
-
-
-
 }
 
 View::~View()
@@ -38,7 +35,7 @@ View::~View()
     delete ui;
 }
 
-//-----------------------以下为绘图部分-------------------------//
+//**以下为绘图部分**//
 void View::initChart()
 {
     //绘图使用
@@ -181,10 +178,11 @@ void View::timerEvent(QTimerEvent *event)
             lastPoint[i].setX(newPoint[i].x());
             lastPoint[i].setY(newPoint[i].y());
         }
-
     }
 }
-//-----------------------图表绘图部分结束-------------------------//
+//**图表绘图部分结束**//
+
+
 
 void View::on_btnOpen_clicked()
 {

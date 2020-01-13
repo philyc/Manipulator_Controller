@@ -1,5 +1,6 @@
 #include "controller.h"
 #include "view.h"
+#include "qmysql.h"
 
 Controller::Controller()
 {
