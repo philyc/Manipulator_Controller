@@ -200,7 +200,7 @@ void Controller::CanSend()
         default:return;
         }
     }
-    qDebug()<<"Cansend success";
+    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
     //重新初始化sendbuf
     sendbuf->ExternFlag=StandardFrame;//CAN帧初始化，ID为标准帧
     sendbuf->DataLen=static_cast<BYTE>(CanDataLength);//数据长度为8位
@@ -249,6 +249,7 @@ void Controller::inquire()
             Sleep(10);
         }
 
+        Sleep(10);
         flagAbsOrInc=true;
         for(UINT i=1;i<7;++i)
         {
@@ -256,13 +257,14 @@ void Controller::inquire()
             sendbuf->Data[0]=0x50;
             sendbuf->Data[1]=0x58;
             CanSend();
-            Sleep(10);
+            Sleep(50);
         }
 
         Sleep(10);
-//        QString log;
-//        log.sprintf("%p",QThread::currentThread());
-//        qDebug()<<"testinquire"<<++i<<log;
+        qDebug()<<"Inquire rest";
+        //        QString log;
+        //        log.sprintf("%p",QThread::currentThread());
+        //        qDebug()<<"testinquire"<<++i<<log;
         if(flagRecAndInq==2)
         {
             return;
@@ -273,7 +275,7 @@ void Controller::inquire()
 
 void Controller::receive()
 {
-//    int i=0;
+    //    int i=0;
     while(flagRecAndInq)
     {
         VCI_CAN_OBJ pCanObj[200];
@@ -282,6 +284,7 @@ void Controller::receive()
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
         if(NumCanReceive<=0)
         {
+            Sleep(50);
             //            qDebug()<<"receive error";
             //            QString log;
             //            log.sprintf("%p",QThread::currentThread());
@@ -289,9 +292,6 @@ void Controller::receive()
         }
         else
         {
-//            QString log;
-//            log.sprintf("%p",QThread::currentThread());
-//            qDebug()<<"test"<<++i<<log;
             for(int ind=0;ind<NumCanReceive;++ind)
             {
                 ReceiveId=pCanObj[ind].ID;
@@ -323,7 +323,7 @@ void Controller::receive()
                 else
                 {
                     incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-//                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
+                    //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                     emit recIncNum(incNum);
                 }
             }

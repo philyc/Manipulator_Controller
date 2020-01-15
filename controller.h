@@ -40,8 +40,8 @@ public:
     void CanSend();
 
 public:
-//    DWORD devindex;//CAN设备索引
-//    DWORD devtype;//CAN设备类型
+    //    DWORD devindex;//CAN设备索引
+    //    DWORD devtype;//CAN设备类型
     VCI_CAN_OBJ sendbuf[1];//发送帧
 
     UINT ReceiveId;//receive线程中收到的id

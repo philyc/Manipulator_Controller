@@ -127,7 +127,7 @@ void View::initChart()
 void View::getNow()
 {
     timecount+=0.03;
-//    return static_cast<double>(QDateTime::currentMSecsSinceEpoch()) / 1000.0;
+    //    return static_cast<double>(QDateTime::currentMSecsSinceEpoch()) / 1000.0;
 }
 
 void View::timerEvent(QTimerEvent *event)
@@ -149,7 +149,7 @@ void View::timerEvent(QTimerEvent *event)
         {
             newPoint[i].setX(timecount);
             newPoint[i].setY(absAngle[i]);
-//            qDebug() << newPoint[i].x() <<  newPoint[i].y();
+            //            qDebug() << newPoint[i].x() <<  newPoint[i].y();
         }
 
         /*在新的点和上一个采样点之间，线性插值100个点*/
@@ -167,8 +167,8 @@ void View::timerEvent(QTimerEvent *event)
         ui->wgtMoter5->graph(0)->addData(lastPoint[4].x(),lastPoint[4].y());
         ui->wgtMoter6->graph(0)->addData(lastPoint[5].x(),lastPoint[5].y());
 
-//        ui->wgtMoter1->graph(0)->rescaleKeyAxis(true);//根据x轴最高点自动缩放坐标轴
-//        ui->wgtMoter1->graph(0)->rescaleValueAxis(true);//根据y轴最高点自动缩放坐标轴
+        //        ui->wgtMoter1->graph(0)->rescaleKeyAxis(true);//根据x轴最高点自动缩放坐标轴
+        //        ui->wgtMoter1->graph(0)->rescaleValueAxis(true);//根据y轴最高点自动缩放坐标轴
         ui->wgtMoter1->graph(0)->rescaleAxes(true);
         ui->wgtMoter2->graph(0)->rescaleAxes(true);
         ui->wgtMoter3->graph(0)->rescaleAxes(true);
