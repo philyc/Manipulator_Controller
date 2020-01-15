@@ -1,8 +1,6 @@
 #include "view.h"
 #include "controller.h"
 #include "model.h"
-#include "qmysql.h"
-
 
 
 #include <QApplication>
@@ -17,10 +15,11 @@ int main(int argc, char *argv[])
     qRegisterMetaType<vector<long>>("vector<long>");
 
 
-
-
     View w;
     w.show();
 
     return a.exec();
 }
+
+
+

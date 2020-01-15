@@ -1,6 +1,7 @@
 #include "view.h"
 #include "ui_view.h"
 
+
 View::View(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::View)
@@ -39,86 +40,88 @@ View::~View()
 void View::initChart()
 {
     //绘图使用
-    QTimer *timer=new QTimer(this);
-    timer->start(30);
-    connect(timer,&QTimer::timeout,this,&View::getNow);
-    //    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);//日期做X轴
-    //    dateTicker->setDateTimeFormat("hh:mm:ss");//日期格式(可参考QDateTime::fromString()函数)
-    //    ui->wgtMoter1->xAxis->setTicker(dateTicker);//设置X轴为时间轴
-    //    ui->wgtMoter1->xAxis->setLabel("Time/s");
-    //    ui->wgtMoter1->yAxis->setLabel("Angle/°");
-    refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
-    sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
-    for(UINT i=0;i<6;++i)
-    {
-        lastPoint[i].setX(timecount);
-        lastPoint[i].setY(absAngle[i]);
+    if(flagIsOpen){
+        QTimer *timer=new QTimer(this);
+        timer->start(30);
+        connect(timer,&QTimer::timeout,this,&View::getNow);
+        //    QSharedPointer<QCPAxisTickerDateTime> dateTicker(new QCPAxisTickerDateTime);//日期做X轴
+        //    dateTicker->setDateTimeFormat("hh:mm:ss");//日期格式(可参考QDateTime::fromString()函数)
+        //    ui->wgtMoter1->xAxis->setTicker(dateTicker);//设置X轴为时间轴
+        //    ui->wgtMoter1->xAxis->setLabel("Time/s");
+        //    ui->wgtMoter1->yAxis->setLabel("Angle/°");
+        refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
+        sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
+        for(UINT i=0;i<6;++i)
+        {
+            lastPoint[i].setX(timecount);
+            lastPoint[i].setY(absAngle[i]);
+        }
+
+        ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
+        ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+        ui->wgtMoter1->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+        ui->wgtMoter2->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter2->addGraph(ui->wgtMoter2->xAxis, ui->wgtMoter2->yAxis);
+        ui->wgtMoter2->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+        ui->wgtMoter2->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+        ui->wgtMoter3->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter3->addGraph(ui->wgtMoter3->xAxis, ui->wgtMoter3->yAxis);
+        ui->wgtMoter3->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+
+        ui->wgtMoter3->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+        ui->wgtMoter4->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter4->addGraph(ui->wgtMoter4->xAxis, ui->wgtMoter4->yAxis);
+        ui->wgtMoter4->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+        ui->wgtMoter4->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+
+        ui->wgtMoter5->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter5->addGraph(ui->wgtMoter5->xAxis, ui->wgtMoter5->yAxis);
+        ui->wgtMoter5->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+        ui->wgtMoter5->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
+
+
+
+
+        ui->wgtMoter6->xAxis->setTickLabels(true);//显示刻度标签
+        ui->wgtMoter6->addGraph(ui->wgtMoter6->xAxis, ui->wgtMoter6->yAxis);
+        ui->wgtMoter6->setInteractions(QCP::iRangeDrag //可平移
+                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iRangeZoom); //可滚轮缩放
+        //                              | QCP::iSelectLegend );//可选中图例
+        ui->wgtMoter6->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
     }
-
-    ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
-    ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-    ui->wgtMoter1->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
-
-
-
-
-    ui->wgtMoter2->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter2->addGraph(ui->wgtMoter2->xAxis, ui->wgtMoter2->yAxis);
-    ui->wgtMoter2->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-    ui->wgtMoter2->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
-
-
-
-
-    ui->wgtMoter3->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter3->addGraph(ui->wgtMoter3->xAxis, ui->wgtMoter3->yAxis);
-    ui->wgtMoter3->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-
-    ui->wgtMoter3->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
-
-
-
-
-    ui->wgtMoter4->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter4->addGraph(ui->wgtMoter4->xAxis, ui->wgtMoter4->yAxis);
-    ui->wgtMoter4->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-    ui->wgtMoter4->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
-
-
-
-
-
-    ui->wgtMoter5->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter5->addGraph(ui->wgtMoter5->xAxis, ui->wgtMoter5->yAxis);
-    ui->wgtMoter5->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-    ui->wgtMoter5->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
-
-
-
-
-    ui->wgtMoter6->xAxis->setTickLabels(true);//显示刻度标签
-    ui->wgtMoter6->addGraph(ui->wgtMoter6->xAxis, ui->wgtMoter6->yAxis);
-    ui->wgtMoter6->setInteractions(QCP::iRangeDrag //可平移
-                                   | QCP::iSelectPlottables//使所有图例可见
-                                   | QCP::iRangeZoom); //可滚轮缩放
-    //                              | QCP::iSelectLegend );//可选中图例
-    ui->wgtMoter6->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
 }
 
 void View::getNow()
@@ -189,21 +192,23 @@ void View::on_btnOpen_clicked()
     emit open();
 
     //    //------inquireThread、receiveThread在点open按钮时初始化------------//
-    inquireThread=new QThread;
-    receiveThread=new QThread;
-    if(flagRecAndInq==0)
-    {
-        m_inquirer->moveToThread(inquireThread);//只有第一次需要进行movetothread;
-        m_receiver->moveToThread(receiveThread);//只有第一次需要进行movetothread;
+    if(flagIsOpen){
+        inquireThread=new QThread;
+        receiveThread=new QThread;
+        if(flagRecAndInq==0)
+        {
+            m_inquirer->moveToThread(inquireThread);//只有第一次需要进行movetothread;
+            m_receiver->moveToThread(receiveThread);//只有第一次需要进行movetothread;
+        }
+        connect(inquireThread,&QThread::started,m_inquirer,&Controller::inquire);
+        connect(inquireThread,&QThread::finished,inquireThread,&QThread::deleteLater);
+        connect(receiveThread,&QThread::started,m_receiver,&Controller::receive);
+        connect(receiveThread,&QThread::finished,receiveThread,&QThread::deleteLater);
+        inquireThread->start();
+        receiveThread->start();
+        flagRecAndInq=1;
     }
-    connect(inquireThread,&QThread::started,m_inquirer,&Controller::inquire);
-    connect(inquireThread,&QThread::finished,inquireThread,&QThread::deleteLater);
-    connect(receiveThread,&QThread::started,m_receiver,&Controller::receive);
-    connect(receiveThread,&QThread::finished,receiveThread,&QThread::deleteLater);
-    inquireThread->start();
-    receiveThread->start();
-
-    flagRecAndInq=1;
+    else return;
 }
 
 void View::on_btnClose_clicked()

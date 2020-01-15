@@ -1,6 +1,7 @@
 #include "controller.h"
 #include "view.h"
-#include "qmysql.h"
+
+
 
 Controller::Controller()
 {
@@ -53,6 +54,8 @@ void Controller::btnOpenClick()
         return;
     }
     qDebug()<<"Open CAN success!";
+    flagIsOpen=true;
+    return;
 }
 
 
@@ -69,7 +72,7 @@ void Controller::btnCloseClick()
     //    QMessageBox::information(this,QString::fromLocal8Bit("Information"),
     //                             QString::fromLocal8Bit("Close success!"));
     qDebug()<<"Close success!";
-    //    flagReceive=2;
+    flagIsOpen=false;
 }
 
 int Controller::Hex2Dec(char c)
@@ -270,13 +273,13 @@ void Controller::inquire()
 
 void Controller::receive()
 {
-    int i=0;
+//    int i=0;
     while(flagRecAndInq)
     {
         VCI_CAN_OBJ pCanObj[200];
         int NumCanReceive;
         QString strRecId,strRecData,str;
-        NumCanReceive=VCI_Receive(devtype,devindex,0,pCanObj,200,0);
+        NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
         if(NumCanReceive<=0)
         {
             //            qDebug()<<"receive error";
@@ -286,9 +289,9 @@ void Controller::receive()
         }
         else
         {
-            QString log;
-            log.sprintf("%p",QThread::currentThread());
-            qDebug()<<"test"<<++i<<log;
+//            QString log;
+//            log.sprintf("%p",QThread::currentThread());
+//            qDebug()<<"test"<<++i<<log;
             for(int ind=0;ind<NumCanReceive;++ind)
             {
                 ReceiveId=pCanObj[ind].ID;

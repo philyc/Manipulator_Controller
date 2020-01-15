@@ -20,15 +20,13 @@ SOURCES += \
     main.cpp \
     model.cpp \
     qcustomplot.cpp \
-    qmysql.cpp \
     view.cpp
 
 HEADERS += \
     ControlCAN.h \
     controller.h \
     model.h \
-    qcustomplot.h \
-    qmysql.h \
+    qcustomplot.h \ \
     view.h
 
 FORMS += \
@@ -45,3 +43,5 @@ INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/./ControlCAN.lib
+
+DISTFILES +=

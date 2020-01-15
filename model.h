@@ -10,6 +10,7 @@ using namespace std;
 
 extern int flagRecAndInq;//Rec线程和Inq线程启动与关闭
 extern bool flagAbsOrInc;//绝对式编码器与相对式编码器切换，false为绝对式，true为相对式
+extern bool flagIsOpen;//是否打开CAN
 extern vector<double> absAngle;//绝对式编码器值转化为角度
 extern vector<double> incAngle;//相对式编码器值转化为角度
 extern DWORD devindex;//CAN设备索引
