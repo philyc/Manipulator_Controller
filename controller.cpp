@@ -257,10 +257,10 @@ void Controller::inquire()
             sendbuf->Data[0]=0x50;
             sendbuf->Data[1]=0x58;
             CanSend();
-            Sleep(50);
+            Sleep(10);
         }
 
-        Sleep(10);
+        Sleep(50);
         qDebug()<<"Inquire rest";
         //        QString log;
         //        log.sprintf("%p",QThread::currentThread());
@@ -284,7 +284,7 @@ void Controller::receive()
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
         if(NumCanReceive<=0)
         {
-            Sleep(50);
+            Sleep(30);
             //            qDebug()<<"receive error";
             //            QString log;
             //            log.sprintf("%p",QThread::currentThread());
@@ -328,7 +328,7 @@ void Controller::receive()
                 }
             }
         }
-        Sleep(10);
+        Sleep(30);
         if(flagRecAndInq==2)
         {
             return;

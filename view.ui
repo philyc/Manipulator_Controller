@@ -120,8 +120,8 @@
      <rect>
       <x>20</x>
       <y>170</y>
-      <width>581</width>
-      <height>381</height>
+      <width>761</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="tabPosition">
@@ -145,6 +145,300 @@
      <attribute name="title">
       <string>Angle</string>
      </attribute>
+     <widget class="QPushButton" name="btnMoter1RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>20</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter1RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>20</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter1RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>20</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter2RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>60</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter2RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>60</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter2RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>60</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter3RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>100</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter3RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>100</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter3RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>100</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter4RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>140</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter4RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>140</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter4RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>140</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter5RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>180</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter5RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>180</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter5RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>180</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter6RunFor">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>220</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Forward</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter6RunRev">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>220</y>
+        <width>71</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reverse</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edtMoter6RunAngle">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>220</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter1Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter1:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter2Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter2:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter3Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter3:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter4Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter4:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter5Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter5:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labMoter6Run">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>220</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Moter6:</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabSingle">
      <attribute name="title">
@@ -347,8 +641,8 @@
    <widget class="QCustomPlot" name="wgtMoter1" native="true">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>190</y>
+      <x>810</x>
+      <y>180</y>
       <width>231</width>
       <height>141</height>
      </rect>
@@ -357,8 +651,8 @@
    <widget class="QCustomPlot" name="wgtMoter2" native="true">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>190</y>
+      <x>1050</x>
+      <y>180</y>
       <width>221</width>
       <height>141</height>
      </rect>
@@ -367,8 +661,8 @@
    <widget class="QCustomPlot" name="wgtMoter3" native="true">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>340</y>
+      <x>810</x>
+      <y>330</y>
       <width>231</width>
       <height>141</height>
      </rect>
@@ -377,8 +671,8 @@
    <widget class="QCustomPlot" name="wgtMoter4" native="true">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>340</y>
+      <x>1050</x>
+      <y>330</y>
       <width>221</width>
       <height>141</height>
      </rect>
@@ -387,8 +681,8 @@
    <widget class="QCustomPlot" name="wgtMoter5" native="true">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>490</y>
+      <x>810</x>
+      <y>480</y>
       <width>231</width>
       <height>131</height>
      </rect>
@@ -397,8 +691,8 @@
    <widget class="QCustomPlot" name="wgtMoter6" native="true">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>490</y>
+      <x>1050</x>
+      <y>480</y>
       <width>221</width>
       <height>141</height>
      </rect>
