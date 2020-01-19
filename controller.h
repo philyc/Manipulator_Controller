@@ -39,6 +39,9 @@ public:
     int Hex2Dec(char c);
     void CanSend();
 
+    void MoterRunFor(UINT index,QString angle);
+    void MoterRunRev(UINT index,QString angle);
+
 public:
     //    DWORD devindex;//CAN设备索引
     //    DWORD devtype;//CAN设备类型
@@ -60,6 +63,7 @@ public slots:
     void btnCloseClick();
     void btnSendClick(QString Id,QString Data);
     void btnEnableClick();
+    void btnMoterRunClick(bool isForward,UINT index,QString angle);
 
 
     void receive();

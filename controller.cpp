@@ -335,3 +335,44 @@ void Controller::receive()
         }
     }
 }
+
+void Controller::btnMoterRunClick(bool isForward,UINT index,QString angle)
+{
+    if(true==isForward)
+    {
+        MoterRunFor(index,angle);
+
+    }
+    else
+    {
+        MoterRunRev(index,angle);
+    }
+}
+
+void Controller::MoterRunFor(UINT index,QString strangle)
+{
+    int angle=strangle.toInt();
+    if(angle>=180)   angle=180;
+    if(angle<=-180)  angle=-180;
+    BYTE data[4];
+    angle*=22445;
+    data[0]= angle& 0x000000FF;
+    data[1]=(angle >> 8) & 0x000000FF;
+    data[2]=(angle>>16)&0x000000FF;
+    data[3]=(angle>>24)&0x000000FF;
+    switch(index)
+    {
+    case 1:sendbuf->ID=0x301;
+        sendbuf->Data[0]=0x50;
+        sendbuf->Data[1]=0x41;
+        sendbuf->Data[4]=data[0];
+        sendbuf->Data[5]=data[1];
+        sendbuf->Data[6]=data[2];
+        sendbuf->Data[7]=data[3];
+        break;
+    }
+}
+void MoterRunRev(UINT index,QString strangle)
+{
+
+}
