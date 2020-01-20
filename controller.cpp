@@ -352,27 +352,129 @@ void Controller::btnMoterRunClick(bool isForward,UINT index,QString angle)
 void Controller::MoterRunFor(UINT index,QString strangle)
 {
     int angle=strangle.toInt();
-    if(angle>=180)   angle=180;
-    if(angle<=-180)  angle=-180;
-    BYTE data[4];
-    angle*=22445;
-    data[0]= angle& 0x000000FF;
-    data[1]=(angle >> 8) & 0x000000FF;
-    data[2]=(angle>>16)&0x000000FF;
-    data[3]=(angle>>24)&0x000000FF;
-    switch(index)
+
+    if(angle>=180)   angle=180;//角度限位
+    if(angle<=0)  angle=0;
+
+    vector<BYTE> angleData(4,0);//发送的角度四位字节，从低位至高位
+    //BYTE angleData[4];
+    angle*=22445;//试验估算值，22445脉冲约等于1°
+
+    angleData[0]= angle     & 0x000000FF;
+    angleData[1]=(angle>>8) & 0x000000FF;
+    angleData[2]=(angle>>16)& 0x000000FF;
+    angleData[3]=(angle>>24)& 0x000000FF;
+
+
+    switch(index)//发送角度指令
     {
     case 1:sendbuf->ID=0x301;
-        sendbuf->Data[0]=0x50;
-        sendbuf->Data[1]=0x41;
-        sendbuf->Data[4]=data[0];
-        sendbuf->Data[5]=data[1];
-        sendbuf->Data[6]=data[2];
-        sendbuf->Data[7]=data[3];
         break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
     }
-}
-void MoterRunRev(UINT index,QString strangle)
-{
+    sendbuf->Data[0]=0x50;
+    sendbuf->Data[1]=0x41;
+    sendbuf->Data[4]=angleData[0];
+    sendbuf->Data[5]=angleData[1];
+    sendbuf->Data[6]=angleData[2];
+    sendbuf->Data[7]=angleData[3];
+    CanSend();
+    Sleep(10);
 
+
+    switch(index)//运行角度指令
+    {
+    case 1:sendbuf->ID=0x301;
+        break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
+    }
+    sendbuf->Data[0]=0x42;
+    sendbuf->Data[1]=0x47;
+    CanSend();
+    Sleep(10);
+}
+
+
+void Controller::MoterRunRev(UINT index,QString strangle)
+{
+    int angle=strangle.toInt();
+
+    if(angle>=180)   angle=180;//角度限位
+    if(angle<=0)  angle=0;
+
+    BYTE angleData[4];//发送的角度四位字节，从低位至高位
+    angle*=(-22445);//试验估算值，22445脉冲约等于1°
+
+    angleData[0]= angle& 0x000000FF;
+    angleData[1]=(angle >> 8) & 0x000000FF;
+    angleData[2]=(angle>>16)&0x000000FF;
+    angleData[3]=(angle>>24)&0x000000FF;
+
+
+    switch(index)//发送角度指令
+    {
+    case 1:sendbuf->ID=0x301;
+        break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
+    }
+    sendbuf->Data[0]=0x50;
+    sendbuf->Data[1]=0x41;
+    sendbuf->Data[4]=angleData[0];
+    sendbuf->Data[5]=angleData[1];
+    sendbuf->Data[6]=angleData[2];
+    sendbuf->Data[7]=angleData[3];
+    CanSend();
+    Sleep(10);
+
+
+    switch(index)//运行角度指令
+    {
+    case 1:sendbuf->ID=0x301;
+        break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
+    }
+    sendbuf->Data[0]=0x42;
+    sendbuf->Data[1]=0x47;
+    CanSend();
+    Sleep(10);
 }

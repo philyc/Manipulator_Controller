@@ -63,6 +63,7 @@ public slots:
     void btnCloseClick();
     void btnSendClick(QString Id,QString Data);
     void btnEnableClick();
+
     void btnMoterRunClick(bool isForward,UINT index,QString angle);
 
 

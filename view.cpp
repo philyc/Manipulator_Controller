@@ -20,6 +20,7 @@ View::View(QWidget *parent)
     connect(this,&View::close,m_controller,&Controller::btnCloseClick);
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
+    connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
     connect(this,&View::open,this,&View::initChart);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
@@ -254,4 +255,76 @@ void View::updateIncNum(vector<long> incNum)
     ui->edtMoter4AddAngle->setText(QString::number(incNum[3],10));
     ui->edtMoter5AddAngle->setText(QString::number(incNum[4],10));
     ui->edtMoter6AddAngle->setText(QString::number(incNum[5],10));
+}
+
+void View::on_btnMoter1RunFor_clicked()
+{
+    QString temp=ui->edtMoter1RunAngle->text();
+    emit moterRun(true,1,temp);
+}
+
+void View::on_btnMoter1RunRev_clicked()
+{
+    QString temp=ui->edtMoter1RunAngle->text();
+    emit moterRun(false,1,temp);
+}
+
+void View::on_btnMoter2RunFor_clicked()
+{
+    QString temp=ui->edtMoter2RunAngle->text();
+    emit moterRun(true,2,temp);
+}
+
+void View::on_btnMoter2RunRev_clicked()
+{
+    QString temp=ui->edtMoter2RunAngle->text();
+    emit moterRun(false,2,temp);
+}
+
+void View::on_btnMoter3RunFor_clicked()
+{
+    QString temp=ui->edtMoter3RunAngle->text();
+    emit moterRun(true,3,temp);
+}
+
+void View::on_btnMoter3RunRev_clicked()
+{
+    QString temp=ui->edtMoter3RunAngle->text();
+    emit moterRun(false,3,temp);
+}
+
+void View::on_btnMoter4RunFor_clicked()
+{
+    QString temp=ui->edtMoter4RunAngle->text();
+    emit moterRun(true,4,temp);
+}
+
+void View::on_btnMoter4RunRev_clicked()
+{
+    QString temp=ui->edtMoter4RunAngle->text();
+    emit moterRun(false,4,temp);
+}
+
+void View::on_btnMoter5RunFor_clicked()
+{
+    QString temp=ui->edtMoter5RunAngle->text();
+    emit moterRun(true,5,temp);
+}
+
+void View::on_btnMoter5RunRev_clicked()
+{
+    QString temp=ui->edtMoter5RunAngle->text();
+    emit moterRun(false,5,temp);
+}
+
+void View::on_btnMoter6RunFor_clicked()
+{
+    QString temp=ui->edtMoter6RunAngle->text();
+    emit moterRun(true,6,temp);
+}
+
+void View::on_btnMoter6RunRev_clicked()
+{
+    QString temp=ui->edtMoter6RunAngle->text();
+    emit moterRun(false,6,temp);
 }

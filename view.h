@@ -58,6 +58,7 @@ signals:
     void close();
     void send(QString Id,QString Data);
     void enable();
+    void moterRun(bool isForward,UINT index,QString angle);
 
 
 
@@ -78,6 +79,30 @@ private slots:
     void updateAbsAngle(vector<double> absAngle);//更新绝对值编码器反馈的角度
 
     void updateIncNum(vector<long> incNum);//更新增量式编码器反馈的数值
+
+    void on_btnMoter1RunFor_clicked();
+
+    void on_btnMoter1RunRev_clicked();
+
+    void on_btnMoter2RunFor_clicked();
+
+    void on_btnMoter2RunRev_clicked();
+
+    void on_btnMoter3RunFor_clicked();
+
+    void on_btnMoter3RunRev_clicked();
+
+    void on_btnMoter4RunFor_clicked();
+
+    void on_btnMoter4RunRev_clicked();
+
+    void on_btnMoter5RunFor_clicked();
+
+    void on_btnMoter5RunRev_clicked();
+
+    void on_btnMoter6RunFor_clicked();
+
+    void on_btnMoter6RunRev_clicked();
 
 private:
     Ui::View *ui;
