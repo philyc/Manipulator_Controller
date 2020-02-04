@@ -4,7 +4,6 @@
 #include "ControlCAN.h"
 #include <QMainWindow>
 #include <string>
-#include "ControlCAN.h"
 #include <QMainWindow>
 #include <QPushButton>
 #include <QDebug>
@@ -18,6 +17,7 @@
 #include <QThread>
 #include <QTimer>
 #include "model.h"
+#include "qsqlite.h"
 
 #define StandardFrame 0
 #define ExpandFrame 1

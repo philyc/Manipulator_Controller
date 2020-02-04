@@ -6,9 +6,11 @@
 #include <QTime>
 #include <QTimer>
 #include <QDateTime>
+
 #include "controller.h"
 #include "model.h"
 #include "qcustomplot.h"
+#include "qsqlite.h"
 
 
 

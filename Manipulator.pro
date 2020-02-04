@@ -20,6 +20,7 @@ SOURCES += \
     main.cpp \
     model.cpp \
     qcustomplot.cpp \
+    qsqlite.cpp \
     view.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     controller.h \
     model.h \
     qcustomplot.h \ \
+    qsqlite.h \
     view.h
 
 FORMS += \
