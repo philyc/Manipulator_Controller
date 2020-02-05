@@ -5,8 +5,10 @@
 #include "model.h"
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
+#include <QDebug>
+#include <QDateTime>
 
-class qsqlite: public QObject
+class QSqlite: public QObject
 {
     Q_OBJECT
 public:
@@ -27,9 +29,14 @@ public:
         QString moter6current;
     }robotData;
 
-public:
-    qsqlite();
+    QString tableName;
 
+public:
+    QSqlite();
+
+public slots:
+
+    QString initDB();
 
 
 };

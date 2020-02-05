@@ -37,6 +37,8 @@ public:
     Controller* m_inquirer;//inquire线程对应的QObject
     Controller* m_controller;//其他引用函数
 
+    QSqlite* m_sqlite;//sqlite相关
+
     Model* m_model;
 
     QThread *receiveThread;

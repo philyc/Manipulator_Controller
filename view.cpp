@@ -16,12 +16,15 @@ View::View(QWidget *parent)
     m_receiver=new Controller();//receive线程对应的QObject
     m_inquirer=new Controller();//inquire线程对应的QObject
 
+    m_sqlite=new QSqlite();
+
     connect(this,&View::open,m_controller,&Controller::btnOpenClick);
     connect(this,&View::close,m_controller,&Controller::btnCloseClick);
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
     connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
     connect(this,&View::open,this,&View::initChart);
+    connect(this,&View::open,m_sqlite,&QSqlite::initDB);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
