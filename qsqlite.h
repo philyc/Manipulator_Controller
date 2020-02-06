@@ -7,6 +7,7 @@
 #include <QtSql/QSqlQuery>
 #include <QDebug>
 #include <QDateTime>
+#include <QSqlError>
 
 class QSqlite: public QObject
 {
@@ -27,16 +28,21 @@ public:
         QString moter5current;
         QString moter6angle;
         QString moter6current;
+        QString description;
     }robotData;
 
     QString tableName;
+    QSqlDatabase db;
 
 public:
     QSqlite();
+    void execInsertSql(robotData recData,QString m_tablename);
 
 public slots:
 
     QString initDB();
+
+    void closeDB(QSqlDatabase db);
 
 
 };

@@ -25,6 +25,7 @@ View::View(QWidget *parent)
     connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
     connect(this,&View::open,this,&View::initChart);
     connect(this,&View::open,m_sqlite,&QSqlite::initDB);
+//    connect(this,&View::close,m_sqlite,&QSqlite::closeDB);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);

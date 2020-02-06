@@ -12,6 +12,7 @@ DWORD devindex;//CAN设备索引
 DWORD devtype;//CAN设备类型
 UINT recIndex;
 UINT sendIndex;
+QString description;
 
 
 Model::Model()
