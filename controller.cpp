@@ -12,7 +12,6 @@ Controller::Controller()
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
     //    View *m_view=new View();
-    //    connect(this,&Controller::rec,m_model,)
 
 }
 
@@ -200,7 +199,7 @@ void Controller::CanSend()
         default:return;
         }
     }
-    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
+//    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
     //重新初始化sendbuf
     sendbuf->ExternFlag=StandardFrame;//CAN帧初始化，ID为标准帧
     sendbuf->DataLen=static_cast<BYTE>(CanDataLength);//数据长度为8位
@@ -282,6 +281,8 @@ void Controller::receive()
         int NumCanReceive;
         QString strRecId,strRecData,str;
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
+        robotData s;
+        emit insertSql(s,sqlTableName);
         if(NumCanReceive<=0)
         {
             Sleep(30);
@@ -326,6 +327,8 @@ void Controller::receive()
                     //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                     emit recIncNum(incNum);
                 }
+//                robotData s;
+//                emit insertSql(s,sqlTableName);
             }
         }
         Sleep(30);
@@ -341,7 +344,6 @@ void Controller::btnMoterRunClick(bool isForward,UINT index,QString angle)
     if(true==isForward)
     {
         MoterRunFor(index,angle);
-
     }
     else
     {
@@ -478,3 +480,5 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     CanSend();
     Sleep(10);
 }
+
+

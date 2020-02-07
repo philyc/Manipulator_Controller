@@ -24,8 +24,12 @@ View::View(QWidget *parent)
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
     connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
     connect(this,&View::open,this,&View::initChart);
-    connect(this,&View::open,m_sqlite,&QSqlite::initDB);
-//    connect(this,&View::close,m_sqlite,&QSqlite::closeDB);
+
+    connect(this,&View::initDB,this,&View::getDBpara);
+//    connect(this,&View::openDB,m_sqlite,&QSqlite::initDB);
+    connect(this,&View::closeDB,m_sqlite,&QSqlite::closeDB);
+    connect(m_receiver,&Controller::insertSql,this,&View::insertSql);
+    connect(this,&View::excInsertSql,m_sqlite,&QSqlite::execInsertSql);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
@@ -195,6 +199,8 @@ void View::timerEvent(QTimerEvent *event)
 void View::on_btnOpen_clicked()
 {
     emit open();
+    emit initDB(m_sqlite->db);
+//    emit openDB(m_sqlite->db);
 
     //    //------inquireThread、receiveThread在点open按钮时初始化------------//
     if(flagIsOpen){
@@ -219,6 +225,7 @@ void View::on_btnOpen_clicked()
 void View::on_btnClose_clicked()
 {
     emit close();
+    emit closeDB(m_sqlite->db);
     flagRecAndInq=2;
 }
 
@@ -331,4 +338,14 @@ void View::on_btnMoter6RunRev_clicked()
 {
     QString temp=ui->edtMoter6RunAngle->text();
     emit moterRun(false,6,temp);
+}
+
+void View::getDBpara(QSqlDatabase db)
+{
+    sqlTableName=m_sqlite->initDB(db);
+}
+
+void View::insertSql(robotData recData,QString m_tablename)
+{
+    emit excInsertSql(recData,m_tablename,m_sqlite->db);
 }

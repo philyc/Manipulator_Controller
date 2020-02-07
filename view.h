@@ -45,6 +45,7 @@ public:
     QThread *inquireThread;
 
 
+
     //绘图使用
     double timecount=0;//计时
     int refreshTimer;//刷新图像的定时器
@@ -64,6 +65,10 @@ signals:
     void enable();
     void moterRun(bool isForward,UINT index,QString angle);
 
+    void initDB(QSqlDatabase db);
+    void closeDB(QSqlDatabase db);
+//    void openDB(QSqlDatabase db);
+    void excInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
 
 
 public slots:
@@ -107,6 +112,10 @@ private slots:
     void on_btnMoter6RunFor_clicked();
 
     void on_btnMoter6RunRev_clicked();
+
+    void getDBpara(QSqlDatabase db);
+
+    void insertSql(robotData recData,QString m_tablename);
 
 private:
     Ui::View *ui;

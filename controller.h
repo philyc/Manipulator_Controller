@@ -58,6 +58,9 @@ signals:
 
     void recIncNum(vector<long> incNum);
 
+    void insertSql(robotData recData,QString m_tablename);
+
+
 public slots:
     void btnOpenClick();
     void btnCloseClick();
@@ -69,6 +72,7 @@ public slots:
 
     void receive();
     void inquire();
+
 };
 
 #endif // CONTROLLER_H

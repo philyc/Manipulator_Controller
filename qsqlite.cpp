@@ -6,9 +6,16 @@ QSqlite::QSqlite()
 }
 
 
-QString QSqlite::initDB()
+QString QSqlite::initDB(QSqlDatabase db)
 {
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    if(QSqlDatabase::contains("Rob"))
+    {
+        db=QSqlDatabase::database("Rob");//去除多次连接出现duplicate_connection错误
+    }
+    else
+    {
+        db = QSqlDatabase::addDatabase("QSQLITE","Rob");
+    }
     //db.setHostName("localhost");//设置主机名
     db.setDatabaseName("RobData.db");
     //db.setUserName("root");   // 如果是 SQLite 不需要
@@ -17,7 +24,6 @@ QString QSqlite::initDB()
     if(ok)
     {
         qDebug()<<"Create DB";
-        QSqlQuery query;
         tableName=QDateTime::currentDateTime().toString(("yyyy-MM-dd hh:mm:ss"));
         QString createTable=QString("create table '%1' "
                                     "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -36,7 +42,8 @@ QString QSqlite::initDB()
                                     "moter7current varchar(20),"
                                     "description varchar(50))")
                 .arg(tableName);
-        query.exec(createTable);
+        QSqlQuery query(createTable,db);
+//        query.exec(createTable,db);
         return tableName;
     }
     else
@@ -46,7 +53,7 @@ QString QSqlite::initDB()
     }
 }
 
-void QSqlite::execInsertSql(robotData recData, QString m_tablename)
+void QSqlite::execInsertSql(robotData recData, QString m_tablename,QSqlDatabase db)
 {
     if(tableName=="") return;
     else{
@@ -64,7 +71,7 @@ void QSqlite::execInsertSql(robotData recData, QString m_tablename)
                            " VALUES ('%2','%3','%4','%5','%6','%7','%8','%9','%10','%11','%12','%13','%14','%15')")
                 .arg(m_tablename).arg(recData.time).arg(recData.moter1angle).arg(recData.moter1current).arg(recData.moter2angle).arg(recData.moter2current).arg(recData.moter3angle).arg(recData.moter3current).arg(recData.moter4angle).arg(recData.moter4current).arg(recData.moter5angle).arg(recData.moter5current).arg(recData.moter6angle).arg(recData.moter6current).arg(recData.description);
 
-        QSqlQuery query;
+        QSqlQuery query=QSqlQuery(db);
         bool ok=query.exec(sql_insert);
         if(ok)
         {
@@ -81,5 +88,7 @@ void QSqlite::execInsertSql(robotData recData, QString m_tablename)
 void QSqlite::closeDB(QSqlDatabase db)
 {
     db.close();
+    QSqlDatabase::removeDatabase("QSQLITE");
+    qDebug()<<"Close DB";
 }
 
