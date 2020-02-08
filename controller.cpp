@@ -281,8 +281,12 @@ void Controller::receive()
         int NumCanReceive;
         QString strRecId,strRecData,str;
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
+
+//        robotData s;
+//        emit insertSql(s,sqlTableName);
         robotData s;
-        emit insertSql(s,sqlTableName);
+        emit excSql(s);
+
         if(NumCanReceive<=0)
         {
             Sleep(30);

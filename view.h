@@ -65,10 +65,11 @@ signals:
     void enable();
     void moterRun(bool isForward,UINT index,QString angle);
 
-    void initDB(QSqlDatabase db);
+//    void initDB(QSqlDatabase db);
     void closeDB(QSqlDatabase db);
 //    void openDB(QSqlDatabase db);
-    void excInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
+//    void excInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
+    void excSql(robotData recData);
 
 
 public slots:
@@ -113,9 +114,9 @@ private slots:
 
     void on_btnMoter6RunRev_clicked();
 
-    void getDBpara(QSqlDatabase db);
+//    void getDBpara(QSqlDatabase db);
 
-    void insertSql(robotData recData,QString m_tablename);
+//    void insertSql(robotData recData,QString m_tablename);
 
 private:
     Ui::View *ui;

@@ -23,6 +23,8 @@ public:
 
 public slots:
 
+    void execSql(robotData recData);
+
     QString initDB(QSqlDatabase db);
 
     void closeDB(QSqlDatabase db);

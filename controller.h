@@ -58,7 +58,9 @@ signals:
 
     void recIncNum(vector<long> incNum);
 
-    void insertSql(robotData recData,QString m_tablename);
+//    void insertSql(robotData recData,QString m_tablename);
+
+    void excSql(robotData recData);
 
 
 public slots:
