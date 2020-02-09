@@ -94,8 +94,8 @@ void QSqlite::closeDB(QSqlDatabase db)
 
 void QSqlite::execSql(robotData recData)
 {
-    if(false==flagDBOpen)
-    {
+//    if(false==flagDBOpen)
+//    {
         if(QSqlDatabase::contains("Rob"))
         {
             db=QSqlDatabase::database("Rob");//去除多次连接出现duplicate_connection错误
@@ -132,15 +132,16 @@ void QSqlite::execSql(robotData recData)
                     .arg(tableName);
             QSqlQuery query(createTable,db);
     //        query.exec(createTable,db);
+            emit changeDbSta();
         }
         else
         {
             qDebug()<<"open failed"<<db.databaseName()<<"error-"<<db.lastError();
             return;
         }
-    }
-    else
-    {
+//    }
+//    else
+//    {
         if(tableName=="") return;
         else{
             recData.time=QDateTime::currentDateTime().toString(("yyyy-MM-dd hh:mm:ss"));
@@ -168,6 +169,139 @@ void QSqlite::execSql(robotData recData)
                 qDebug()<<"insert fail"<<db.lastError();
             }
         }
+//    }
+}
+
+
+QString QSqlite::initDB2()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    //db.setHostName("localhost");//设置主机名
+    db.setDatabaseName("AddressBook.db");
+    //db.setUserName("root");   // 如果是 SQLite 不需要
+    //db.setPassword("root");   // 如果是 SQLite 不需要
+    bool ok = db.open();
+    if(ok)
+    {
+        qDebug()<<"Create DB";
+
+        QSqlQuery query;
+        tableName=QDateTime::currentDateTime().toString(("yyyy-MM-dd hh:mm:ss"));
+//        QString createTable=QString("create table '%1' (create_date datetime, "
+//                                    "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+//                                    "name varchar(20) ,"
+//                                    "phone varchar(20), "
+//                                    "email varchar(20) , "
+//                                    "address varchar(20) ,"
+//                                    " description varchar(50))")
+//                .arg(tableName);
+        QString createTable=QString("create table '%1' "
+                                    "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                    "create_date datetime,"
+                                    "moter1angle varchar(20),"
+                                    "moter1current varchar(20),"
+                                    "moter2angle varchar(20),"
+                                    "moter2current varchar(20),"
+                                    "moter3angle varchar(20),"
+                                    "moter3current varchar(20),"
+                                    "moter4angle varchar(20),"
+                                    "moter4current varchar(20),"
+                                    "moter5angle varchar(20),"
+                                    "moter5current varchar(20),"
+                                    "moter6angle varchar(20),"
+                                    "moter7current varchar(20),"
+                                    "description varchar(50))")
+                .arg(tableName);
+//        query.exec("create table FriendManager (create_date datetime, "
+//                   "id INTEGER PRIMARY KEY AUTOINCREMENT,name varchar(20) ,phone varchar(20), "
+//                   "email varchar(20) , address varchar(20) , description varchar(50))");
+        query.exec(createTable);
+        return tableName;
+    }
+    else
+    {
+        qDebug()<<"open failed"<<db.databaseName();
+        return "";
+    }
+}
+
+void QSqlite::ExecAddSql2(robotData recData)
+{
+//    stuInfo.create_date=QDateTime::currentDateTime().toString(("yyyy-MM-dd hh:mm::ss.zzz"));
+//    stuInfo.phone = QString("%1").arg(m_phone);
+//    stuInfo.name = QString("%1").arg(m_name);
+//    stuInfo.email = QString("%1").arg(m_email);
+//    stuInfo.address = QString("%1").arg(m_address);
+//    stuInfo.description = QString("%1").arg(m_description);
+
+
+    recData.time=QDateTime::currentDateTime().toString(("yyyy-MM-dd hh:mm:ss.zz"));
+    recData.moter1angle=QString("%1").arg(absAngle[0]);
+    recData.moter1current=QString("%1").arg(current[0]);
+    recData.moter2angle=QString("%1").arg(absAngle[1]);
+    recData.moter2current=QString("%1").arg(current[1]);
+    recData.moter3angle=QString("%1").arg(absAngle[2]);
+    recData.moter3current=QString("%1").arg(current[2]);
+    recData.moter4angle=QString("%1").arg(absAngle[3]);
+    recData.moter4current=QString("%1").arg(current[3]);
+    recData.moter5angle=QString("%1").arg(absAngle[4]);
+    recData.moter5current=QString("%1").arg(current[4]);
+    recData.moter6angle=QString("%1").arg(absAngle[5]);
+    recData.moter6current=QString("%1").arg(current[5]);
+    recData.description=description;
+
+    QString sql;
+//    sql = QString("insert into '%7' (create_date,name ,phone ,email ,address , description)"
+//                  " VALUES ('%1', '%2' , '%3' , '%4' , '%5' , '%6')")
+//            .arg(stuInfo.create_date).arg(stuInfo.name).arg(stuInfo.phone).arg(stuInfo.email).arg(stuInfo.address).arg(stuInfo.description).arg(tableName);
+
+    sql = QString("insert into '%10' (create_date,moter1angle,moter1current,moter2angle,moter2current,moter3angle,moter3current,moter4angle,moter4current)"
+                  " VALUES ('%1','%2','%3','%4','%5','%6','%7','%8','%9')")
+            .arg(recData.time).arg(recData.moter1angle).arg(recData.moter1current).arg(recData.moter2angle).arg(recData.moter2current).arg(recData.moter3angle).arg(recData.moter3current).arg(recData.moter4angle).arg(recData.moter4current).arg(tableName);
+
+//                sql=QString("insert into '%15' "
+//                            "(create_date,"
+//                            "moter1angle,"
+//                            "moter1current,"
+//                            "moter2angle,"
+//                            "moter2current,"
+//                            "moter3angle,"
+//                            "moter3current,"
+//                            "moter4angle,"
+//                            "moter4current,"
+//                            "moter5angle,"
+//                            "moter5current,"
+//                            "moter6angle,"
+//                            "moter6current,"
+//                            "description)"
+//                            " VALUES ('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8', '%9', '%10', '%11', '%12', '%13', '%14')")
+//                        .arg(recData.time)
+//                        .arg(recData.moter1angle)
+//                        .arg(recData.moter1current)
+//                        .arg(recData.moter2angle)
+//                        .arg(recData.moter2current)
+//                        .arg(recData.moter3angle)
+//                        .arg(recData.moter3current)
+//                        .arg(recData.moter4angle)
+//                        .arg(recData.moter4current)
+//                        .arg(recData.moter5angle)
+//                        .arg(recData.moter5current)
+//                        .arg(recData.moter6angle)
+//                        .arg(recData.moter6current)
+//                        .arg(recData.description)
+//                        .arg(tableName);
+
+    QSqlQuery query;
+    bool ok = query.exec(sql);
+    if(ok)
+    {
+//        QStringList rowData;
+//        rowData << stuInfo.name <<stuInfo.phone <<stuInfo.email << stuInfo.address << stuInfo.description ;
+        qDebug()<<"add success!";
+    }
+    else
+    {
+        qDebug()<<"add failed!"<<db.databaseName();
     }
 }
 

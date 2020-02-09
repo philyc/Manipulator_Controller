@@ -15,6 +15,7 @@ extern bool flagDBOpen;//数据库创建标志位
 
 extern vector<double> absAngle;//绝对式编码器值转化为角度
 extern vector<double> incAngle;//相对式编码器值转化为角度
+extern vector<double> current;//电流-预设
 extern DWORD devindex;//CAN设备索引
 extern DWORD devtype;//CAN设备类型
 extern vector<int> absNum;//绝对式编码器值

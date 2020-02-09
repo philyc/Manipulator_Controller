@@ -19,6 +19,8 @@
 #include "model.h"
 #include "qsqlite.h"
 
+
+
 #define StandardFrame 0
 #define ExpandFrame 1
 #define DataFrame 0
@@ -51,6 +53,10 @@ public:
     BYTE ReceiveData[8];//receive线程中收到的data
 
 
+    QString tableName;
+    QSqlDatabase db;
+
+
 signals:
     void rec(QString receiveId,QString receiveData);
 
@@ -74,6 +80,8 @@ public slots:
 
     void receive();
     void inquire();
+
+    void changeDBSta();
 
 };
 

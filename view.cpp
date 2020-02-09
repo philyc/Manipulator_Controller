@@ -30,12 +30,17 @@ View::View(QWidget *parent)
     connect(this,&View::closeDB,m_sqlite,&QSqlite::closeDB);
 //    connect(m_receiver,&Controller::insertSql,this,&View::insertSql);
 //    connect(this,&View::excInsertSql,m_sqlite,&QSqlite::execInsertSql);
-    connect(this,&View::excSql,m_sqlite,&QSqlite::execSql);
-    connect(m_receiver,&Controller::excSql,m_sqlite,&QSqlite::execSql);
+//    connect(this,&View::excSql,m_sqlite,&QSqlite::execSql);
+//    connect(m_receiver,&Controller::excSql,m_sqlite,&QSqlite::execSql);
+//    connect(m_sqlite,&QSqlite::changeDbSta,m_receiver,&Controller::changeDBSta);
 
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
+
+    QSqlite::robotData s;
+    m_sqlite->initDB2();
+    m_sqlite->ExecAddSql2(s);
 
 }
 
@@ -203,9 +208,8 @@ void View::on_btnOpen_clicked()
     emit open();
 //    emit initDB(m_sqlite->db);
 //    emit openDB(m_sqlite->db);
-    robotData temp;
-    emit excSql(temp);
-    flagDBOpen=true;
+//    robotData temp;
+//    emit excSql(temp);
 
     //    //------inquireThread、receiveThread在点open按钮时初始化------------//
     if(flagIsOpen){
@@ -232,6 +236,7 @@ void View::on_btnClose_clicked()
     emit close();
     emit closeDB(m_sqlite->db);
     flagRecAndInq=2;
+    flagDBOpen=false;
 }
 
 void View::on_btnSend_clicked()
