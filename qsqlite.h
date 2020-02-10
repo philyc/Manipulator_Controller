@@ -21,22 +21,22 @@ public:
     QSqlite();
 
 
-    QString initDB2();
-    int m_name=100;
-    int m_phone=200;
-    int m_email=300;
-    int m_address=400;
-    int m_description=500;
+//    QString initDB2();
+//    int m_name=100;
+//    int m_phone=200;
+//    int m_email=300;
+//    int m_address=400;
+//    int m_description=500;
 
-    typedef struct _test
-    {
-        QString create_date;
-        QString name;
-        QString phone;
-        QString email;
-        QString address;
-        QString description;
-    }testInfo;
+//    typedef struct _test
+//    {
+//        QString create_date;
+//        QString name;
+//        QString phone;
+//        QString email;
+//        QString address;
+//        QString description;
+//    }testInfo;
 
     typedef struct _robData
     {
@@ -56,22 +56,23 @@ public:
         QString description;
     }robotData;//sql接收到实时数据
 
+    void initDB2();
     void ExecAddSql2(robotData stuInfo);
 //    testInfo stuInfo;
 
 
 public slots:
 
-    void execSql(robotData recData);
+//    void execSql(robotData recData);
 
-    QString initDB(QSqlDatabase db);
+//    QString initDB(QSqlDatabase db);
 
     void closeDB(QSqlDatabase db);
 
-    void execInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
+//    void execInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
 
 signals:
-    void changeDbSta();
+//    void changeDbSta();
 
 };
 

@@ -55,6 +55,7 @@ public:
 
     QString tableName;
     QSqlDatabase db;
+    QSqlite *m_sqlite=new QSqlite();
 
 
 signals:
@@ -81,7 +82,7 @@ public slots:
     void receive();
     void inquire();
 
-    void changeDBSta();
+//    void changeDBSta();
 
 };
 

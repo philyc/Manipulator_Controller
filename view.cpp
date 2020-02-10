@@ -38,10 +38,6 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
 
-    QSqlite::robotData s;
-    m_sqlite->initDB2();
-    m_sqlite->ExecAddSql2(s);
-
 }
 
 View::~View()
