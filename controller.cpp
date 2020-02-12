@@ -509,3 +509,16 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
+void ForwardKinematic(vector<double> angleData)
+{
+    vector<double> angleTheta(3,0);//将角度值转为弧度值进行计算
+    for(size_t i=0;i<3;++i)
+    {
+    angleTheta[i]=angleData[i]*PI/180.0;
+    }
+
+}
+void InverseKinematic(pointData point)
+{
+
+}

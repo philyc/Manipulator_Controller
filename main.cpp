@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     qRegisterMetaType<vector<double>>("vector<double>");//注册类型
     qRegisterMetaType<vector<long>>("vector<long>");
     qRegisterMetaType<robotData>("robotData");
+    qRegisterMetaType<pointData>("pointData");
 
 
     View w;

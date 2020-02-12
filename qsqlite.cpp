@@ -25,7 +25,7 @@ void QSqlite::initDB()
 //    }
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     //db.setHostName("localhost");//设置主机名
-    db.setDatabaseName("AddressBook.db");
+    db.setDatabaseName("AddressBook.db");//数据库文件名
     //db.setUserName("root");   // 如果是 SQLite 不需要
     //db.setPassword("root");   // 如果是 SQLite 不需要
     bool ok = db.open();

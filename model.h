@@ -4,6 +4,7 @@
 #include <QObject>
 #include "ControlCAN.h"
 #include <vector>
+#include <QtMath>
 
 
 using namespace std;
@@ -42,6 +43,17 @@ typedef struct _robData
     QString moter6current;
     QString description;
 }robotData;//sql接收到实时数据
+
+typedef struct _poiData
+{
+    double pos_x;
+    double pos_y;
+    double pos_z;
+    double cal_x;
+    double cal_y;
+    double cal_z;
+    double dis=sqrt(pow((pos_x-cal_x),2)+pow((pos_y-cal_y),2)+pow((pos_z-cal_z),2));
+}pointData;//正反解目标点数据
 
 class Model: public QObject
 {
