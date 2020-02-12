@@ -16,6 +16,7 @@
 #include <QStandardItemModel>
 #include <QThread>
 #include <QTimer>
+#include <iterator>
 #include "model.h"
 #include "qsqlite.h"
 
@@ -44,6 +45,9 @@ public:
     void MoterRunFor(UINT index,QString angle);
     void MoterRunRev(UINT index,QString angle);
 
+    void ForwardKinematic(vector<double> angleData);
+    void InverseKinematic(pointData point);
+
 public:
     //    DWORD devindex;//CAN设备索引
     //    DWORD devtype;//CAN设备类型
@@ -53,21 +57,12 @@ public:
     BYTE ReceiveData[8];//receive线程中收到的data
 
 
-    QString tableName;
-    QSqlDatabase db;
-    QSqlite *m_sqlite=new QSqlite();
-
-
 signals:
     void rec(QString receiveId,QString receiveData);
 
     void recAbsAngle(vector<double> absAngle);
 
     void recIncNum(vector<long> incNum);
-
-//    void insertSql(robotData recData,QString m_tablename);
-
-    void excSql(robotData recData);
 
 
 public slots:
@@ -82,7 +77,6 @@ public slots:
     void receive();
     void inquire();
 
-//    void changeDBSta();
 
 };
 

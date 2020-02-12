@@ -15,7 +15,7 @@ DWORD devtype;//CAN设备类型
 UINT recIndex;
 UINT sendIndex;
 QString description="";
-QString sqlTableName;
+//QString sqlTableName;
 
 
 Model::Model()

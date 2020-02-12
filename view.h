@@ -32,37 +32,28 @@ public:
 
     ~View();
 
-//    typedef struct _test
-//    {
-//        QString create_date;
-//        QString name;
-//        QString phone;
-//        QString email;
-//        QString address;
-//        QString description;
-//    }testInfo;
 public:
-    //数据库使用
-    typedef struct _robData
-    {
-        QString time;
-        QString moter1angle;
-        QString moter1current;
-        QString moter2angle;
-        QString moter2current;
-        QString moter3angle;
-        QString moter3current;
-        QString moter4angle;
-        QString moter4current;
-        QString moter5angle;
-        QString moter5current;
-        QString moter6angle;
-        QString moter6current;
-        QString description;
-    }robotData;//sql接收到实时数据
+//    //数据库使用
+//    typedef struct _robData
+//    {
+//        QString time;
+//        QString moter1angle;
+//        QString moter1current;
+//        QString moter2angle;
+//        QString moter2current;
+//        QString moter3angle;
+//        QString moter3current;
+//        QString moter4angle;
+//        QString moter4current;
+//        QString moter5angle;
+//        QString moter5current;
+//        QString moter6angle;
+//        QString moter6current;
+//        QString description;
+//    }robotData;//sql接收到实时数据
 
-    QString tableName;
-    QSqlDatabase db;
+//    QString tableName;
+//    QSqlDatabase db;
 
 
     //线程使用
@@ -94,11 +85,8 @@ signals:
     void enable();
     void moterRun(bool isForward,UINT index,QString angle);
 
-//    void initDB(QSqlDatabase db);
     void closeDB(QSqlDatabase db);
-//    void openDB(QSqlDatabase db);
-//    void excInsertSql(robotData recData,QString m_tablename,QSqlDatabase db);
-//    void excSql(robotData recData);
+
 
 
 public slots:
@@ -143,9 +131,6 @@ private slots:
 
     void on_btnMoter6RunRev_clicked();
 
-//    void getDBpara(QSqlDatabase db);
-
-//    void insertSql(robotData recData,QString m_tablename);
 
 private:
     Ui::View *ui;

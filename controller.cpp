@@ -11,7 +11,7 @@ Controller::Controller()
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
-    //    View *m_view=new View();
+
 
 }
 
@@ -284,16 +284,16 @@ void Controller::receive()
         QString strRecId,strRecData,str;
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
 
-        //数据库插入
+        //数据库插入--暂调试使用
         if(flagDBOpen==false){
-            m_sqlite2->initDB2();
+            m_sqlite2->initDB();
 
             flagDBOpen=true;
         }
         else
         {
             QSqlite::robotData s;
-            m_sqlite2->ExecAddSql2(s);
+            m_sqlite2->ExecAddSql(s);
         }
 
 
@@ -509,7 +509,3 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
-//void Controller::changeDBSta()
-//{
-//    flagDBOpen=true;//第二次为插入数据库
-//}

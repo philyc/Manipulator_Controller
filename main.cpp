@@ -1,6 +1,7 @@
 #include "view.h"
 #include "controller.h"
 #include "model.h"
+#include "qsqlite.h"
 
 
 #include <QApplication>

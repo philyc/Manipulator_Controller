@@ -23,7 +23,7 @@ extern vector<long> incNum;//相对式编码器值
 extern UINT recIndex;//接收时电机序号，从0-5  //值= id-0x281
 extern UINT sendIndex;//发送时电机序号，从0-5 //值= id-0x301
 extern QString description;//实时状态
-extern QString sqlTableName;//数据库表名
+//extern QString sqlTableName;//数据库表名
 
 typedef struct _robData
 {
