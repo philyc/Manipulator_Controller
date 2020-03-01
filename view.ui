@@ -131,7 +131,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -515,6 +515,19 @@
       </property>
       <property name="text">
        <string>Stop</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnMoter1RunStopAll">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>100</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop all</string>
       </property>
      </widget>
     </widget>

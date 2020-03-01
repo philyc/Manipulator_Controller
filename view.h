@@ -145,6 +145,8 @@ private slots:
 
     void on_btnMoter6RunStop_clicked();
 
+    void on_btnMoter1RunStopAll_clicked();
+
 private:
     Ui::View *ui;
 

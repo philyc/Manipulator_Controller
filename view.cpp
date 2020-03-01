@@ -366,5 +366,13 @@ void View::on_btnMoter5RunStop_clicked()
 
 void View::on_btnMoter6RunStop_clicked()
 {
-    emit moterStop(5);
+    emit moterStop(6);
+}
+
+void View::on_btnMoter1RunStopAll_clicked()
+{
+    for(UINT i=1;i<7;++i)
+    {
+        emit moterStop(i);
+    }
 }
