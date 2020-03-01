@@ -23,6 +23,7 @@ View::View(QWidget *parent)
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
     connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
+    connect(this,&View::moterStop,m_controller,&Controller::btnMoterStopClick);
 
     connect(this,&View::open,this,&View::initChart);//开始时初始化图表
 
@@ -337,3 +338,33 @@ void View::on_btnMoter6RunRev_clicked()
     emit moterRun(false,6,temp);
 }
 
+
+void View::on_btnMoter1RunStop_clicked()
+{
+    emit moterStop(1);
+}
+
+void View::on_btnMoter2RunStop_clicked()
+{
+    emit moterStop(2);
+}
+
+void View::on_btnMoter3RunStop_clicked()
+{
+    emit moterStop(3);
+}
+
+void View::on_btnMoter4RunStop_clicked()
+{
+    emit moterStop(4);
+}
+
+void View::on_btnMoter5RunStop_clicked()
+{
+    emit moterStop(5);
+}
+
+void View::on_btnMoter6RunStop_clicked()
+{
+    emit moterStop(5);
+}

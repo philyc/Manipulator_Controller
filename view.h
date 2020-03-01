@@ -84,6 +84,7 @@ signals:
     void send(QString Id,QString Data);
     void enable();
     void moterRun(bool isForward,UINT index,QString angle);
+    void moterStop(UINT index);
 
     void closeDB(QSqlDatabase db);
 
@@ -131,6 +132,18 @@ private slots:
 
     void on_btnMoter6RunRev_clicked();
 
+
+    void on_btnMoter1RunStop_clicked();
+
+    void on_btnMoter2RunStop_clicked();
+
+    void on_btnMoter3RunStop_clicked();
+
+    void on_btnMoter4RunStop_clicked();
+
+    void on_btnMoter5RunStop_clicked();
+
+    void on_btnMoter6RunStop_clicked();
 
 private:
     Ui::View *ui;

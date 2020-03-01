@@ -509,16 +509,53 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
-void ForwardKinematic(vector<double> angleData)
+void Controller::ForwardKinematic(vector<double> angleData)
 {
     vector<double> angleTheta(3,0);//将角度值转为弧度值进行计算
+    pointData out;
     for(size_t i=0;i<3;++i)
     {
     angleTheta[i]=angleData[i]*PI/180.0;
     }
+    out.cal_x=127*cos(angleTheta[1])*cos(angleTheta[2]+angleTheta[3])
+            -227*cos(angleTheta[1])*sin(angleTheta[2]+angleTheta[3])
+            +254*cos(angleTheta[1])*cos(angleTheta[2])
+            +114*sin(angleTheta[1]);
+    out.cal_y=127*sin(angleTheta[1])*cos(angleTheta[2]+angleTheta[3])
+            -227*sin(angleTheta[1])*sin(angleTheta[2]+angleTheta[3])
+            +254*sin(angleTheta[1])*cos(angleTheta[2])
+            -114*cos(angleTheta[1]);
+    out.cal_z=127*sin(angleTheta[2]+angleTheta[3])
+            +227*cos(angleTheta[2]+angleTheta[3])
+            +254*sin(angleTheta[2]);
+
 
 }
-void InverseKinematic(pointData point)
+void Controller::InverseKinematic(pointData point)
 {
 
+}
+
+void Controller::btnMoterStopClick(UINT index)
+{
+    switch(index)//运行角度指令
+    {
+    case 1:sendbuf->ID=0x301;
+        break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
+    }
+    sendbuf->Data[0]=0x53;
+    sendbuf->Data[1]=0x54;
+    CanSend();
+    Sleep(10);
 }

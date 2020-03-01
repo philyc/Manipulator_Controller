@@ -72,6 +72,7 @@ public slots:
     void btnEnableClick();
 
     void btnMoterRunClick(bool isForward,UINT index,QString angle);
+    void btnMoterStopClick(UINT index);
 
 
     void receive();

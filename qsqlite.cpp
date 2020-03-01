@@ -117,7 +117,7 @@ void QSqlite::ExecAddSql(robotData recData)
     bool ok = query.exec(sql);
     if(ok)
     {
-        qDebug()<<"add success!";
+//        qDebug()<<"add success!";
     }
     else
     {
