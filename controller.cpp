@@ -327,8 +327,10 @@ void Controller::receive()
                     }
                 }
                 strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
-
                 emit rec(strRecId,strRecData);
+
+
+
                 recIndex=ReceiveId-0x281;
                 if(false==flagAbsOrInc)
                 {
@@ -342,6 +344,16 @@ void Controller::receive()
                     //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                     emit recIncNum(incNum);
                 }
+
+                vector<double> leftAngle;
+                vector<double> rightAngle;
+
+                for(size_t i=0;i<3;++i)
+                {
+                    leftAngle[i]=absNum[i];
+                    rightAngle[i]=absNum[i+3];
+                }
+
 
 
 //                //数据库插入

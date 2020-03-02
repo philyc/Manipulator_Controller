@@ -64,6 +64,8 @@ signals:
 
     void recIncNum(vector<long> incNum);
 
+    void recEndPos(pointData point,bool isLeft);
+
 
 public slots:
     void btnOpenClick();

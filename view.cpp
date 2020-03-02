@@ -33,6 +33,7 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
+    connect(m_receiver,&Controller::recEndPos,this,&View::updateEndPos);
 
 }
 
