@@ -108,6 +108,8 @@ private slots:
 
     void updateIncNum(vector<long> incNum);//更新增量式编码器反馈的数值
 
+    void updateEndPos(pointData point,bool isLeft);
+
     void on_btnMoter1RunFor_clicked();
 
     void on_btnMoter1RunRev_clicked();
@@ -146,6 +148,24 @@ private slots:
     void on_btnMoter6RunStop_clicked();
 
     void on_btnMoter1RunStopAll_clicked();
+
+    void on_btnShoulderCooRunFor_clicked();
+
+    void on_btnShoulderCooRunRev_clicked();
+
+    void on_btnShoulderCooRunStop_clicked();
+
+    void on_btnArm1CooRunFor_clicked();
+
+    void on_btnArm1CooRunRev_clicked();
+
+    void on_btnArm1CooRunStop_clicked();
+
+    void on_btnArm2CooRunFor_clicked();
+
+    void on_btnArm2CooRunRev_clicked();
+
+    void on_btnArm2CooRunStop_clicked();
 
 private:
     Ui::View *ui;

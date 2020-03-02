@@ -248,12 +248,12 @@ void View::updateTest(QString receiveId,QString receiveData)
 
 void View::updateAbsAngle(vector<double> absAngle)
 {
-    ui->edtMoter1Angle->setText(QString::number(absAngle[0],10,3));
-    ui->edtMoter2Angle->setText(QString::number(absAngle[1],10,3));
-    ui->edtMoter3Angle->setText(QString::number(absAngle[2],10,3));
-    ui->edtMoter4Angle->setText(QString::number(absAngle[3],10,3));
-    ui->edtMoter5Angle->setText(QString::number(absAngle[4],10,3));
-    ui->edtMoter6Angle->setText(QString::number(absAngle[5],10,3));
+    ui->edtMoter1AbsAngle->setText(QString::number(absAngle[0],10,3));
+    ui->edtMoter2AbsAngle->setText(QString::number(absAngle[1],10,3));
+    ui->edtMoter3AbsAngle->setText(QString::number(absAngle[2],10,3));
+    ui->edtMoter4AbsAngle->setText(QString::number(absAngle[3],10,3));
+    ui->edtMoter5AbsAngle->setText(QString::number(absAngle[4],10,3));
+    ui->edtMoter6AbsAngle->setText(QString::number(absAngle[5],10,3));
 }
 
 void View::updateIncNum(vector<long> incNum)
@@ -264,6 +264,22 @@ void View::updateIncNum(vector<long> incNum)
     ui->edtMoter4AddAngle->setText(QString::number(incNum[3],10));
     ui->edtMoter5AddAngle->setText(QString::number(incNum[4],10));
     ui->edtMoter6AddAngle->setText(QString::number(incNum[5],10));
+}
+
+void View::updateEndPos(pointData point,bool isLeft)
+{
+    if(isLeft)
+    {
+        ui->edtLeftEndPosX->setText(QString::number(point.cal_x,10,3));
+        ui->edtLeftEndPosY->setText(QString::number(point.cal_y,10,3));
+        ui->edtLeftEndPosZ->setText(QString::number(point.cal_z,10,3));
+    }
+    else
+    {
+        ui->edtRightEndPosX->setText(QString::number(point.cal_x,10,3));
+        ui->edtRightEndPosY->setText(QString::number(point.cal_y,10,3));
+        ui->edtRightEndPosZ->setText(QString::number(point.cal_z,10,3));
+    }
 }
 
 void View::on_btnMoter1RunFor_clicked()
@@ -375,4 +391,64 @@ void View::on_btnMoter1RunStopAll_clicked()
     {
         emit moterStop(i);
     }
+}
+
+void View::on_btnShoulderCooRunFor_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(true,1,temp);
+    emit moterRun(false,4,temp);//对称放置时以1号电机方向为准，4号电机需反向
+}
+
+void View::on_btnShoulderCooRunRev_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(false,1,temp);
+    emit moterRun(true,4,temp);//对称放置时以1号电机方向为准，4号电机需反向
+}
+
+void View::on_btnShoulderCooRunStop_clicked()
+{
+    emit moterStop(1);
+    emit moterStop(4);
+}
+
+void View::on_btnArm1CooRunFor_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(true,2,temp);
+    emit moterRun(false,5,temp);//对称放置时以2号电机方向为准，5号电机需反向
+}
+
+void View::on_btnArm1CooRunRev_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(false,2,temp);
+    emit moterRun(true,5,temp);//对称放置时以2号电机方向为准，5号电机需反向
+}
+
+void View::on_btnArm1CooRunStop_clicked()
+{
+    emit moterStop(2);
+    emit moterStop(5);
+}
+
+void View::on_btnArm2CooRunFor_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(true,3,temp);
+    emit moterRun(false,6,temp);//对称放置时以3号电机方向为准，6号电机需反向
+}
+
+void View::on_btnArm2CooRunRev_clicked()
+{
+    QString temp=ui->edtShoulderCooRunAngle->text();
+    emit moterRun(false,3,temp);
+    emit moterRun(true,6,temp);//对称放置时以3号电机方向为准，6号电机需反向
+}
+
+void View::on_btnArm2CooRunStop_clicked()
+{
+    emit moterStop(3);
+    emit moterStop(6);
 }

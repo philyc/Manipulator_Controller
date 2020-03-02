@@ -45,7 +45,7 @@ public:
     void MoterRunFor(UINT index,QString angle);
     void MoterRunRev(UINT index,QString angle);
 
-    void ForwardKinematic(vector<double> angleData);
+    pointData ForwardKinematic(vector<double> angleData);
     void InverseKinematic(pointData point);
 
 public:

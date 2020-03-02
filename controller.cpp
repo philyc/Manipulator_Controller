@@ -509,7 +509,7 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
-void Controller::ForwardKinematic(vector<double> angleData)
+pointData Controller::ForwardKinematic(vector<double> angleData)
 {
     vector<double> angleTheta(3,0);//将角度值转为弧度值进行计算
     pointData out;
@@ -528,9 +528,9 @@ void Controller::ForwardKinematic(vector<double> angleData)
     out.cal_z=127*sin(angleTheta[2]+angleTheta[3])
             +227*cos(angleTheta[2]+angleTheta[3])
             +254*sin(angleTheta[2]);
-
-
+    return out;
 }
+
 void Controller::InverseKinematic(pointData point)
 {
 
