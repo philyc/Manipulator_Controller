@@ -27,7 +27,7 @@
 #define DataFrame 0
 #define RemoteFrame 1
 #define CanDataLength 8
-#define PI 3.1415926
+#define PI 3.14159265358979323846
 
 using namespace std;
 

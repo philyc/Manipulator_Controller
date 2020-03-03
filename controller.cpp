@@ -342,7 +342,7 @@ void Controller::receive()
                 {
                     incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
                     //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
-                    emit recIncNum(incNum);
+                    //emit recIncNum(incNum);  增量式角度暂不启用
                 }
 
                 vector<double> leftAngle;
@@ -353,6 +353,12 @@ void Controller::receive()
                     leftAngle[i]=absNum[i];
                     rightAngle[i]=absNum[i+3];
                 }
+
+                pointData leftEnd=ForwardKinematic(leftAngle);
+                pointData rightEnd=ForwardKinematic(rightAngle);
+
+                emit recEndPos(leftEnd,true);
+                emit recEndPos(rightEnd,false);
 
 
 
@@ -529,22 +535,30 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     {
     angleTheta[i]=angleData[i]*PI/180.0;
     }
-    out.cal_x=127*cos(angleTheta[1])*cos(angleTheta[2]+angleTheta[3])
-            -227*cos(angleTheta[1])*sin(angleTheta[2]+angleTheta[3])
-            +254*cos(angleTheta[1])*cos(angleTheta[2])
-            +114*sin(angleTheta[1]);
-    out.cal_y=127*sin(angleTheta[1])*cos(angleTheta[2]+angleTheta[3])
-            -227*sin(angleTheta[1])*sin(angleTheta[2]+angleTheta[3])
-            +254*sin(angleTheta[1])*cos(angleTheta[2])
-            -114*cos(angleTheta[1]);
-    out.cal_z=127*sin(angleTheta[2]+angleTheta[3])
-            +227*cos(angleTheta[2]+angleTheta[3])
-            +254*sin(angleTheta[2]);
+    out.cal_x=127*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+            -227*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            +254*cos(angleTheta[0])*cos(angleTheta[1])
+            +114*sin(angleTheta[0]);
+    out.cal_y=127*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+            -227*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            +254*sin(angleTheta[0])*cos(angleTheta[1])
+            -114*cos(angleTheta[0]);
+    out.cal_z=127*sin(angleTheta[1]+angleTheta[2])
+            +227*cos(angleTheta[1]+angleTheta[2])
+            +254*sin(angleTheta[1]);
     return out;
 }
 
 void Controller::InverseKinematic(pointData point)
 {
+    vector<double> out1(3,0);
+    vector<double> out2(3,0);
+    vector<double> out3(3,0);
+    vector<double> out4(3,0);
+    out1[0]=out2[0]=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+    out3[0]=out4[0]=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+
+
 
 }
 
