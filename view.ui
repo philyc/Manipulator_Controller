@@ -55,7 +55,7 @@
     <property name="title">
      <string>GroupBox</string>
     </property>
-    <widget class="QLineEdit" name="edtData">
+    <widget class="QLineEdit" name="edtSendData">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -68,7 +68,7 @@
       <string>4D 4F 00 00 01 00 00 00</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labId_2">
+    <widget class="QLabel" name="labSendData">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -251,7 +251,7 @@
         <string>set Z</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnCalcRev">
+      <widget class="QPushButton" name="btnCalcLeftRev">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -330,7 +330,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="P2Pleft_2">
+     <widget class="QGroupBox" name="P2Pright">
       <property name="geometry">
        <rect>
         <x>360</x>
@@ -342,7 +342,7 @@
       <property name="title">
        <string>P2P right</string>
       </property>
-      <widget class="QLineEdit" name="edtLeftSetX_2">
+      <widget class="QLineEdit" name="edtRightSetX">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -352,7 +352,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="edtLeftSetY_2">
+      <widget class="QLineEdit" name="edtRightSetY">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -362,7 +362,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="edtLeftSetZ_2">
+      <widget class="QLineEdit" name="edtRightSetZ">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -372,7 +372,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="edtLeftCalcJoint1Angle_2">
+      <widget class="QLineEdit" name="edtRightCalcJoint1Angle">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -382,7 +382,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="edtLeftCalcJoint2Angle_2">
+      <widget class="QLineEdit" name="edtRightCalcJoint2Angle">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -392,7 +392,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="edtLeftCalcJoint3Angle_2">
+      <widget class="QLineEdit" name="edtRightCalcJoint3Angle">
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -402,7 +402,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftSetX_2">
+      <widget class="QLabel" name="labRightSetX">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -415,7 +415,7 @@
         <string>set X</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftSetY_2">
+      <widget class="QLabel" name="labRightSetY">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -428,7 +428,7 @@
         <string>set Y</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftSetZ_2">
+      <widget class="QLabel" name="labRightSetZ">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -441,7 +441,7 @@
         <string>set Z</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnCalcRev_2">
+      <widget class="QPushButton" name="btnCalcRightRev">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -454,7 +454,7 @@
         <string>Calculate</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftCalcJoint1Angle_2">
+      <widget class="QLabel" name="labRightCalcJoint1Angle">
        <property name="geometry">
         <rect>
          <x>110</x>
@@ -467,7 +467,7 @@
         <string>Joint1 angle</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftCalcJoint2Angle_2">
+      <widget class="QLabel" name="labRightCalcJoint2Angle">
        <property name="geometry">
         <rect>
          <x>110</x>
@@ -480,7 +480,7 @@
         <string>Joint2 angle</string>
        </property>
       </widget>
-      <widget class="QLabel" name="labLeftCalcJoint3Angle_2">
+      <widget class="QLabel" name="labRightCalcJoint3Angle">
        <property name="geometry">
         <rect>
          <x>110</x>
@@ -493,7 +493,7 @@
         <string>Joint3 angle</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnP2PLeftMove_2">
+      <widget class="QPushButton" name="btnP2PRightMove">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -506,7 +506,7 @@
         <string>Move</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="btnP2PLeftStop_2">
+      <widget class="QPushButton" name="btnP2PRightStop">
        <property name="geometry">
         <rect>
          <x>170</x>

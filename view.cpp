@@ -231,7 +231,7 @@ void View::on_btnClose_clicked()
 void View::on_btnSend_clicked()
 {
     QString qstr_id=ui->edtId->text();
-    QString qstr_data=ui->edtData->text();
+    QString qstr_data=ui->edtSendData->text();
     emit send(qstr_id, qstr_data);
 }
 
@@ -386,13 +386,14 @@ void View::on_btnMoter6RunStop_clicked()
     emit moterStop(6);
 }
 
-void View::on_btnMoter1RunStopAll_clicked()
-{
-    for(UINT i=1;i<7;++i)
-    {
-        emit moterStop(i);
-    }
-}
+//void View::on_btnMoter1RunStopAll_clicked()
+//{
+//for(UINT i=1;i<7;++i)
+//{
+//    emit moterStop(i);
+//}
+
+//}
 
 void View::on_btnShoulderCooRunFor_clicked()
 {
@@ -452,4 +453,12 @@ void View::on_btnArm2CooRunStop_clicked()
 {
     emit moterStop(3);
     emit moterStop(6);
+}
+
+void View::on_btnMoterRunStopAll_clicked()
+{
+    for(UINT i=1;i<7;++i)
+    {
+        emit moterStop(i);
+    }
 }

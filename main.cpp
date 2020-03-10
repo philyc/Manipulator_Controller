@@ -1,4 +1,4 @@
-edtMoter1AddAngle#include "view.h"
+#include "view.h"
 #include "controller.h"
 #include "model.h"
 #include "qsqlite.h"

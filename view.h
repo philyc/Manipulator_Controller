@@ -167,6 +167,8 @@ private slots:
 
     void on_btnArm2CooRunStop_clicked();
 
+    void on_btnMoterRunStopAll_clicked();
+
 private:
     Ui::View *ui;
 
