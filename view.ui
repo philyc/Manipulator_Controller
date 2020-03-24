@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1328</width>
     <height>700</height>
    </rect>
   </property>
@@ -120,8 +120,8 @@
      <rect>
       <x>20</x>
       <y>170</y>
-      <width>761</width>
-      <height>451</height>
+      <width>631</width>
+      <height>461</height>
      </rect>
     </property>
     <property name="tabPosition">
@@ -131,7 +131,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -333,7 +333,7 @@
      <widget class="QGroupBox" name="P2Pright">
       <property name="geometry">
        <rect>
-        <x>360</x>
+        <x>330</x>
         <y>20</y>
         <width>271</width>
         <height>191</height>
@@ -525,25 +525,12 @@
      <attribute name="title">
       <string>Angle</string>
      </attribute>
-     <widget class="QPushButton" name="btnMoterRunStopAll">
-      <property name="geometry">
-       <rect>
-        <x>400</x>
-        <y>220</y>
-        <width>121</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Stop all</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="SingleRunLeft">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>361</width>
+        <width>301</width>
         <height>191</height>
        </rect>
       </property>
@@ -594,7 +581,7 @@
         <rect>
          <x>70</x>
          <y>100</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -607,7 +594,7 @@
         <rect>
          <x>70</x>
          <y>20</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -620,7 +607,7 @@
         <rect>
          <x>70</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -631,9 +618,9 @@
       <widget class="QPushButton" name="btnMoter1RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>20</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -644,9 +631,9 @@
       <widget class="QPushButton" name="btnMoter2RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -657,9 +644,9 @@
       <widget class="QPushButton" name="btnMoter3RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>100</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -670,7 +657,7 @@
       <widget class="QLineEdit" name="edtMoter1RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>20</y>
          <width>51</width>
          <height>20</height>
@@ -680,7 +667,7 @@
       <widget class="QLineEdit" name="edtMoter3RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>100</y>
          <width>51</width>
          <height>20</height>
@@ -690,7 +677,7 @@
       <widget class="QLineEdit" name="edtMoter2RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>60</y>
          <width>51</width>
          <height>20</height>
@@ -700,9 +687,9 @@
       <widget class="QPushButton" name="btnMoter3RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>100</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -713,9 +700,9 @@
       <widget class="QPushButton" name="btnMoter2RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>60</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -726,9 +713,9 @@
       <widget class="QPushButton" name="btnMoter1RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>20</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -766,9 +753,9 @@
      <widget class="QGroupBox" name="SingleRunRight">
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>310</x>
         <y>10</y>
-        <width>361</width>
+        <width>301</width>
         <height>191</height>
        </rect>
       </property>
@@ -778,9 +765,9 @@
       <widget class="QPushButton" name="btnMoter6RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>100</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -791,7 +778,7 @@
       <widget class="QLineEdit" name="edtMoter4RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>20</y>
          <width>51</width>
          <height>20</height>
@@ -801,7 +788,7 @@
       <widget class="QLineEdit" name="edtMoter6RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>100</y>
          <width>51</width>
          <height>20</height>
@@ -824,9 +811,9 @@
       <widget class="QPushButton" name="btnMoter5RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -837,9 +824,9 @@
       <widget class="QPushButton" name="btnMoter6RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>100</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -852,7 +839,7 @@
         <rect>
          <x>70</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -863,9 +850,9 @@
       <widget class="QPushButton" name="btnMoter5RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>60</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -878,7 +865,7 @@
         <rect>
          <x>70</x>
          <y>100</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -889,7 +876,7 @@
       <widget class="QLineEdit" name="edtMoter5RunAngle">
        <property name="geometry">
         <rect>
-         <x>230</x>
+         <x>190</x>
          <y>60</y>
          <width>51</width>
          <height>20</height>
@@ -912,9 +899,9 @@
       <widget class="QPushButton" name="btnMoter4RunRev">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>130</x>
          <y>20</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -925,9 +912,9 @@
       <widget class="QPushButton" name="btnMoter4RunStop">
        <property name="geometry">
         <rect>
-         <x>290</x>
+         <x>250</x>
          <y>20</y>
-         <width>61</width>
+         <width>41</width>
          <height>23</height>
         </rect>
        </property>
@@ -940,7 +927,7 @@
         <rect>
          <x>70</x>
          <y>20</y>
-         <width>71</width>
+         <width>51</width>
          <height>23</height>
         </rect>
        </property>
@@ -1213,6 +1200,19 @@
        </property>
       </widget>
      </widget>
+     <widget class="QPushButton" name="btnMoterRunStopAll">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>220</y>
+        <width>121</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Stop all</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tabSingle">
      <attribute name="title">
@@ -1221,31 +1221,260 @@
      <widget class="QPushButton" name="BtnEnable">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>20</y>
+        <x>320</x>
+        <y>40</y>
         <width>91</width>
-        <height>23</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>Enable moter</string>
       </property>
      </widget>
+     <widget class="QGroupBox" name="grpSetSpeed">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>251</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>SetMaxSpeed</string>
+      </property>
+      <widget class="QLabel" name="labMoter1SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter1:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labMoter3SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter3:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labMoter4SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>110</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter4:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter2SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>50</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter4SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>110</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labMoter2SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>50</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter2:</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter2SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>50</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter3SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>80</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter1SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>20</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labMoter5SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>140</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter5:</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter3SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>80</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labMoter6SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Moter6:</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter1SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>20</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter6SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>170</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter5SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>140</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter4SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>110</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="edtMoter6SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>170</y>
+         <width>61</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btnMoter5SetSpeed">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>140</y>
+         <width>61</width>
+         <height>23</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="grpTest">
+   <widget class="QGroupBox" name="grpReci">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>70</y>
+      <x>290</x>
+      <y>60</y>
       <width>211</width>
       <height>91</height>
      </rect>
     </property>
     <property name="title">
-     <string>Recivev</string>
+     <string>Recieve</string>
     </property>
-    <widget class="QLineEdit" name="edttest1">
+    <widget class="QLineEdit" name="edtRecieveId">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -1255,7 +1484,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QTextEdit" name="edttest2">
+    <widget class="QTextEdit" name="edtRecieveData">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -1269,7 +1498,7 @@
    <widget class="QCustomPlot" name="wgtMoter1" native="true">
     <property name="geometry">
      <rect>
-      <x>810</x>
+      <x>760</x>
       <y>180</y>
       <width>231</width>
       <height>141</height>
@@ -1279,7 +1508,7 @@
    <widget class="QCustomPlot" name="wgtMoter2" native="true">
     <property name="geometry">
      <rect>
-      <x>1050</x>
+      <x>990</x>
       <y>180</y>
       <width>221</width>
       <height>141</height>
@@ -1289,8 +1518,8 @@
    <widget class="QCustomPlot" name="wgtMoter3" native="true">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>330</y>
+      <x>760</x>
+      <y>340</y>
       <width>231</width>
       <height>141</height>
      </rect>
@@ -1299,8 +1528,8 @@
    <widget class="QCustomPlot" name="wgtMoter4" native="true">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>330</y>
+      <x>990</x>
+      <y>340</y>
       <width>221</width>
       <height>141</height>
      </rect>
@@ -1309,8 +1538,8 @@
    <widget class="QCustomPlot" name="wgtMoter5" native="true">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>480</y>
+      <x>760</x>
+      <y>500</y>
       <width>231</width>
       <height>131</height>
      </rect>
@@ -1319,164 +1548,18 @@
    <widget class="QCustomPlot" name="wgtMoter6" native="true">
     <property name="geometry">
      <rect>
-      <x>1050</x>
-      <y>480</y>
+      <x>990</x>
+      <y>490</y>
       <width>221</width>
       <height>141</height>
      </rect>
     </property>
    </widget>
-   <widget class="QGroupBox" name="grpAbsAngle">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>30</y>
-      <width>161</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>AbsAngle</string>
-    </property>
-    <widget class="QLineEdit" name="edtMoter3AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter2AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter1AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter6AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>100</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter5AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter4AbsAngle">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>20</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="grpIncNum">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>30</y>
-      <width>161</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>IncNum</string>
-    </property>
-    <widget class="QLineEdit" name="edtMoter3AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>100</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter5AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter4AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>20</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter2AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter6AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>100</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter1AddAngle">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>20</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="QGroupBox" name="grpEndPos">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>30</y>
+      <x>650</x>
+      <y>20</y>
       <width>161</width>
       <height>141</height>
      </rect>
@@ -1545,64 +1628,60 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="grpIncNum_3">
+   <widget class="QGroupBox" name="grpMoter1State">
     <property name="geometry">
      <rect>
-      <x>1020</x>
-      <y>30</y>
-      <width>161</width>
+      <x>650</x>
+      <y>180</y>
+      <width>111</width>
       <height>141</height>
      </rect>
     </property>
     <property name="title">
-     <string>Current</string>
+     <string>Moter1 state</string>
     </property>
-    <widget class="QLineEdit" name="edtMoter3Current">
+    <widget class="QLineEdit" name="edtMoter1AbsAngle">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>100</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter5Current">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="edtMoter4Current">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
+       <x>60</x>
        <y>20</y>
-       <width>51</width>
+       <width>41</width>
        <height>20</height>
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="edtMoter2Current">
+    <widget class="QLabel" name="labMoter1AbsAngle">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>60</y>
-       <width>51</width>
-       <height>20</height>
+       <x>10</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
       </rect>
      </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
     </widget>
-    <widget class="QLineEdit" name="edtMoter6Current">
+    <widget class="QLabel" name="labMoter1AddAngle">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>100</y>
-       <width>51</width>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter1AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
        <height>20</height>
       </rect>
      </property>
@@ -1610,9 +1689,432 @@
     <widget class="QLineEdit" name="edtMoter1Current">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter1Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpMoter3State">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>340</y>
+      <width>111</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Moter3 state</string>
+    </property>
+    <widget class="QLabel" name="labMoter3AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
        <y>20</y>
-       <width>51</width>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter3AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter3Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter3AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter3AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter3Current">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpMoter5State">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>490</y>
+      <width>111</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Moter5 state</string>
+    </property>
+    <widget class="QLabel" name="labMoter5AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter5AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter5Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter5AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter5AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter5Current">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpMoter2State">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>180</y>
+      <width>111</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Moter2 state</string>
+    </property>
+    <widget class="QLabel" name="labMoter2AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter2AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter2Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter2AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter2AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter2Current">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpMoter4State">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>340</y>
+      <width>111</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Moter4 state</string>
+    </property>
+    <widget class="QLabel" name="labMoter4AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter4AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter4Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter4AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter4AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter4Current">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grpMoter6State">
+    <property name="geometry">
+     <rect>
+      <x>1210</x>
+      <y>490</y>
+      <width>111</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Moter6 state</string>
+    </property>
+    <widget class="QLabel" name="labMoter6AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>54</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>absAngle</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter6AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>incNum</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labMoter6Current">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>current</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter6AbsAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter6AddAngle">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>50</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="edtMoter6Current">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>80</y>
+       <width>41</width>
        <height>20</height>
       </rect>
      </property>
@@ -1624,7 +2126,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1280</width>
+     <width>1328</width>
      <height>23</height>
     </rect>
    </property>

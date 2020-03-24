@@ -147,8 +147,6 @@ private slots:
 
     void on_btnMoter6RunStop_clicked();
 
-    void on_btnMoter1RunStopAll_clicked();
-
     void on_btnShoulderCooRunFor_clicked();
 
     void on_btnShoulderCooRunRev_clicked();

@@ -243,8 +243,8 @@ void View::on_BtnEnable_clicked()
 void View::updateTest(QString receiveId,QString receiveData)
 {
 
-    ui->edttest1->setText(receiveId);
-    ui->edttest2->setText(receiveData);
+    ui->edtRecieveId->setText(receiveId);
+    ui->edtRecieveData->setText(receiveData);
 }
 
 void View::updateAbsAngle(vector<double> absAngle)
