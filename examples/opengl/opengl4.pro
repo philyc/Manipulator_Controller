@@ -38,9 +38,15 @@ win32: LIBS += -lOpenGL32
 
 win32: LIBS += -lGlU32
 
+INCLUDEPATH += F:\computer\OpenGL\tools\assimp-3.1.1\include
+
 
 DISTFILES += \
     shader/fragmentshader.frag \
+    shader/recFragmentShader.frag \
+    shader/recVertexShader.vert \
+    shader/sphereFragmentShader.frag \
+    shader/sphereVertexShader.vert \
     shader/vertexShader.vert \
     texture/awesomeface.png \
     texture/container.jpg

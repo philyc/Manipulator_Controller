@@ -2,15 +2,6 @@
 #define WIDGET_H
 
 
-//#include <QWidget>
-//#include <QOpenGLFunctions_3_3_Core>
-//#include <QOpenGLWidget>
-//#include <QOpenGLShaderProgram>
-//#include <QOpenGLTexture>
-//#include <QTime>
-//#include "shader.h"
-//#include "model.h"
-//#include <QtMath>
 #include <QMainWindow>
 #include "openglwidget.h"
 #include <QVBoxLayout>
@@ -32,26 +23,18 @@ public:
 
 signals:
     void keyPressEvent(QKeyEvent *event);
+    void wheelEvent(QWheelEvent *event);
 
-//public:
-//    Widget(QWidget *parent = nullptr);
-//    ~Widget() override;
+    void test();
 
-//protected:
-//    void initializeGL() override;
-//    void resizeGL(int w, int h) override;
-//    void paintGL() override;
+
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::Widget *ui;
 
-//    GLuint VBO, VAO;
-//    Shader *ourShader;
-//    QOpenGLTexture *texture1;
-//    QOpenGLTexture *texture2;
-//    QOpenGLFunctions_3_3_Core *core;
-//    QTime time;
-//    Model model;
-//    GLuint lid1;
+
 };
 #endif // WIDGET_H

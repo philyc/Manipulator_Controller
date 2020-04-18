@@ -9,11 +9,10 @@ OpenGLWidget::OpenGLWidget(QWidget *parent):QOpenGLWidget(parent)
 
 OpenGLWidget::~OpenGLWidget()
 {
-
-    makeCurrent();
-    delete ourShader;
-    core->glDeleteVertexArrays(1, &VAO);
-    core->glDeleteBuffers(1, &VBO);
+    makeCurrent();//设置为当前上下文
+    delete recShader;
+    core->glDeleteVertexArrays(1, VAO);
+    core->glDeleteBuffers(1, VBO);
     texture1->destroy();
     texture2->destroy();
 }
@@ -21,19 +20,10 @@ OpenGLWidget::~OpenGLWidget()
 void OpenGLWidget::initializeGL()
 {
     core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_3_3_Core>();
-    ourShader = new Shader("F:/computer/QT/test/opengl4/shader/vertexShader.vert", "F:/computer/QT/test/opengl3/shader/fragmentshader.frag");
+    recShader = new Shader("F:/hust/underwater/Re/Manipulator/examples/opengl/shader/recVertexShader.vert", "F:/hust/underwater/Re/Manipulator/examples/opengl/shader/recFragmentShader.frag");
+//    sphShader=new Shader("F:/computer/QT/test/opengl4/shader/sphereVertexShader.vert","F:/computer/QT/test/opengl3/shader/sphereFragmentShader.frag");
 
-
-    //    initializeOpenGLFunctions();
-    //    // vertex shader
-    //    QOpenGLShader *vshader = new QOpenGLShader(QOpenGLShader::Vertex, this);
-    //    vshader->compileSourceFile("://shader/vert.vert");
-    //    // fragment shader
-    //    QOpenGLShader *fshader = new QOpenGLShader(QOpenGLShader::Fragment, this);
-    //    fshader->compileSourceFile("://shader/frag.frag");
-
-
-    //VAO，VBO数据部分
+//    VAO，VBO数据部分  正方形
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -78,41 +68,55 @@ void OpenGLWidget::initializeGL()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
-    core->glGenVertexArrays(1, &VAO);//两个参数，第一个为需要创建的缓存数量。第二个为用于存储单一ID或多个ID的GLuint变量或数组的地址
-    core->glGenBuffers(1, &VBO);
+    float* spheres=sphere(1,30,30);
+//    GLuint VBO[2], VAO[2];
+//    GLuint VBO2,VAO2;
+    core->glGenVertexArrays(2,VAO);
+    core->glGenBuffers(2,VBO);
 
-    core->glBindVertexArray(VAO);
-
-    core->glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    core->glBindVertexArray(VAO[0]);
+    core->glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
     core->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     core->glEnableVertexAttribArray(0);
-
-    //    core->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    //    core->glEnableVertexAttribArray(1);
     // texture coord attribute
     core->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     core->glEnableVertexAttribArray(1);
 
-    //    texture1 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/container.jpg").mirrored());
-    //    texture1->setMinificationFilter(QOpenGLTexture::Nearest);
-    //    texture1->setMagnificationFilter(QOpenGLTexture::Linear);
-    //    texture1->setWrapMode(QOpenGLTexture::Repeat);
+    //---------------
+    core->glBindVertexArray(VAO[1]);
+    core->glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    core->glBufferData(GL_ARRAY_BUFFER, sizeof(spheres), spheres, GL_STATIC_DRAW);
+    core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    core->glEnableVertexAttribArray(0);
+
+//    core->glGenVertexArrays(1, &VAO);//两个参数，第一个为需要创建的缓存数量。第二个为用于存储单一ID或多个ID的GLuint变量或数组的地址
+//    core->glGenBuffers(1, &VBO);
+
+//    core->glBindVertexArray(VAO);
+
+//    core->glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//    core->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+//    core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+//    core->glEnableVertexAttribArray(0);
+//    // texture coord attribute
+//    core->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+//    core->glEnableVertexAttribArray(1);
+
     texture1 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/container.jpg").mirrored(), QOpenGLTexture::GenerateMipMaps); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
     if(!texture1->isCreated()){
         qDebug() << "Failed to load texture" << endl;
     }
-    texture1->setWrapMode(QOpenGLTexture::DirectionS, QOpenGLTexture::Repeat);// 等于glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    texture1->setWrapMode(QOpenGLTexture::DirectionT, QOpenGLTexture::Repeat);//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    texture1->setWrapMode(QOpenGLTexture::DirectionS, QOpenGLTexture::Repeat);//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    texture1->setWrapMode(QOpenGLTexture::DirectionT, QOpenGLTexture::Repeat);//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     texture1->setMinificationFilter(QOpenGLTexture::Linear);   //等价于glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     texture1->setMagnificationFilter(QOpenGLTexture::Linear);
 
     //第二张笑脸
     texture2 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/awesomeface.png").mirrored());
-
-    //    texture2 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/smile.png").mirrored()); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
     if(!texture2->isCreated()){
         qDebug() << "Failed to load texture" << endl;
     }
@@ -122,9 +126,9 @@ void OpenGLWidget::initializeGL()
     texture2->setMinificationFilter(QOpenGLTexture::Linear);   //等价于glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     texture2->setMagnificationFilter(QOpenGLTexture::Linear);  //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    ourShader->use();
-    ourShader->setInt("texture1", 0);
-    ourShader->setInt("texture2", 1);
+    recShader->use();
+    recShader->setInt("texture1", 0);
+    recShader->setInt("texture2", 1);
 
     //开启计时器，返回毫秒
     time.start();
@@ -134,55 +138,29 @@ void OpenGLWidget::initializeGL()
     // view.translate(QVector3D(0.0f, 0.0f, -3.0f));
     projection.perspective(45.0f, (GLfloat)width()/(GLfloat)height(), 0.1f, 100.0f);
 
-    ourShader->use();
+    recShader->use();
     //ourShader->setMat4("view", view);
-    ourShader->setMat4("projection", projection);
+    recShader->setMat4("projection", projection);
     //开启状态
     core->glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     core->glEnable(GL_DEPTH_TEST);
 
+    //与视频相关的摄像机变量初始化
     cameraPos = QVector3D(0.0f, 0.0f,  3.0f);
     cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
     cameraUp = QVector3D(0.0f, 1.0f,  0.0f);
     deltaTime = 0.0f;
     lastFrame = 0.0f;
 
-    //    // shader program
-    //    program = new QOpenGLShaderProgram;
-    //    program->addShader(vshader);
-    //    program->addShader(fshader);
+    //与鼠标相关的摄像机变量初始化
+    firstMouse = true;
+    yaw   = -90.0f;	// 偏航角如果是0.0f,指向的是 x轴正方向，即右方向，所以向里转90度，初始方向指向z轴负方向
+    pitch =  0.0f;
+    lastX =  800.0f / 2.0;
+    lastY =  600.0 / 2.0;
+    fov   =  45.0f;
 
-    //    program->link();
-    //    program->bind();
 
-    //    view.setToIdentity();
-    //    view.lookAt(QVector3D( 6, 0.5, 0), QVector3D( 6, 0.5, -6), QVector3D( 0, 1, 0));
-    //    //1是眼睛的中心位置，2是眼睛看向的位置，3是眼睛的朝向位置
-
-    //    // set color used to clear background
-    //    glClearColor(0.5f, 0.0f, 1.0f, 1.0f);
-    //    glEnable(GL_DEPTH_TEST);
-
-    //    xtrans=0;ytrans=0;ztrans=0;//初始化坐标轴转动值
-    //    glGenBuffers(3, handle);//在handle数组中返回当前n个未使用的名称，表示缓冲区对象
-
-    //    glBindBuffer(GL_ARRAY_BUFFER, handle[0]);//激活缓冲区对象，指定当前活动缓冲区的对象
-    //    glBufferData(GL_ARRAY_BUFFER, sizeof(terrian_pos), terrian_pos, GL_STATIC_DRAW);//用数据分配和初始化缓冲区对象
-
-    //    //使设置在着色器中生效
-    //    GLuint vPosition = program->attributeLocation("VertexPosition");
-    //    glEnableVertexAttribArray(vPosition);
-    //    glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
-    //    glVertexAttribPointer( (GLuint)0, 3, GL_INT, GL_FALSE, 3*sizeof(GLint), 0 );//指定位置和偏移
-    //    //glVertexAttribPointer( (GLuint)1, 3, GL_FLOAT, GL_FALSE, 6*sizeof(GLfloat),  (const void *)(3*sizeof(GLfloat)) );//备用
-
-    //    model.setToIdentity();
-    //    glClearDepthf(1.0);
-    //    glEnable(GL_TEXTURE_2D);
-    //    //glEnable(GL_CULL_FACE);//是否使能正反面
-    //    glDepthFunc(GL_LEQUAL);
-    //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //    glEnable(GL_DEPTH_TEST);
 }
 
 void OpenGLWidget::resizeGL(int w, int h)
@@ -194,9 +172,9 @@ void OpenGLWidget::resizeGL(int w, int h)
 }
 
 QVector3D cubePositions[] = {       //为了省事，设为全局函数，若嫌封装性不好，改为成员变量指针，在initializeGL()重新赋值就好
-                                    QVector3D( 0.0f,  0.0f,  -1.0f), //小小改动一下将z轴的0.0f变为-1.0f
-                                    QVector3D( 2.0f,  5.0f, -15.0f),
-                                    QVector3D(-1.5f, -2.2f, -2.5f),
+                                    QVector3D( 0.0f,  0.0f,  0.0f), //小小改动一下将z轴的0.0f变为-1.0f
+                                    QVector3D( 0.0f,  1.0f, 0.0f),
+                                    QVector3D( 1.0f, 1.0f, 0.0f),
                                     QVector3D(-3.8f, -2.0f, -12.3f),
                                     QVector3D( 2.4f, -0.4f, -3.5f),
                                     QVector3D(-1.7f,  3.0f, -7.5f),
@@ -219,7 +197,7 @@ void OpenGLWidget::paintGL()
     core->glActiveTexture(GL_TEXTURE1);
     texture2->bind();
 
-    ourShader->use();
+    recShader->use();
 
 
 
@@ -229,84 +207,99 @@ void OpenGLWidget::paintGL()
 //    GLfloat camZ = cos(((GLfloat)time.elapsed())/1000) * radius;
 //    view.lookAt(QVector3D(camX, 0.0f, camZ), QVector3D(0.0f, 0.0f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f));
     view.lookAt(cameraPos, cameraPos+cameraFront, cameraUp);
-    ourShader->setMat4("view", view);
-
-    ourShader->setMat4("view", view);
+    recShader->setMat4("view", view);
 
 
 
-    for(GLuint i = 0; i != 10; ++i){
-        QMatrix4x4 model;
-        model.translate(cubePositions[i]);
-        model.rotate(20.0f * i, cubePositions[i]);//这里角度改为固定角度
+
+    QMatrix4x4 model1;
+    model1.translate(QVector3D( 0.0f,  0.0f,  0.0f));
+    model1.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+    model1.rotate(20.0f * i, QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model1);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model2;
+    model2.translate(QVector3D( 0.0f,  0.2f,  0.0f));
+    model2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model2);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model3;
+    model3.translate(QVector3D( 0.0f,  0.4f,  0.0f));
+    model3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model3);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model4;
+    model4.translate(QVector3D( 0.3f,  0.4f,  0.0f));
+    model4.scale(QVector3D( 0.6f,  0.1f,  0.1f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model4);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
-        ourShader->setMat4("model", model);
-        core->glBindVertexArray(VAO);
-        core->glDrawArrays(GL_TRIANGLES, 0, 36);
-    }
+    QMatrix4x4 model5;
+    model5.translate(QVector3D( 0.6f,  0.4f,  0.0f));
+    model5.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model5);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model6;
+    model6.translate(QVector3D( 0.6f,  1.06f,  0.0f));
+    model6.scale(QVector3D(  0.1f,  1.32f,  0.1f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model6);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model7;
+    model7.translate(QVector3D( 0.6f,  1.72f,  0.0f));
+    model7.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model7);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model8;
+    model8.translate(QVector3D( 0.28f,  1.72f,  0.0f));
+    model8.scale(QVector3D( 0.64f,  0.1f,  0.1f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model8);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    QMatrix4x4 model9;
+    model9.translate(QVector3D( 0.01f,  2.3f,  0.0f));
+    model9.scale(QVector3D( 0.1f,  1.06f,  0.1f));
+//    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", model9);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+//    for(GLuint i = 0; i != 10; ++i){
+//        QMatrix4x4 model;
+//        model.translate(cubePositions[i]);
+//        model.rotate(20.0f * i, cubePositions[i]);//这里角度改为固定角度
+
+
+//        ourShader->setMat4("model", model);
+//        core->glBindVertexArray(VAO);
+//        core->glDrawArrays(GL_TRIANGLES, 0, 36);
+//    }
+
 
     update();
 
-    //    if(flag==0)//平移变化
-    //    {
 
-    //        //model.rotate(0, 0.0, 1.0, 0.0);
-    //        model.translate(xtrans, ytrans, ztrans);//模型平移
-    //        add_xtrans+=xtrans;
-    //        add_ytrans+=ytrans;
-    //        add_ztrans+=ztrans;
-    //        model.rotate(yrot, 0.0, 1.0, 0.0);
-
-    //    }else//旋转变化
-    //    {
-    //        model.setToIdentity();
-    //        model.translate(6, 0.5, 0);//模型平移
-    //        add_yrot+=yrot;
-    //        model.rotate(add_yrot, 0.0, 1.0, 0.0);
-    //        model.translate(add_xtrans-errorx, add_ytrans-errory, add_ztrans);//模型平移
-    //    }
-    //    flag=0;
-    //    xtrans=0;
-    //    ytrans=0;
-    //    ztrans=0;
-    //    yrot=0;
-    //    program->setUniformValue("view", view);
-    //    program->setUniformValue("projection", projection);
-    //    program->setUniformValue("model", model);
-
-    //    program->bind();
-    //    //设置纹理
-    //    QImage image(":/shader/texture_img.png");
-    //    image = image.convertToFormat(QImage::Format_RGB888);
-    //    image = image.mirrored();
-
-    //    GLuint texture;
-    //    glGenTextures(1, &texture);//glGenTextures的第一个参数是要创建的纹理数量，后面的参数就是保存这么多数量的整型数数组。
-
-    //    glBindTexture(GL_TEXTURE_2D, texture);//绑定到OpenGL的环境里
-    //    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width(), image.height(),
-    //                 0, GL_RGB, GL_UNSIGNED_BYTE, image.bits());//把加载的图片数据放到纹理中
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);    //横坐标
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);    //纵坐标
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);//缩小时的过滤方式
-    //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);//放大时的过滤方式
-    //    glGenerateMipmap(GL_TEXTURE_2D);//创建mipmaps,更流畅？
-
-    //    glBindBuffer(GL_ARRAY_BUFFER, handle[1]);//激活缓冲区对象，指定当前活动缓冲区的对象
-    //    glBufferData(GL_ARRAY_BUFFER, sizeof(terrian_texture), terrian_texture, GL_STATIC_DRAW);//用数据分配和初始化缓冲区对象
-    //    GLuint m_texCoordAttr = program->attributeLocation("tempTextCoord");
-    //    glEnableVertexAttribArray(m_texCoordAttr);
-    //    //glBindBuffer(GL_ARRAY_BUFFER, handle[0]);
-    //    glVertexAttribPointer( (GLuint)2, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0 );//指定位置和偏移
-
-    //    program->bind();
-    //    //绘制，数目应该是一个面的顶点数x面数
-    //    for(int s=0; s<img_width-2; s++)//z小于数据宽度w
-    //    {
-    //        glDrawElements(GL_TRIANGLE_STRIP, img_width*2, GL_UNSIGNED_INT, &terrian_index[img_width*s*2]);//索引应为数据宽度w,绘图数量应该是一层图像中面数x顶点数
-    //    }
-    //    qDebug()<<"paintGL";
 }
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event)
@@ -333,40 +326,114 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event)
 }
 
 
-//void OpenGLWidget::mousePressEvent(QMouseEvent *event)
-//{
-//    mousePos = QVector2D(event->pos());
-//    event->accept();
-//}
+void OpenGLWidget::wheelEvent(QWheelEvent *event)
+{
+    QPoint offset = event->angleDelta();
+    if(fov >= 1.0f && fov <=45.0f)
+        fov -= ((GLfloat)offset.y())/20;
+    if(fov < 1.0f)
+        fov = 1.0f;
+    if(fov > 45.0f)
+        fov = 45.0f;
+}
 
-//void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
+void OpenGLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    GLfloat xpos = event->pos().x();
+    GLfloat ypos = event->pos().y();
+
+    if (firstMouse)
+        {
+            lastX = event->pos().x();
+            lastY = event->pos().y();
+            firstMouse = false;
+        }
+
+        GLfloat xoffset = xpos - lastX;
+        GLfloat yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+        lastX = xpos;
+        lastY = ypos;
+
+        GLfloat sensitivity = 0.01f; // change this value to your liking
+        xoffset *= sensitivity;
+        yoffset *= sensitivity;
+
+        yaw += xoffset;
+        pitch += yoffset;
+
+        // make sure that when pitch is out of bounds, screen doesn't get flipped
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        QVector3D front(cos(yaw) * cos(pitch), sin(pitch), sin(yaw) * cos(pitch));
+        cameraFront = front.normalized();
+}
+
+
+void OpenGLWidget::Moter1Run()
+{
+
+i++;
+}
+
+
+float* OpenGLWidget::sphere(float radius, int slices, int stacks) {
+//    GLuint vbo;
+    int n = 2 * (slices + 1) * stacks;
+    int i = 0;
+    float points[n];
+
+    for (float theta = -M_PI / 2; theta < M_PI / 2 - 0.0001; theta += M_PI / stacks) {
+        for (float phi = -M_PI; phi <= M_PI + 0.0001; phi += 2 * M_PI / slices) {
+            points[i++] = (cos(theta) * sin(phi), -sin(theta), cos(theta) * cos(phi));
+            points[i++] = (cos(theta + M_PI / stacks) * sin(phi), -sin(theta + M_PI / stacks), cos(theta + M_PI / stacks) * cos(phi));
+        }
+    }
+
+//    core->glGenBuffers(index, &vbo);
+//    core->glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//    core->glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+
+    return points;
+}
+
+//core->glBindVertexArray(VAO[1]);
+//core->glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+//core->glBufferData(GL_ARRAY_BUFFER, sizeof(spheres), spheres, GL_STATIC_DRAW);
+//core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+//core->glEnableVertexAttribArray(0);
+
+
+//void OpenGLWidget::sphere2(float r)
 //{
-//    if(event->buttons() == Qt::LeftButton)
-//    {
-//        QVector2D newPos = (QVector2D)event->pos();
-//        QVector2D diff = newPos - mousePos;
-//        qreal angle = (diff.length())/3.6;
-//        // Rotation axis is perpendicular to the mouse position difference
-//        // vector
-//        QVector3D rotationAxis = QVector3D(diff.y(), diff.x(), 0.0).normalized();
-//        rotation = QQuaternion::fromAxisAndAngle(rotationAxis, angle) * rotation;
-//        mousePos = newPos;
-//        this->update();
+//    float m_r = r;
+//    int angleSpan = 10; //弧度 = 角度 * PI / 180
+//    for(int vAngle = -90; vAngle < 90; vAngle = vAngle + angleSpan){ //生成球面顶点
+//        for(int hAngle = 0; hAngle <= 360; hAngle = hAngle + angleSpan){
+//            float x0 = r * cos(vAngle * PI / 180) * cos(hAngle * PI / 180);
+//            float y0 = r * ::cos(vAngle * PI / 180) * ::sin(hAngle * PI / 180);
+//            float z0 = r * ::sin(vAngle * PI / 180);
+
+//            float x1 = r * ::cos(vAngle * PI / 180) * ::cos((hAngle + angleSpan) * PI / 180);
+//            float y1 = r * ::cos(vAngle * PI / 180) * ::sin((hAngle + angleSpan) * PI / 180);
+//            float z1 = r * ::sin(vAngle * PI / 180);
+
+//            float x2 = r * ::cos((vAngle + angleSpan) * PI / 180) * ::cos((hAngle + angleSpan) * PI / 180);
+//            float y2 = r * ::cos((vAngle + angleSpan) * PI / 180) * ::sin((hAngle + angleSpan) * PI / 180);
+//            float z2 = r * ::sin((vAngle + angleSpan) * PI / 180);
+
+//            float x3 = r * ::cos((vAngle + angleSpan) * PI / 180) * ::cos(hAngle * PI / 180);
+//            float y3 = r * ::cos((vAngle + angleSpan) * PI / 180) * ::sin(hAngle * PI / 180);
+//            float z3 = r * ::sin((vAngle + angleSpan) * PI / 180);
+
+//            m_points << x1 << y1 << z1 << x3 << y3 << z3
+//                   << x0 << y0 << z0 << x1 << y1 << z1
+//                   << x2 << y2 << z2 << x3 << y3 << z3;
+//        }
 //    }
-//    event->accept();
+
+//    core->glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+//    core->glBufferData(GL_ARRAY_BUFFER, sizeof(m_points), m_points, GL_STATIC_DRAW);
 //}
-
-//void OpenGLWidget::wheelEvent(QWheelEvent *event)
-//{
-//    QPoint numDegrees = event->angleDelta() / 8;
-
-//    if (numDegrees.y() > 0) {
-//        ztrans += 0.25f;
-//    } else if (numDegrees.y() < 0) {
-//        ztrans -= 0.25f;
-//    }
-//    this->update();
-//    event->accept();
-//}
-
-

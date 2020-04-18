@@ -13,6 +13,8 @@ class Shader
 {
 public:
     Shader(const QString& vertexPath, const QString& fragmentPath);
+    Shader();
+    void compile(const QString& vertexSource, const QString& fragmentSource, const QString& geometrySource = NULL);
     ~Shader();
     QOpenGLShaderProgram *shaderProgram;
 
