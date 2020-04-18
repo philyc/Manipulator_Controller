@@ -19,16 +19,20 @@ SOURCES += \
     controller.cpp \
     main.cpp \
     model.cpp \
+    openglwidget.cpp \
     qcustomplot.cpp \
     qsqlite.cpp \
+    shader.cpp \
     view.cpp
 
 HEADERS += \
     ControlCAN.h \
     controller.h \
     model.h \
+    openglwidget.h \
     qcustomplot.h \ \
     qsqlite.h \
+    shader.h \
     view.h
 
 FORMS += \
@@ -45,3 +49,13 @@ INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
 
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/./ControlCAN.lib
+
+DISTFILES += \
+    resource/shader/recFragmentShader.frag \
+    resource/shader/recVertexShader.vert \
+    resource/shader/sphereFragmentShader.frag \
+    resource/shader/sphereVertexShader.vert \
+    resource/texture/al.jpg \
+    resource/texture/awesomeface.png \
+    resource/texture/container.jpg \
+    resource/texture/lab.png

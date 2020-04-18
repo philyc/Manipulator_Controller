@@ -35,6 +35,12 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
     connect(m_receiver,&Controller::recEndPos,this,&View::updateEndPos);
 
+    QVBoxLayout* centralLayout = new QVBoxLayout();
+    centralLayout->addWidget(openGLWidget);
+    ui->openGLWidget->setLayout(centralLayout);
+    connect(this,&View::keyPressEvent,openGLWidget,&OpenGLWidget::keyPressEvent);
+    connect(this,&View::wheelEvent,openGLWidget,&OpenGLWidget::wheelEvent);
+
 }
 
 View::~View()

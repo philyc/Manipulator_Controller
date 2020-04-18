@@ -23,23 +23,19 @@
 #include <QOpenGLTexture>
 #include <QTime>
 #include <QtMath>
+#include <QDebug>
+#include <QTimer>
+#include "model.h"
 
-
-
-class OpenGLWidget : public QOpenGLWidget, public QOpenGLFunctions_3_3_Core
+class OpenGLWidget: public QOpenGLWidget, public QOpenGLFunctions_3_3_Core
 {
 public:
-    OpenGLWidget(QWidget *parent = 0);
+    OpenGLWidget(QWidget *parent = nullptr);
     ~OpenGLWidget() override;
 
     //键盘事件
     void keyPressEvent(QKeyEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;
-
-    void Moter1Run();
-    int i=0;
-
-//    QMatrix4x4 model1,model2,model3,model4,model5,model6,model7,model8,model9;
 
 protected:
 
@@ -48,31 +44,16 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
 
-
-    float* sphere(float radius, int slices, int stacks);
-//    void sphere2(float r);
-
     //鼠标事件
-    // void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
-
-
-
-
-
-
 private:
+
     Shader *recShader,*sphShader;
     QOpenGLTexture *texture1;
     QOpenGLTexture *texture2;
     QOpenGLFunctions_3_3_Core *core;
     QTime time;
-
-
-    float* recData();//建立正方形图形对象
-    float *vertices;
-
 
     //    GLuint VBO, VAO;
     GLuint VBO[2], VAO[2];
@@ -93,8 +74,8 @@ private:
     GLfloat lastY;
     GLfloat fov;
 
-
     QTimer *timer;
+
 };
 
 #endif // OPENGLWIDGET_H

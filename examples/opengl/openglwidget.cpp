@@ -104,8 +104,7 @@ void OpenGLWidget::initializeGL()
 //    // texture coord attribute
 //    core->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 //    core->glEnableVertexAttribArray(1);
-
-    texture1 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/container.jpg").mirrored(), QOpenGLTexture::GenerateMipMaps); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
+    texture1 = new QOpenGLTexture(QImage("F:/hust/underwater/Re/Manipulator/examples/opengl/texture/al.jpg").mirrored(), QOpenGLTexture::GenerateMipMaps); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
     if(!texture1->isCreated()){
         qDebug() << "Failed to load texture" << endl;
     }
@@ -116,7 +115,7 @@ void OpenGLWidget::initializeGL()
     texture1->setMagnificationFilter(QOpenGLTexture::Linear);
 
     //第二张笑脸
-    texture2 = new QOpenGLTexture(QImage("F:/computer/QT/test/opengl4/texture/awesomeface.png").mirrored());
+    texture2 = new QOpenGLTexture(QImage("F:/hust/underwater/Re/Manipulator/examples/opengl/texture/lab.png").mirrored());
     if(!texture2->isCreated()){
         qDebug() << "Failed to load texture" << endl;
     }
@@ -146,7 +145,7 @@ void OpenGLWidget::initializeGL()
     core->glEnable(GL_DEPTH_TEST);
 
     //与视频相关的摄像机变量初始化
-    cameraPos = QVector3D(0.0f, 0.0f,  3.0f);
+    cameraPos = QVector3D(0.0f, 0.0f,  7.0f);
     cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
     cameraUp = QVector3D(0.0f, 1.0f,  0.0f);
     deltaTime = 0.0f;
@@ -295,7 +294,6 @@ void OpenGLWidget::paintGL()
 //        core->glBindVertexArray(VAO);
 //        core->glDrawArrays(GL_TRIANGLES, 0, 36);
 //    }
-
 
     update();
 

@@ -6,7 +6,10 @@
 #include <QTime>
 #include <QTimer>
 #include <QDateTime>
+#include <QVBoxLayout>
 
+#include "openglwidget.h"
+#include "shader.h"
 #include "controller.h"
 #include "model.h"
 #include "qcustomplot.h"
@@ -32,29 +35,9 @@ public:
 
     ~View();
 
+    OpenGLWidget* openGLWidget = new OpenGLWidget();
+
 public:
-//    //数据库使用
-//    typedef struct _robData
-//    {
-//        QString time;
-//        QString moter1angle;
-//        QString moter1current;
-//        QString moter2angle;
-//        QString moter2current;
-//        QString moter3angle;
-//        QString moter3current;
-//        QString moter4angle;
-//        QString moter4current;
-//        QString moter5angle;
-//        QString moter5current;
-//        QString moter6angle;
-//        QString moter6current;
-//        QString description;
-//    }robotData;//sql接收到实时数据
-
-//    QString tableName;
-//    QSqlDatabase db;
-
 
     //线程使用
     Controller* m_receiver;//receive线程对应的QObject
@@ -88,6 +71,9 @@ signals:
 
     void closeDB(QSqlDatabase db);
 
+signals:
+    void keyPressEvent(QKeyEvent *event);
+    void wheelEvent(QWheelEvent *event);
 
 
 public slots:
