@@ -46,7 +46,8 @@ public:
     void MoterRunRev(UINT index,QString angle);
 
     pointData ForwardKinematic(vector<double> angleData);
-    void InverseKinematic(pointData point);
+    void InverseKinematic(pointData point,bool isRight);
+    void btnMoterRunClick(UINT index,double angle);//用于反解
 
 public:
     //    DWORD devindex;//CAN设备索引
@@ -82,7 +83,7 @@ public slots:
 
 private:
     CRITICAL_SECTION send_syn;
-
+    double ArmWeight1=0.5,ArmWeight2=0.3,ArmWeight3=0.2;//反解各关节权重
 };
 
 #endif // CONTROLLER_H

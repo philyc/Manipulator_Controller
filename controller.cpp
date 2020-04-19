@@ -552,16 +552,70 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     return out;
 }
 
-void Controller::InverseKinematic(pointData point)
+void Controller::InverseKinematic(pointData point,bool isRight)
 {
-    vector<double> out1(3,0);
-    vector<double> out2(3,0);
-    vector<double> out3(3,0);
-    vector<double> out4(3,0);
-    out1[0]=out2[0]=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
-    out3[0]=out4[0]=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+    vector<double> now(3,0);
+    if(isRight)
+    {
+        now={absAngle[0],absAngle[1],absAngle[2]};
+    }
+    else
+    {
+        now={absAngle[3],absAngle[4],absAngle[5]};
+    }
+
+    vector<vector<double>> out;
+
+    double ceta1_1=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+    double ceta1_2=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+
+    double k=(pow(point.pos_x,2)+pow(point.pos_y,2)+pow(point.pos_z,2)-145584.0)/528.0;
+    double ceta3_1=atan2(127,213)-atan2(k,sqrt(61498-pow(k,2)));
+    double ceta3_2=atan2(127,213)-atan2(k,-sqrt(61498-pow(k,2)));
+
+    double ceta2_1=atan2((264*sin(ceta3_1)-213)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(127+264*cos(ceta3_1)),(127+264*cos(ceta3_1))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(264*sin(ceta3_1)-213))-ceta3_1;//ceta1_1 +ceta3_1
+
+    double ceta2_2=atan2((264*sin(ceta3_2)-213)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(127+264*cos(ceta3_2)),(127+264*cos(ceta3_2))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(264*sin(ceta3_2)-213))-ceta3_2;//ceta1_1 +ceta3_2
+
+    double ceta2_3=atan2((264*sin(ceta3_1)-213)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(127+264*cos(ceta3_1)),(127+264*cos(ceta3_1))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(264*sin(ceta3_1)-213))-ceta3_1;//ceta1_2 +ceta3_1
+
+    double ceta2_4=atan2((264*sin(ceta3_2)-213)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(127+264*cos(ceta3_2)),(127+264*cos(ceta3_2))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(264*sin(ceta3_2)-213))-ceta3_2;//ceta1_2 +ceta3_2
+
+    out[0]={ceta1_1,ceta2_1,ceta3_1};
+    out[1]={ceta1_1,ceta2_2,ceta3_2};
+    out[2]={ceta1_2,ceta2_3,ceta3_1};
+    out[3]={ceta1_2,ceta2_4,ceta3_2};
 
 
+    double resultChoose,min;
+    UINT index=0;
+    for(UINT i=0;i<4;++i)
+    {
+        resultChoose=(out[i][0]-now[0])*ArmWeight1+(out[i][1]-now[1])*ArmWeight2+(out[i][2]-now[2])*ArmWeight3;
+        if(resultChoose<min)
+        {
+            min=resultChoose;
+            index=i;
+        }
+        else continue;
+    }
+
+
+    if(isRight)
+    {
+        btnMoterRunClick(1,out[index][0]);
+        btnMoterRunClick(2,out[index][1]);
+        btnMoterRunClick(3,out[index][2]);
+    }
+    else {
+        btnMoterRunClick(4,out[index][0]);
+        btnMoterRunClick(5,out[index][1]);
+        btnMoterRunClick(6,out[index][2]);
+    }
+}
+
+void Controller::btnMoterRunClick(UINT index,double angle)
+{
 
 }
 
