@@ -11,8 +11,7 @@ Controller::Controller()
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
-
-
+    InitializeCriticalSection(&send_syn);
 }
 
 
@@ -191,12 +190,15 @@ void Controller::btnSendClick(QString Id,QString Data)
 
 void Controller::CanSend()
 {
+    EnterCriticalSection(&send_syn);
     int NumCanSend=static_cast<int>(VCI_Transmit(devtype,devindex,static_cast<DWORD>(0),sendbuf,1));
     if(NumCanSend<1){
         switch (NumCanSend) {
-        case -1:qDebug()<<"Device isn't open";return;
+        case -1:qDebug()<<"Device isn't open";
+            LeaveCriticalSection(&send_syn);return;
             //        case 0:qDebug()<<"send error";return;
-        default:return;
+        default:
+            LeaveCriticalSection(&send_syn);return;
         }
     }
 //    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
@@ -207,6 +209,7 @@ void Controller::CanSend()
     for(int i=0;i<8;++i){
         sendbuf->Data[i]=0x00;//DATA数据默认为0x00
     }
+    LeaveCriticalSection(&send_syn);
 }
 
 void Controller::btnEnableClick()

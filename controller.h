@@ -80,6 +80,8 @@ public slots:
     void receive();
     void inquire();
 
+private:
+    CRITICAL_SECTION send_syn;
 
 };
 
