@@ -1,9 +1,6 @@
 #ifndef OPENGLWIDGET_H
 #define OPENGLWIDGET_H
 
-#ifndef PI
-#define PI 3.1415926
-#endif
 #ifndef PI2
 #define PI2 6.2831853//2PI
 #endif

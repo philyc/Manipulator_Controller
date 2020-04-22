@@ -70,6 +70,7 @@ signals:
     void moterStop(UINT index);
 
     void closeDB(QSqlDatabase db);
+    void inverseCal(pointData aim,bool isLeft);
 
 signals:
     void keyPressEvent(QKeyEvent *event);
@@ -95,6 +96,8 @@ private slots:
     void updateIncNum(vector<long> incNum);//更新增量式编码器反馈的数值
 
     void updateEndPos(pointData point,bool isLeft);
+
+    void updateiInverseCal(vector<double> calAngel,bool isLeft);
 
     void on_btnMoter1RunFor_clicked();
 
@@ -152,6 +155,10 @@ private slots:
     void on_btnArm2CooRunStop_clicked();
 
     void on_btnMoterRunStopAll_clicked();
+
+    void on_btnCalcLeftRev_clicked();
+
+    void on_btnCalcRightRev_clicked();
 
 private:
     Ui::View *ui;

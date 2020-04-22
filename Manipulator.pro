@@ -1,4 +1,4 @@
-QT       += core gui printsupport sql
+QT       += core gui printsupport sql widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -59,3 +59,5 @@ DISTFILES += \
     resource/texture/awesomeface.png \
     resource/texture/container.jpg \
     resource/texture/lab.png
+
+

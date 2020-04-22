@@ -552,10 +552,10 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     return out;
 }
 
-void Controller::InverseKinematic(pointData point,bool isRight)
+void Controller::InverseKinematic(pointData point,bool isLeft)
 {
     vector<double> now(3,0);
-    if(isRight)
+    if(isLeft)
     {
         now={absAngle[0],absAngle[1],absAngle[2]};
     }
@@ -587,36 +587,49 @@ void Controller::InverseKinematic(pointData point,bool isRight)
     out[3]={ceta1_2,ceta2_4,ceta3_2};
 
 
-    double resultChoose,min;
+    double min=DBL_MAX;
+    double result;
     UINT index=0;
     for(UINT i=0;i<4;++i)
     {
-        resultChoose=(out[i][0]-now[0])*ArmWeight1+(out[i][1]-now[1])*ArmWeight2+(out[i][2]-now[2])*ArmWeight3;
-        if(resultChoose<min)
+        result=(out[i][0]-now[0])*ArmWeight1+(out[i][1]-now[1])*ArmWeight2+(out[i][2]-now[2])*ArmWeight3;
+        if(result<min)
         {
-            min=resultChoose;
+            min=result;
             index=i;
         }
         else continue;
     }
 
-
-    if(isRight)
+    if(isLeft)
     {
-        btnMoterRunClick(1,out[index][0]);
-        btnMoterRunClick(2,out[index][1]);
-        btnMoterRunClick(3,out[index][2]);
+        emit recInverseCal(out[index],true);
     }
-    else {
-        btnMoterRunClick(4,out[index][0]);
-        btnMoterRunClick(5,out[index][1]);
-        btnMoterRunClick(6,out[index][2]);
+    else
+    {
+        emit recInverseCal(out[index],false);
     }
+
+
+
+//    if(isLeft)
+//    {
+//        btnMoterRunClick(1,out[index][0]);
+//        btnMoterRunClick(2,out[index][1]);
+//        btnMoterRunClick(3,out[index][2]);
+//    }
+//    else {
+//        btnMoterRunClick(4,out[index][0]);
+//        btnMoterRunClick(5,out[index][1]);
+//        btnMoterRunClick(6,out[index][2]);
+//    }
 }
 
 void Controller::btnMoterRunClick(UINT index,double angle)
 {
 
+    QString temp=QString::number(angle,10,4);
+    btnMoterRunClick(true,index,temp);
 }
 
 void Controller::btnMoterStopClick(UINT index)

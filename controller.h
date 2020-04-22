@@ -17,6 +17,7 @@
 #include <QThread>
 #include <QTimer>
 #include <iterator>
+#include <float.h>
 #include "model.h"
 #include "qsqlite.h"
 
@@ -46,7 +47,8 @@ public:
     void MoterRunRev(UINT index,QString angle);
 
     pointData ForwardKinematic(vector<double> angleData);
-    void InverseKinematic(pointData point,bool isRight);
+    void InverseKinematic(pointData point,bool isLeft);
+
     void btnMoterRunClick(UINT index,double angle);//用于反解
 
 public:
@@ -66,6 +68,8 @@ signals:
     void recIncNum(vector<long> incNum);
 
     void recEndPos(pointData point,bool isLeft);
+
+    void recInverseCal(vector<double> calAngel,bool isLeft);
 
 
 public slots:

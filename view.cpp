@@ -22,19 +22,25 @@ View::View(QWidget *parent)
     connect(this,&View::close,m_controller,&Controller::btnCloseClick);
     connect(this,&View::send,m_controller,&Controller::btnSendClick);
     connect(this,&View::enable,m_controller,&Controller::btnEnableClick);
-    connect(this,&View::moterRun,m_controller,&Controller::btnMoterRunClick);
+    connect(this,&View::moterRun,m_controller,static_cast<void (Controller::*)(bool,UINT,QString)>(&Controller::btnMoterRunClick));
     connect(this,&View::moterStop,m_controller,&Controller::btnMoterStopClick);
+    connect(this,&View::inverseCal,m_controller,&Controller::InverseKinematic);
 
+
+    //图表初始化
     connect(this,&View::open,this,&View::initChart);//开始时初始化图表
 
+    //数据库相关
     connect(this,&View::closeDB,m_sqlite,&QSqlite::closeDB);
 
-
+    //消息更新
     connect(m_receiver,&Controller::rec,this,&View::updateTest);
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
     connect(m_receiver,&Controller::recEndPos,this,&View::updateEndPos);
+    connect(m_controller,&Controller::recInverseCal,this,&View::updateiInverseCal);
 
+    //opengl窗口
     QVBoxLayout* centralLayout = new QVBoxLayout();
     centralLayout->addWidget(openGLWidget);
     ui->openGLWidget->setLayout(centralLayout);
@@ -466,5 +472,47 @@ void View::on_btnMoterRunStopAll_clicked()
     for(UINT i=1;i<7;++i)
     {
         emit moterStop(i);
+    }
+}
+
+void View::on_btnCalcLeftRev_clicked()
+{
+    QString temp_X=ui->edtLeftSetX->text();
+    QString temp_Y=ui->edtLeftSetY->text();
+    QString temp_Z=ui->edtLeftSetZ->text();
+    pointData aim;
+    aim.pos_x=temp_X.toDouble();
+    aim.pos_y=temp_Y.toDouble();
+    aim.pos_z=temp_Z.toDouble();
+    emit inverseCal(aim,true);
+}
+
+
+
+void View::on_btnCalcRightRev_clicked()
+{
+    QString temp_X=ui->edtRightSetX->text();
+    QString temp_Y=ui->edtRightSetY->text();
+    QString temp_Z=ui->edtRightSetZ->text();
+    pointData aim;
+    aim.pos_x=temp_X.toDouble();
+    aim.pos_y=temp_Y.toDouble();
+    aim.pos_z=temp_Z.toDouble();
+    emit inverseCal(aim,false);
+}
+
+void View::updateiInverseCal(vector<double> calAngel,bool isLeft)
+{
+    if(isLeft)
+    {
+        ui->edtLeftCalcJoint1Angle->setText(QString::number(calAngel[0],10,3));
+        ui->edtLeftCalcJoint2Angle->setText(QString::number(calAngel[1],10,3));
+        ui->edtLeftCalcJoint3Angle->setText(QString::number(calAngel[2],10,3));
+    }
+    else
+    {
+        ui->edtRightCalcJoint1Angle->setText(QString::number(calAngel[0],10,3));
+        ui->edtRightCalcJoint2Angle->setText(QString::number(calAngel[1],10,3));
+        ui->edtRightCalcJoint3Angle->setText(QString::number(calAngel[2],10,3));
     }
 }
