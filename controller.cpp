@@ -360,7 +360,7 @@ void Controller::receive()
                 pointData leftEnd=ForwardKinematic(leftAngle);
                 pointData rightEnd=ForwardKinematic(rightAngle);
 
-                emit recEndPos(leftEnd,true);
+                emit recEndPos(leftEnd,true);//更新末端坐标
                 emit recEndPos(rightEnd,false);
 
 

@@ -127,7 +127,7 @@ void OpenGLWidget::initializeGL()
     core->glEnable(GL_DEPTH_TEST);
 
     //与视频相关的摄像机变量初始化
-    cameraPos = QVector3D(0.0f, 0.0f,  7.0f);
+    cameraPos = QVector3D(0.0f, 1.5f,  7.0f);
     cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
     cameraUp = QVector3D(0.0f, 1.0f,  0.0f);
     deltaTime = 0.0f;
@@ -168,9 +168,10 @@ void OpenGLWidget::paintGL()
     recShader->setMat4("view", view);//设置着色器值
 
 
+    //右手
     //----------底座--
     QMatrix4x4 model1;
-    model1.translate(QVector3D( 0.0f,  0.0f,  0.0f));
+    model1.translate(QVector3D( 1.0f,  0.0f,  0.0f));
     model1.scale(QVector3D( 0.2f,  0.2f,  0.2f));
     //    model1.rotate(1.0f * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model1);
@@ -179,7 +180,7 @@ void OpenGLWidget::paintGL()
 
     //----------底座连杆--
     QMatrix4x4 model2;
-    model2.translate(QVector3D( 0.0f,  0.2f,  0.0f));
+    model2.translate(QVector3D( 1.0f,  0.2f,  0.0f));
     model2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model2);
@@ -188,7 +189,7 @@ void OpenGLWidget::paintGL()
 
     //----------底电机--
     QMatrix4x4 model3;
-    model3.translate(QVector3D( 0.0f,  0.4f,  0.0f));
+    model3.translate(QVector3D( 1.0f,  0.4f,  0.0f));
     model3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model3);
@@ -197,7 +198,7 @@ void OpenGLWidget::paintGL()
 
     //----------底电机连杆--
     QMatrix4x4 model4;
-    model4.translate(QVector3D( 0.3f,  0.4f,  0.0f));
+    model4.translate(QVector3D( 1.3f,  0.4f,  0.0f));
     model4.scale(QVector3D( 0.6f,  0.1f,  0.1f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model4);
@@ -206,7 +207,7 @@ void OpenGLWidget::paintGL()
 
     //----------肩电机--
     QMatrix4x4 model5;
-    model5.translate(QVector3D( 0.6f,  0.4f,  0.0f));
+    model5.translate(QVector3D( 1.6f,  0.4f,  0.0f));
     model5.scale(QVector3D( 0.2f,  0.2f,  0.2f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model5);
@@ -215,7 +216,7 @@ void OpenGLWidget::paintGL()
 
     //----------肩电机连杆--
     QMatrix4x4 model6;
-    model6.translate(QVector3D( 0.6f,  1.06f,  0.0f));
+    model6.translate(QVector3D( 1.6f,  1.06f,  0.0f));
     model6.scale(QVector3D(  0.1f,  1.32f,  0.1f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model6);
@@ -224,7 +225,7 @@ void OpenGLWidget::paintGL()
 
     //------------臂电机--
     QMatrix4x4 model7;
-    model7.translate(QVector3D( 0.6f,  1.72f,  0.0f));
+    model7.translate(QVector3D( 1.6f,  1.72f,  0.0f));
     model7.scale(QVector3D( 0.2f,  0.2f,  0.2f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model7);
@@ -233,7 +234,7 @@ void OpenGLWidget::paintGL()
 
     //----------臂电机连杆--
     QMatrix4x4 model8;
-    model8.translate(QVector3D( 0.28f,  1.72f,  0.0f));
+    model8.translate(QVector3D( 1.28f,  1.72f,  0.0f));
     model8.scale(QVector3D( 0.64f,  0.1f,  0.1f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model8);
@@ -242,12 +243,98 @@ void OpenGLWidget::paintGL()
 
     //----------爪连杆--
     QMatrix4x4 model9;
-    model9.translate(QVector3D( 0.01f,  2.3f,  0.0f));
+    model9.translate(QVector3D( 1.01f,  2.3f,  0.0f));
     model9.scale(QVector3D( 0.1f,  1.06f,  0.1f));
     //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
     recShader->setMat4("model", model9);
     core->glBindVertexArray(VAO[0]);
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+    //左手
+    //----------底座--
+    QMatrix4x4 modelL1;
+    modelL1.translate(QVector3D( -1.0f,  0.0f,  0.0f));
+    modelL1.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+    //    model1.rotate(1.0f * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL1);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------底座连杆--
+    QMatrix4x4 modelL2;
+    modelL2.translate(QVector3D( -1.0f,  0.2f,  0.0f));
+    modelL2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL2);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------底电机--
+    QMatrix4x4 modelL3;
+    modelL3.translate(QVector3D( -1.0f,  0.4f,  0.0f));
+    modelL3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL3);
+    core->glBindVertexArray(VAO[0]);//绑定方形对象
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------底电机连杆--
+    QMatrix4x4 modelL4;
+    modelL4.translate(QVector3D( -1.3f,  0.4f,  0.0f));
+    modelL4.scale(QVector3D( 0.6f,  0.1f,  0.1f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL4);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------肩电机--
+    QMatrix4x4 modelL5;
+    modelL5.translate(QVector3D( -1.6f,  0.4f,  0.0f));
+    modelL5.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL5);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------肩电机连杆--
+    QMatrix4x4 modelL6;
+    modelL6.translate(QVector3D( -1.6f,  1.06f,  0.0f));
+    modelL6.scale(QVector3D(  0.1f,  1.32f,  0.1f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL6);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //------------臂电机--
+    QMatrix4x4 modelL7;
+    modelL7.translate(QVector3D( -1.6f,  1.72f,  0.0f));
+    modelL7.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL7);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------臂电机连杆--
+    QMatrix4x4 modelL8;
+    modelL8.translate(QVector3D( -1.28f,  1.72f,  0.0f));
+    modelL8.scale(QVector3D( 0.64f,  0.1f,  0.1f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL8);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    //----------爪连杆--
+    QMatrix4x4 modelL9;
+    modelL9.translate(QVector3D( -1.01f,  2.3f,  0.0f));
+    modelL9.scale(QVector3D( 0.1f,  1.06f,  0.1f));
+    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+    recShader->setMat4("model", modelL9);
+    core->glBindVertexArray(VAO[0]);
+    core->glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
     update();
 }
 

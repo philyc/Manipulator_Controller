@@ -131,7 +131,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -992,7 +992,7 @@
         <rect>
          <x>80</x>
          <y>20</y>
-         <width>61</width>
+         <width>71</width>
          <height>23</height>
         </rect>
        </property>
@@ -1077,7 +1077,7 @@
         <rect>
          <x>80</x>
          <y>50</y>
-         <width>61</width>
+         <width>71</width>
          <height>23</height>
         </rect>
        </property>
@@ -1490,7 +1490,7 @@
        <x>20</x>
        <y>50</y>
        <width>181</width>
-       <height>21</height>
+       <height>51</height>
       </rect>
      </property>
     </widget>
@@ -2127,6 +2127,66 @@
       <y>10</y>
       <width>471</width>
       <height>301</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>100</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>140</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>190</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>140</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>190</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>100</y>
+      <width>51</width>
+      <height>22</height>
      </rect>
     </property>
    </widget>
