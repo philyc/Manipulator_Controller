@@ -530,6 +530,11 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
+//#define Link1Length 120
+//#define Link2Length 264
+//#define Link3WLength 127
+//#define Link3HLength 213
+
 pointData Controller::ForwardKinematic(vector<double> angleData)
 {
     vector<double> angleTheta(3,0);//将角度值转为弧度值进行计算
@@ -538,17 +543,17 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     {
     angleTheta[i]=angleData[i]*PI/180.0;
     }
-    out.cal_x=127*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -227*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
-            +254*cos(angleTheta[0])*cos(angleTheta[1])
-            +114*sin(angleTheta[0]);
-    out.cal_y=127*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -227*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
-            +254*sin(angleTheta[0])*cos(angleTheta[1])
-            -114*cos(angleTheta[0]);
-    out.cal_z=127*sin(angleTheta[1]+angleTheta[2])
-            +227*cos(angleTheta[1]+angleTheta[2])
-            +254*sin(angleTheta[1]);
+    out.cal_x=Link3WLength*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+            -Link2Length*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            +Link2Length*cos(angleTheta[0])*cos(angleTheta[1])
+            +Link1Length*sin(angleTheta[0]);
+    out.cal_y=Link3WLength*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+            -Link2Length*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            +Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
+            -Link1Length*cos(angleTheta[0]);
+    out.cal_z=Link3WLength*sin(angleTheta[1]+angleTheta[2])
+            +Link2Length*cos(angleTheta[1]+angleTheta[2])
+            +Link2Length*sin(angleTheta[1]);
     return out;
 }
 
@@ -565,27 +570,31 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     }
 
     vector<vector<double>> out;
+    //反解计算有一定问题
 
-    double ceta1_1=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
-    double ceta1_2=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-114*114),114)-atan2(point.pos_x,point.pos_y);
+    double ceta1_1=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);
+    double ceta1_2=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);
 
-    double k=(pow(point.pos_x,2)+pow(point.pos_y,2)+pow(point.pos_z,2)-145584.0)/528.0;
-    double ceta3_1=atan2(127,213)-atan2(k,sqrt(61498-pow(k,2)));
-    double ceta3_2=atan2(127,213)-atan2(k,-sqrt(61498-pow(k,2)));
+    double k=(pow(point.pos_x,2)+pow(point.pos_y,2)+pow(point.pos_z,2)-145594.0)/528.0;
+    double ceta3_1=atan2(Link3WLength,Link2Length)-atan2(k,sqrt(61498-pow(k,2)));
+    double ceta3_2=atan2(Link3WLength,Link2Length)-atan2(k,-sqrt(61498-pow(k,2)));
 
-    double ceta2_1=atan2((264*sin(ceta3_1)-213)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(127+264*cos(ceta3_1)),(127+264*cos(ceta3_1))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(264*sin(ceta3_1)-213))-ceta3_1;//ceta1_1 +ceta3_1
+    double ceta2_1=atan2((Link2Length*sin(ceta3_1)-Link2Length)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_1)),
+                         (Link3WLength+Link2Length*cos(ceta3_1))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(Link2Length*sin(ceta3_1)-Link2Length))-ceta3_1;//ceta1_1 +ceta3_1
 
-    double ceta2_2=atan2((264*sin(ceta3_2)-213)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(127+264*cos(ceta3_2)),(127+264*cos(ceta3_2))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(264*sin(ceta3_2)-213))-ceta3_2;//ceta1_1 +ceta3_2
+    double ceta2_2=atan2((Link2Length*sin(ceta3_2)-Link2Length)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_2)),
+                         (Link3WLength+Link2Length*cos(ceta3_2))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(Link2Length*sin(ceta3_2)-Link2Length))-ceta3_2;//ceta1_1 +ceta3_2
 
-    double ceta2_3=atan2((264*sin(ceta3_1)-213)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(127+264*cos(ceta3_1)),(127+264*cos(ceta3_1))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(264*sin(ceta3_1)-213))-ceta3_1;//ceta1_2 +ceta3_1
+    double ceta2_3=atan2((Link2Length*sin(ceta3_1)-Link2Length)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_1)),
+                         (Link3WLength+Link2Length*cos(ceta3_1))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(Link2Length*sin(ceta3_1)-Link2Length))-ceta3_1;//ceta1_2 +ceta3_1
 
-    double ceta2_4=atan2((264*sin(ceta3_2)-213)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(127+264*cos(ceta3_2)),(127+264*cos(ceta3_2))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(264*sin(ceta3_2)-213))-ceta3_2;//ceta1_2 +ceta3_2
+    double ceta2_4=atan2((Link2Length*sin(ceta3_2)-Link2Length)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_2)),
+                         (Link3WLength+Link2Length*cos(ceta3_2))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(Link2Length*sin(ceta3_2)-Link2Length))-ceta3_2;//ceta1_2 +ceta3_2
 
-    out[0]={ceta1_1,ceta2_1,ceta3_1};
-    out[1]={ceta1_1,ceta2_2,ceta3_2};
-    out[2]={ceta1_2,ceta2_3,ceta3_1};
-    out[3]={ceta1_2,ceta2_4,ceta3_2};
-
+    out.push_back({ceta1_1,ceta2_1,ceta3_1});
+    out.push_back({ceta1_1,ceta2_2,ceta3_2});
+    out.push_back({ceta1_2,ceta2_3,ceta3_1});
+    out.push_back({ceta1_2,ceta2_4,ceta3_2});
 
     double min=DBL_MAX;
     double result;

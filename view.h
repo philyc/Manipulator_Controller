@@ -160,6 +160,14 @@ private slots:
 
     void on_btnCalcRightRev_clicked();
 
+    void on_btnP2PLeftStop_clicked();
+
+    void on_btnP2PRightStop_clicked();
+
+    void on_btnP2PLeftMove_clicked();
+
+    void on_btnP2PRightMove_clicked();
+
 private:
     Ui::View *ui;
 

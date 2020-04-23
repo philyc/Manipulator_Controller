@@ -516,3 +516,32 @@ void View::updateiInverseCal(vector<double> calAngel,bool isLeft)
         ui->edtRightCalcJoint3Angle->setText(QString::number(calAngel[2],10,3));
     }
 }
+
+void View::on_btnP2PLeftStop_clicked()
+{
+    emit moterStop(1);
+    emit moterStop(2);
+    emit moterStop(3);
+}
+
+void View::on_btnP2PRightStop_clicked()
+{
+    for(UINT i=4;i<7;++i)
+    {
+        emit moterStop(i);
+    }
+}
+
+void View::on_btnP2PLeftMove_clicked()
+{
+    emit moterRun(true,1,ui->edtLeftCalcJoint1Angle->text());
+    emit moterRun(true,2,ui->edtLeftCalcJoint2Angle->text());
+    emit moterRun(true,3,ui->edtLeftCalcJoint3Angle->text());
+}
+
+void View::on_btnP2PRightMove_clicked()
+{
+    emit moterRun(true,4,ui->edtRightCalcJoint1Angle->text());
+    emit moterRun(true,5,ui->edtRightCalcJoint2Angle->text());
+    emit moterRun(true,6,ui->edtRightCalcJoint3Angle->text());
+}

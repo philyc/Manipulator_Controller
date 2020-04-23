@@ -30,6 +30,11 @@
 #define CanDataLength 8
 #define PI 3.14159265358979323846
 
+#define Link1Length 120
+#define Link2Length 264
+#define Link3WLength 127
+#define Link3HLength 213
+
 using namespace std;
 
 
