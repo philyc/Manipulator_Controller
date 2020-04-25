@@ -1551,7 +1551,7 @@
       <x>990</x>
       <y>570</y>
       <width>221</width>
-      <height>121</height>
+      <height>111</height>
      </rect>
     </property>
    </widget>
@@ -2129,12 +2129,15 @@
       <height>301</height>
      </rect>
     </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>100</y>
+      <x>770</x>
+      <y>120</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2143,8 +2146,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>140</y>
+      <x>770</x>
+      <y>170</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2153,8 +2156,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>190</y>
+      <x>770</x>
+      <y>220</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2163,8 +2166,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>140</y>
+      <x>690</x>
+      <y>170</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2173,8 +2176,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>190</y>
+      <x>690</x>
+      <y>220</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2183,8 +2186,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>100</y>
+      <x>690</x>
+      <y>120</y>
       <width>51</width>
       <height>22</height>
      </rect>

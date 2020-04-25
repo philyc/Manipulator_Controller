@@ -43,10 +43,21 @@ View::View(QWidget *parent)
     //opengl窗口
     QVBoxLayout* centralLayout = new QVBoxLayout();
     centralLayout->addWidget(openGLWidget);
+    ui->openGLWidget->setFocusPolicy(Qt::StrongFocus);
     ui->openGLWidget->setLayout(centralLayout);
     connect(this,&View::keyPressEvent,openGLWidget,&OpenGLWidget::keyPressEvent);
     connect(this,&View::wheelEvent,openGLWidget,&OpenGLWidget::wheelEvent);
 
+
+    ui->doubleSpinBox->setRange(-90.0,90.0);
+    ui->doubleSpinBox->setSingleStep(1);
+    ui->doubleSpinBox->setValue(absAngle[0]);
+    ui->doubleSpinBox_2->setRange(-90.0,90.0);
+    ui->doubleSpinBox_2->setSingleStep(1);
+    ui->doubleSpinBox_2->setValue(absAngle[1]);
+    ui->doubleSpinBox_3->setRange(-90.0,90.0);
+    ui->doubleSpinBox_3->setSingleStep(1);
+    ui->doubleSpinBox_3->setValue(absAngle[2]);
 }
 
 View::~View()
@@ -544,4 +555,19 @@ void View::on_btnP2PRightMove_clicked()
     emit moterRun(true,4,ui->edtRightCalcJoint1Angle->text());
     emit moterRun(true,5,ui->edtRightCalcJoint2Angle->text());
     emit moterRun(true,6,ui->edtRightCalcJoint3Angle->text());
+}
+
+void View::on_doubleSpinBox_valueChanged(double arg1)
+{
+    absAngle[0]=arg1;
+}
+
+void View::on_doubleSpinBox_2_valueChanged(double arg1)
+{
+    absAngle[1]=arg1;
+}
+
+void View::on_doubleSpinBox_3_valueChanged(double arg1)
+{
+    absAngle[2]=arg1;
 }
