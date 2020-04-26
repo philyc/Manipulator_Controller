@@ -174,6 +174,12 @@ private slots:
 
     void on_doubleSpinBox_3_valueChanged(double arg1);
 
+    void on_doubleSpinBox_6_valueChanged(double arg1);
+
+    void on_doubleSpinBox_4_valueChanged(double arg1);
+
+    void on_doubleSpinBox_5_valueChanged(double arg1);
+
 private:
     Ui::View *ui;
 

@@ -168,7 +168,7 @@ void OpenGLWidget::paintGL()
     recShader->setMat4("view", view);//设置着色器值
 
 
-    float ceta1=static_cast<float>(absAngle[0])*(static_cast<float>(PI)/180.0f);//右手底电机旋转角度
+//    float ceta1=static_cast<float>(absAngle[0])*(static_cast<float>(PI)/180.0f);//右手底电机旋转角度
     //右手
     //----------底座--
     QMatrix4x4 model1;
@@ -183,8 +183,9 @@ void OpenGLWidget::paintGL()
     QMatrix4x4 model2;
     model2.translate(QVector3D( 1.0f,  0.2f,  0.0f));
     model2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
+
     model2.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
-    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
     recShader->setMat4("model", model2);
     core->glBindVertexArray(VAO[0]);
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -193,8 +194,9 @@ void OpenGLWidget::paintGL()
     QMatrix4x4 model3;
     model3.translate(QVector3D( 1.0f,  0.4f,  0.0f));
     model3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
+
     model3.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
-    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
     recShader->setMat4("model", model3);
     core->glBindVertexArray(VAO[0]);//绑定方形对象
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -221,6 +223,7 @@ void OpenGLWidget::paintGL()
     model5.translate(QVector3D(-0.6f,0,0));
     model5.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
     model5.translate(QVector3D(0.6f,0,0));
+    model5.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
 
 //    model5.translate(1.0+0.6f*cos(ceta1),0.4f,-0.6f*sin(ceta1));
     model5.scale(QVector3D( 0.2f,  0.2f,  0.2f));
@@ -253,6 +256,9 @@ void OpenGLWidget::paintGL()
     model6.translate(QVector3D(-0.6f,0,0));
     model6.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
     model6.translate(QVector3D(0.6f,0,0));
+    model6.translate(QVector3D(0,-0.66f,0));
+    model6.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+    model6.translate(QVector3D(0,0.66f,0));
 
     model6.scale(QVector3D(  0.1f,  1.32f,  0.1f));
 //    model6.rotate(1.0 * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
@@ -268,6 +274,9 @@ void OpenGLWidget::paintGL()
     model7.translate(QVector3D(-0.6f,0,0));
     model7.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
     model7.translate(QVector3D(0.6f,0,0));
+    model7.translate(QVector3D(0,-1.32f,0));
+    model7.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+    model7.translate(QVector3D(0,1.32f,0));
 
     model7.scale(QVector3D( 0.2f,  0.2f,  0.2f));
 //    model7.rotate(1.0 * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
@@ -283,6 +292,11 @@ void OpenGLWidget::paintGL()
     model8.translate(QVector3D(-0.28f,0,0));
     model8.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
     model8.translate(QVector3D(0.28f,0,0));
+    model8.translate(QVector3D(0,-1.32f,0));
+    model8.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+    model8.translate(QVector3D(0,1.32f,0));
+    model8.rotate(1.0f * static_cast<float>(absAngle[2]),QVector3D( 1.0f,  0.0f,  0.0f));
+
 
     model8.scale(QVector3D( 0.64f,  0.1f,  0.1f));
 //    model8.rotate(1.0 * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
@@ -298,10 +312,16 @@ void OpenGLWidget::paintGL()
     model9.translate(QVector3D(-0.01f,0,0));
     model9.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
     model9.translate(QVector3D(0.01f,0,0));
+    model9.translate(QVector3D(0,-1.9f,0));
+    model9.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+    model9.translate(QVector3D(0,1.9f,0));
+    model9.translate(QVector3D(0,-0.58f,0));
+    model9.rotate(1.0f * static_cast<float>(absAngle[2]),QVector3D( 1.0f,  0.0f,  0.0f));
+    model9.translate(QVector3D(0,0.58f,0));
 
     model9.scale(QVector3D( 0.1f,  1.06f,  0.1f));
 //    model9.rotate(1.0 * absAngle[0], QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
-    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+\
     recShader->setMat4("model", model9);
     core->glBindVertexArray(VAO[0]);
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -321,7 +341,9 @@ void OpenGLWidget::paintGL()
     QMatrix4x4 modelL2;
     modelL2.translate(QVector3D( -1.0f,  0.2f,  0.0f));
     modelL2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
-    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
+    modelL2.rotate(-1.0f * static_cast<float>(absAngle[3]), QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
     recShader->setMat4("model", modelL2);
     core->glBindVertexArray(VAO[0]);
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -330,7 +352,9 @@ void OpenGLWidget::paintGL()
     QMatrix4x4 modelL3;
     modelL3.translate(QVector3D( -1.0f,  0.4f,  0.0f));
     modelL3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
-    //    model2.rotate(20.0f,QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
+    modelL3.rotate(-1.0f * static_cast<float>(absAngle[3]), QVector3D( 0.0f,  1.0f,  0.0f));//这里角度改为固定角度
+
     recShader->setMat4("model", modelL3);
     core->glBindVertexArray(VAO[0]);//绑定方形对象
     core->glDrawArrays(GL_TRIANGLES, 0, 36);

@@ -571,3 +571,19 @@ void View::on_doubleSpinBox_3_valueChanged(double arg1)
 {
     absAngle[2]=arg1;
 }
+
+
+void View::on_doubleSpinBox_4_valueChanged(double arg1)
+{
+    absAngle[3]=arg1;
+}
+
+void View::on_doubleSpinBox_5_valueChanged(double arg1)
+{
+    absAngle[4]=arg1;
+}
+
+void View::on_doubleSpinBox_6_valueChanged(double arg1)
+{
+    absAngle[5]=arg1;
+}
