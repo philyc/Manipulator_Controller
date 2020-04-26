@@ -58,6 +58,16 @@ View::View(QWidget *parent)
     ui->doubleSpinBox_3->setRange(-90.0,90.0);
     ui->doubleSpinBox_3->setSingleStep(1);
     ui->doubleSpinBox_3->setValue(absAngle[2]);
+
+    ui->doubleSpinBox_4->setRange(-90.0,90.0);
+    ui->doubleSpinBox_4->setSingleStep(1);
+    ui->doubleSpinBox_4->setValue(absAngle[3]);
+    ui->doubleSpinBox_5->setRange(-90.0,90.0);
+    ui->doubleSpinBox_5->setSingleStep(1);
+    ui->doubleSpinBox_5->setValue(absAngle[4]);
+    ui->doubleSpinBox_6->setRange(-90.0,90.0);
+    ui->doubleSpinBox_6->setSingleStep(1);
+    ui->doubleSpinBox_6->setValue(absAngle[5]);
 }
 
 View::~View()
