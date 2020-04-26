@@ -51,6 +51,9 @@ DEPENDPATH += $$PWD/.
 win32:!win32-g++: PRE_TARGETDEPS += $$PWD/./ControlCAN.lib
 
 DISTFILES += \
+    resource/img/Icon.jpg \
+    resource/shader/linkFragmentShader.frag \
+    resource/shader/linkVertexShader.vert \
     resource/shader/recFragmentShader.frag \
     resource/shader/recVertexShader.vert \
     resource/shader/sphereFragmentShader.frag \
@@ -58,6 +61,7 @@ DISTFILES += \
     resource/texture/al.jpg \
     resource/texture/awesomeface.png \
     resource/texture/container.jpg \
-    resource/texture/lab.png
+    resource/texture/lab.png \
+    resource/texture/red.jpg
 
 

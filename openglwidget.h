@@ -46,9 +46,10 @@ protected:
 
 private:
 
-    Shader *recShader,*sphShader;
+    Shader *recShader,*linkShader;
     QOpenGLTexture *texture1;
     QOpenGLTexture *texture2;
+    QOpenGLTexture *texture3;
     QOpenGLFunctions_3_3_Core *core;
     QTime time;
 

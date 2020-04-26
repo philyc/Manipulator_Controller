@@ -20,6 +20,7 @@ void OpenGLWidget::initializeGL()
     core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_3_3_Core>();
     recShader = new Shader("F:/hust/underwater/Re/Manipulator/resource/shader/recVertexShader.vert", "F:/hust/underwater/Re/Manipulator/resource/shader/recFragmentShader.frag");
 
+    linkShader=new  Shader("F:/hust/underwater/Re/Manipulator/resource/shader/linkVertexShader.vert", "F:/hust/underwater/Re/Manipulator/resource/shader/linkFragmentShader.frag");
     //    VAO，VBO数据部分  正方形
     float vertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -80,11 +81,15 @@ void OpenGLWidget::initializeGL()
     core->glEnableVertexAttribArray(1);
 
     //---------------绑定第二个图形数据
-    //    core->glBindVertexArray(VAO[1]);
-    //    core->glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-    //    core->glBufferData(GL_ARRAY_BUFFER, sizeof(spheres), spheres, GL_STATIC_DRAW);
-    //    core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    //    core->glEnableVertexAttribArray(0);
+    core->glBindVertexArray(VAO[1]);
+    core->glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
+    core->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    core->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), static_cast<void*>(0));
+    core->glEnableVertexAttribArray(0);
+    // texture coord attribute
+    core->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    core->glEnableVertexAttribArray(1);
 
     //---------------绑定图片作为纹理，根据shader内容进行更改
     texture1 = new QOpenGLTexture(QImage("F:/hust/underwater/Re/Manipulator/resource/texture/al.jpg").mirrored(), QOpenGLTexture::GenerateMipMaps); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
@@ -108,10 +113,22 @@ void OpenGLWidget::initializeGL()
     texture2->setMinificationFilter(QOpenGLTexture::Linear);   //等价于glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     texture2->setMagnificationFilter(QOpenGLTexture::Linear);  //     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+    //---------------绑定图片作为纹理，根据shader内容进行更改
+    texture3 = new QOpenGLTexture(QImage("F:/hust/underwater/Re/Manipulator/resource/texture/red.jpg").mirrored(), QOpenGLTexture::GenerateMipMaps); //直接生成绑定一个2d纹理, 并生成多级纹理MipMaps
+    if(!texture3->isCreated()){
+        qDebug() << "Failed to load texture" << endl;
+    }
+    texture3->setWrapMode(QOpenGLTexture::DirectionS, QOpenGLTexture::Repeat);//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    texture3->setWrapMode(QOpenGLTexture::DirectionT, QOpenGLTexture::Repeat);//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    texture3->setMinificationFilter(QOpenGLTexture::Linear);   //等价于glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    texture3->setMagnificationFilter(QOpenGLTexture::Linear);
+
     //---------------设定着色器
     recShader->use();
     recShader->setInt("texture1", 0);
     recShader->setInt("texture2", 1);
+    linkShader->setInt("texture3",2);
 
     //开启计时器，返回毫秒
     time.start();
@@ -122,6 +139,8 @@ void OpenGLWidget::initializeGL()
 
     recShader->use();
     recShader->setMat4("projection", projection);
+    linkShader->use();
+    linkShader->setMat4("projection", projection);
     //开启状态
     core->glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     core->glEnable(GL_DEPTH_TEST);
@@ -160,12 +179,16 @@ void OpenGLWidget::paintGL()
     texture1->bind();
     core->glActiveTexture(GL_TEXTURE1);
     texture2->bind();
+    core->glActiveTexture(GL_TEXTURE2);
+    texture3->bind();
 
     recShader->use();
+    linkShader->use();
 
     QMatrix4x4 view;
     view.lookAt(cameraPos, cameraPos+cameraFront, cameraUp);
     recShader->setMat4("view", view);//设置着色器值
+    linkShader->setMat4("view", view);//设置着色器值
 
 
 //    float ceta1=static_cast<float>(absAngle[0])*(static_cast<float>(PI)/180.0f);//右手底电机旋转角度
@@ -187,7 +210,7 @@ void OpenGLWidget::paintGL()
 
     model2.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//
 
-    recShader->setMat4("model", model2);
+    linkShader->setMat4("model", model2);
     core->glBindVertexArray(VAO[0]);
     core->glDrawArrays(GL_TRIANGLES, 0, 36);
 
