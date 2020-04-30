@@ -5,6 +5,7 @@ int flagRecAndInq=0;//0为初始关闭，1为打开，2为程序关闭——用�
 bool flagAbsOrInc=false;
 bool flagIsOpen=false;//减少线程启动时所进行的判断
 bool flagDBOpen=false;
+bool flag3DState=false;//倒立状态，test
 vector<double> absAngle(10,0);
 vector<double> incAngle(10,0);
 vector<double> current(10,0);

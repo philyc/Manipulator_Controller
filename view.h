@@ -180,6 +180,10 @@ private slots:
 
     void on_doubleSpinBox_5_valueChanged(double arg1);
 
+    void on_btn3DTestState_clicked();
+
+    void on_Btn3DWorkState_clicked();
+
 private:
     Ui::View *ui;
 

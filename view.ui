@@ -1508,10 +1508,10 @@
    <widget class="QCustomPlot" name="wgtMoter2" native="true">
     <property name="geometry">
      <rect>
-      <x>990</x>
-      <y>320</y>
-      <width>221</width>
-      <height>111</height>
+      <x>760</x>
+      <y>440</y>
+      <width>231</width>
+      <height>121</height>
      </rect>
     </property>
    </widget>
@@ -1519,7 +1519,7 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>440</y>
+      <y>570</y>
       <width>231</width>
       <height>121</height>
      </rect>
@@ -1529,19 +1529,19 @@
     <property name="geometry">
      <rect>
       <x>990</x>
-      <y>440</y>
+      <y>320</y>
       <width>221</width>
-      <height>121</height>
+      <height>111</height>
      </rect>
     </property>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter5" native="true">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>570</y>
-      <width>231</width>
-      <height>111</height>
+      <x>990</x>
+      <y>440</y>
+      <width>221</width>
+      <height>121</height>
      </rect>
     </property>
    </widget>
@@ -1714,7 +1714,7 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>440</y>
+      <y>570</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -1795,8 +1795,8 @@
    <widget class="QGroupBox" name="grpMoter5State">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>570</y>
+      <x>1210</x>
+      <y>430</y>
       <width>111</width>
       <height>111</height>
      </rect>
@@ -1877,8 +1877,8 @@
    <widget class="QGroupBox" name="grpMoter2State">
     <property name="geometry">
      <rect>
-      <x>1210</x>
-      <y>320</y>
+      <x>650</x>
+      <y>440</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -1960,7 +1960,7 @@
     <property name="geometry">
      <rect>
       <x>1210</x>
-      <y>440</y>
+      <y>320</y>
       <width>111</width>
       <height>111</height>
      </rect>
@@ -2136,8 +2136,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>120</y>
+      <x>690</x>
+      <y>140</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2146,8 +2146,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>170</y>
+      <x>690</x>
+      <y>190</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2156,8 +2156,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>220</y>
+      <x>690</x>
+      <y>240</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2166,8 +2166,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>120</y>
+      <x>770</x>
+      <y>140</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2176,8 +2176,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>170</y>
+      <x>770</x>
+      <y>190</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2186,11 +2186,37 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>220</y>
+      <x>770</x>
+      <y>240</y>
       <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn3DTestState">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>60</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>test</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Btn3DWorkState">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>60</y>
+      <width>51</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>work</string>
     </property>
    </widget>
   </widget>

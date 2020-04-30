@@ -300,6 +300,18 @@ void Controller::receive()
         }
 
 
+        //正解更新--暂调试使用
+        vector<double> leftAngle;
+        vector<double> rightAngle;
+
+        leftAngle.assign(absAngle.begin(),absAngle.begin()+2);
+        rightAngle.assign(absAngle.begin()+3,absAngle.end());
+
+        pointData leftEnd=ForwardKinematic(leftAngle);
+        pointData rightEnd=ForwardKinematic(rightAngle);
+
+        emit recEndPos(leftEnd,true);//更新末端坐标
+        emit recEndPos(rightEnd,false);
 
         if(NumCanReceive<=0)
         {

@@ -597,3 +597,13 @@ void View::on_doubleSpinBox_6_valueChanged(double arg1)
 {
     absAngle[5]=arg1;
 }
+
+void View::on_btn3DTestState_clicked()
+{
+    flag3DState=false;
+}
+
+void View::on_Btn3DWorkState_clicked()
+{
+    flag3DState=true;
+}

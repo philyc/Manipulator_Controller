@@ -13,6 +13,7 @@ extern int flagRecAndInq;//Rec线程和Inq线程启动与关闭
 extern bool flagAbsOrInc;//绝对式编码器与相对式编码器切换，false为绝对式，true为相对式
 extern bool flagIsOpen;//是否打开CAN
 extern bool flagDBOpen;//数据库创建标志位
+extern bool flag3DState;//三维显示状态
 
 extern vector<double> absAngle;//绝对式编码器值转化为角度
 extern vector<double> incAngle;//相对式编码器值转化为角度
