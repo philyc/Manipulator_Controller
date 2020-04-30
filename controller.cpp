@@ -304,8 +304,8 @@ void Controller::receive()
         vector<double> leftAngle;
         vector<double> rightAngle;
 
-        leftAngle.assign(absAngle.begin(),absAngle.begin()+2);
-        rightAngle.assign(absAngle.begin()+3,absAngle.end());
+        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
 
         pointData leftEnd=ForwardKinematic(leftAngle);
         pointData rightEnd=ForwardKinematic(rightAngle);
