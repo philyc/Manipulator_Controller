@@ -313,6 +313,9 @@ void Controller::receive()
         emit recEndPos(leftEnd,true);//更新末端坐标
         emit recEndPos(rightEnd,false);
 
+        //角度更新--暂调试使用
+        emit recAbsAngle(absAngle);
+
         if(NumCanReceive<=0)
         {
             Sleep(30);
@@ -351,6 +354,7 @@ void Controller::receive()
                 {
                     absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
                     absAngle[recIndex]=static_cast<double>(absNum[recIndex])/65536*180;
+
                     emit recAbsAngle(absAngle);
                 }
                 else
