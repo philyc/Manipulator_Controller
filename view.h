@@ -71,6 +71,7 @@ signals:
 
     void closeDB(QSqlDatabase db);
     void inverseCal(pointData aim,bool isLeft);
+    void setspeed(UINT index,int speed);
 
 signals:
     void keyPressEvent(QKeyEvent *event);
@@ -183,6 +184,18 @@ private slots:
     void on_btn3DTestState_clicked();
 
     void on_Btn3DWorkState_clicked();
+
+    void on_btnMoter1SetSpeed_clicked();
+
+    void on_btnMoter2SetSpeed_clicked();
+
+    void on_btnMoter3SetSpeed_clicked();
+
+    void on_btnMoter4SetSpeed_clicked();
+
+    void on_btnMoter5SetSpeed_clicked();
+
+    void on_btnMoter6SetSpeed_clicked();
 
 private:
     Ui::View *ui;

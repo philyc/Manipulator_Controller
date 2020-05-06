@@ -25,7 +25,7 @@ View::View(QWidget *parent)
     connect(this,&View::moterRun,m_controller,static_cast<void (Controller::*)(bool,UINT,QString)>(&Controller::btnMoterRunClick));
     connect(this,&View::moterStop,m_controller,&Controller::btnMoterStopClick);
     connect(this,&View::inverseCal,m_controller,&Controller::InverseKinematic);
-
+    connect(this,&View::setspeed,m_controller,&Controller::btnSetMoterSpeedClick);
 
     //图表初始化
     connect(this,&View::open,this,&View::initChart);//开始时初始化图表
@@ -68,6 +68,8 @@ View::View(QWidget *parent)
     ui->doubleSpinBox_6->setRange(-90.0,90.0);
     ui->doubleSpinBox_6->setSingleStep(1);
     ui->doubleSpinBox_6->setValue(absAngle[5]);
+    this->setMinimumSize(1328,700);
+    this->setMaximumSize(1328,700);
 }
 
 View::~View()
@@ -606,4 +608,46 @@ void View::on_btn3DTestState_clicked()
 void View::on_Btn3DWorkState_clicked()
 {
     flag3DState=true;
+}
+
+void View::on_btnMoter1SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(1,speed);
+}
+
+void View::on_btnMoter2SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(2,speed);
+}
+
+void View::on_btnMoter3SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(3,speed);
+}
+
+void View::on_btnMoter4SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(4,speed);
+}
+
+void View::on_btnMoter5SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(5,speed);
+}
+
+void View::on_btnMoter6SetSpeed_clicked()
+{
+    QString temp=ui->edtMoter1SetSpeed->text();
+    int speed=temp.toInt();
+    emit setspeed(6,speed);
 }

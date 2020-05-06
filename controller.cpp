@@ -680,3 +680,43 @@ void Controller::btnMoterStopClick(UINT index)
     CanSend();
     Sleep(10);
 }
+
+void Controller::btnSetMoterSpeedClick(UINT index,int speed)
+{
+    if(speed>1000||speed<-1000)//理论速度可达2500pulse/s
+    {
+        qDebug()<<"Speed too fast";
+        return;
+    }
+    switch(index)//运行角度指令
+    {
+    case 1:sendbuf->ID=0x301;
+        break;
+    case 2:sendbuf->ID=0x302;
+        break;
+    case 3:sendbuf->ID=0x303;
+        break;
+    case 4:sendbuf->ID=0x304;
+        break;
+    case 5:sendbuf->ID=0x305;
+        break;
+    case 6:sendbuf->ID=0x306;
+        break;
+    default:break;
+    }
+    sendbuf->Data[0]=0x53;
+    sendbuf->Data[1]=0x50;
+
+    vector<BYTE> speedData(4,0);//发送的速度四位字节，从低位至高位
+
+    speedData[0]= speed     & 0x000000FF;
+    speedData[1]=(speed>>8) & 0x000000FF;
+    speedData[2]=(speed>>16)& 0x000000FF;
+    speedData[3]=(speed>>24)& 0x000000FF;
+    sendbuf->Data[4]=speedData[0];
+    sendbuf->Data[5]=speedData[1];
+    sendbuf->Data[6]=speedData[2];
+    sendbuf->Data[7]=speedData[3];
+    CanSend();
+    Sleep(10);
+}
