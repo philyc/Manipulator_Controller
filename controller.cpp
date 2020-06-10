@@ -248,22 +248,20 @@ void Controller::inquire()
             sendbuf->Data[1]=0x45;
             sendbuf->Data[2]=0x01;
             CanSend();
-            Sleep(10);
+            Sleep(50);//Sleep不得低于50，否则处理不过来
         }
+//        flagAbsOrInc=true;
+//        for(UINT i=1;i<7;++i)
+//        {
+//            sendbuf->ID=0x300+i;
+//            sendbuf->Data[0]=0x50;
+//            sendbuf->Data[1]=0x58;
+//            CanSend();
+//            Sleep(50);
+//        }
 
-        Sleep(10);
-        flagAbsOrInc=true;
-        for(UINT i=1;i<7;++i)
-        {
-            sendbuf->ID=0x300+i;
-            sendbuf->Data[0]=0x50;
-            sendbuf->Data[1]=0x58;
-            CanSend();
-            Sleep(10);
-        }
-
-        Sleep(50);
-        qDebug()<<"Inquire rest";
+//        Sleep(50);
+//        qDebug()<<"Inquire rest";
         //        QString log;
         //        log.sprintf("%p",QThread::currentThread());
         //        qDebug()<<"testinquire"<<++i<<log;
@@ -279,46 +277,46 @@ void Controller::receive()
 {
     //    int i=0;
     QSqlite *m_sqlite2=new QSqlite();
-    VCI_CAN_OBJ pCanObj[200];
+//    VCI_CAN_OBJ pCanObj[200];
     while(flagRecAndInq)
     {
-
         int NumCanReceive;
         QString strRecId,strRecData,str;
+        VCI_CAN_OBJ pCanObj[200];
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
 
-        //数据库插入--暂调试使用
-        if(flagDBOpen==false){
-            m_sqlite2->initDB();
+//        //数据库插入--暂调试使用
+//        if(flagDBOpen==false){
+//            m_sqlite2->initDB();
 
-            flagDBOpen=true;
-        }
-        else
-        {
-            QSqlite::robotData s;
-            m_sqlite2->ExecAddSql(s);
-        }
+//            flagDBOpen=true;
+//        }
+//        else
+//        {
+//            QSqlite::robotData s;
+//            m_sqlite2->ExecAddSql(s);
+//        }
 
 
-        //正解更新--暂调试使用
-        vector<double> leftAngle;
-        vector<double> rightAngle;
+//        //正解更新--暂调试使用
+//        vector<double> leftAngle;
+//        vector<double> rightAngle;
 
-        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
-        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
+//        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+//        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
 
-        pointData leftEnd=ForwardKinematic(leftAngle);
-        pointData rightEnd=ForwardKinematic(rightAngle);
+//        pointData leftEnd=ForwardKinematic(leftAngle);
+//        pointData rightEnd=ForwardKinematic(rightAngle);
 
-        emit recEndPos(leftEnd,true);//更新末端坐标
-        emit recEndPos(rightEnd,false);
+//        emit recEndPos(leftEnd,true);//更新末端坐标
+//        emit recEndPos(rightEnd,false);
 
-        //角度更新--暂调试使用
-        emit recAbsAngle(absAngle);
+//        //角度更新--暂调试使用
+//        emit recAbsAngle(absAngle);
 
         if(NumCanReceive<=0)
         {
-            Sleep(30);
+//            Sleep(30);
             //            qDebug()<<"receive error";
             //            QString log;
             //            log.sprintf("%p",QThread::currentThread());
@@ -344,58 +342,59 @@ void Controller::receive()
                         strRecData=strRecData.toUpper();
                     }
                 }
+                strRecData+='\n';
                 strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
                 emit rec(strRecId,strRecData);
 
 
 
-                recIndex=ReceiveId-0x281;
-                if(false==flagAbsOrInc)
+                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])
                 {
-                    absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                    absAngle[recIndex]=static_cast<double>(absNum[recIndex])/65536*180;
+                    recIndex=ReceiveId-0x281;
+                    if(false==flagAbsOrInc)
+                    {
+                        absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                        absAngle[recIndex]=(static_cast<double>(absNum[recIndex])/65536)*180;
+                        emit recAbsAngle(absAngle);
+                    }
+                    else
+                    {
+                        incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                        //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
+                        //emit recIncNum(incNum);  增量式角度暂不启用
+                    }
 
-                    emit recAbsAngle(absAngle);
+                    vector<double> leftAngle;
+                    vector<double> rightAngle;
+
+                    for(size_t i=0;i<3;++i)
+                    {
+                        leftAngle.push_back(absNum[i]);
+                        rightAngle.push_back(absNum[i+3]);
+
+                    }
+
+                    pointData leftEnd=ForwardKinematic(leftAngle);
+                    pointData rightEnd=ForwardKinematic(rightAngle);
+
+                    emit recEndPos(leftEnd,true);//更新末端坐标
+                    emit recEndPos(rightEnd,false);
+                }
+                //数据库插入
+                if(flagDBOpen==false){
+                    m_sqlite2->initDB();
+
+                    flagDBOpen=true;
                 }
                 else
                 {
-                    incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                    //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
-                    //emit recIncNum(incNum);  增量式角度暂不启用
+                    QSqlite::robotData s;
+                    m_sqlite2->ExecAddSql(s);
                 }
 
-                vector<double> leftAngle;
-                vector<double> rightAngle;
 
-                for(size_t i=0;i<3;++i)
-                {
-                    leftAngle[i]=absNum[i];
-                    rightAngle[i]=absNum[i+3];
-                }
-
-                pointData leftEnd=ForwardKinematic(leftAngle);
-                pointData rightEnd=ForwardKinematic(rightAngle);
-
-                emit recEndPos(leftEnd,true);//更新末端坐标
-                emit recEndPos(rightEnd,false);
-
-
-
-//                //数据库插入
-//                if(flagDBOpen==false){
-//                    m_sqlite2->initDB2();
-
-//                    flagDBOpen=true;
-//                }
-//                else
-//                {
-//                    QSqlite::robotData s;
-//                    m_sqlite2->ExecAddSql2(s);
-//                }
             }
         }
-
-        Sleep(30);
         if(flagRecAndInq==2)
         {
             delete m_sqlite2;

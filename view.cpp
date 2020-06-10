@@ -95,16 +95,16 @@ void View::initChart()
         //    ui->wgtMoter1->yAxis->setLabel("Angle/°");
         refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
         sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
-        for(UINT i=0;i<6;++i)
-        {
-            lastPoint[i].setX(timecount);
-            lastPoint[i].setY(absAngle[i]);
-        }
+//        for(UINT i=0;i<6;++i)
+//        {
+//            lastPoint[i].setX(timecount);
+//            lastPoint[i].setY(absAngle[i]);
+//        }
 
         ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
         ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
         ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
-                                       | QCP::iSelectPlottables//使所有图例可见
+//                                       | QCP::iSelectPlottables//使所有图例可见
                                        | QCP::iRangeZoom); //可滚轮缩放
         //                              | QCP::iSelectLegend );//可选中图例
         ui->wgtMoter1->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
@@ -115,7 +115,7 @@ void View::initChart()
         ui->wgtMoter2->xAxis->setTickLabels(true);//显示刻度标签
         ui->wgtMoter2->addGraph(ui->wgtMoter2->xAxis, ui->wgtMoter2->yAxis);
         ui->wgtMoter2->setInteractions(QCP::iRangeDrag //可平移
-                                       | QCP::iSelectPlottables//使所有图例可见
+//                                       | QCP::iSelectPlottables//使所有图例可见
                                        | QCP::iRangeZoom); //可滚轮缩放
         //                              | QCP::iSelectLegend );//可选中图例
         ui->wgtMoter2->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
@@ -196,14 +196,17 @@ void View::timerEvent(QTimerEvent *event)
             //            qDebug() << newPoint[i].x() <<  newPoint[i].y();
         }
 
-        /*在新的点和上一个采样点之间，线性插值100个点*/
-        //        int n = 100;
-        //        double dx = (newPoint.x() - lastPoint.x()) / 100.0;//线性插值
-        //        double dy = (newPoint.y() - lastPoint.y()) / 100.0;//线性插值
-        //        for(int i = 1; i <= n; i++)
-        //        {
-        //            ui->wgtMoter1->graph(0)->addData(lastPoint.x() + dx * i, lastPoint.y() + dy * i);
-        //        }
+//        /*在新的点和上一个采样点之间，线性插值100个点*/
+//        for (UINT i=0;i<6;++i) {
+//            int n = 100;
+//            double dx = (newPoint[i].x() - lastPoint[i].x()) / 100.0;//线性插值
+//            double dy = (newPoint[i].y() - lastPoint[i].y()) / 100.0;//线性插值
+//            for(int j = 1; j <= n; j++)
+//            {
+//                ui->wgtMoter1->graph(0)->addData(lastPoint[i].x() + dx * j, lastPoint[i].y() + dy * j);
+//            }
+//        }
+
         ui->wgtMoter1->graph(0)->addData(lastPoint[0].x(),lastPoint[0].y());
         ui->wgtMoter2->graph(0)->addData(lastPoint[1].x(),lastPoint[1].y());
         ui->wgtMoter3->graph(0)->addData(lastPoint[2].x(),lastPoint[2].y());
@@ -263,6 +266,20 @@ void View::on_btnClose_clicked()
     flagDBOpen=false;
 }
 
+void View::closeEvent(QCloseEvent *event)
+{
+    auto temp = QMessageBox::information(this, "close", QString::fromLocal8Bit("Close Program?"), QMessageBox::Yes | QMessageBox::No);
+    if(QMessageBox::Yes==temp)
+    {
+    emit close();
+    emit closeDB(m_sqlite->db);
+    flagRecAndInq=2;
+    flagDBOpen=false;
+    event->accept();
+    }
+    else event->ignore();
+}
+
 void View::on_btnSend_clicked()
 {
     QString qstr_id=ui->edtId->text();
@@ -284,12 +301,12 @@ void View::updateTest(QString receiveId,QString receiveData)
 
 void View::updateAbsAngle(vector<double> absAngle)
 {
-    ui->edtMoter1AbsAngle->setText(QString::number(absAngle[0],10,3));
-    ui->edtMoter2AbsAngle->setText(QString::number(absAngle[1],10,3));
-    ui->edtMoter3AbsAngle->setText(QString::number(absAngle[2],10,3));
-    ui->edtMoter4AbsAngle->setText(QString::number(absAngle[3],10,3));
-    ui->edtMoter5AbsAngle->setText(QString::number(absAngle[4],10,3));
-    ui->edtMoter6AbsAngle->setText(QString::number(absAngle[5],10,3));
+    ui->edtMoter1AbsAngle->setText(QString::number(absAngle[0],10,2));
+    ui->edtMoter2AbsAngle->setText(QString::number(absAngle[1],10,2));
+    ui->edtMoter3AbsAngle->setText(QString::number(absAngle[2],10,2));
+    ui->edtMoter4AbsAngle->setText(QString::number(absAngle[3],10,2));
+    ui->edtMoter5AbsAngle->setText(QString::number(absAngle[4],10,2));
+    ui->edtMoter6AbsAngle->setText(QString::number(absAngle[5],10,2));
 }
 
 void View::updateIncNum(vector<long> incNum)
@@ -650,4 +667,9 @@ void View::on_btnMoter6SetSpeed_clicked()
     QString temp=ui->edtMoter1SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(6,speed);
+}
+
+void View::on_edtRecieveData_textChanged()
+{
+    ui->edtRecieveData->moveCursor(QTextCursor::End);
 }

@@ -59,6 +59,7 @@ public:
     void getNow();//更新timecount,现为每30ms更新一次
     void timerEvent(QTimerEvent *event);//绘图主函数
 
+    void closeEvent(QCloseEvent*event);
 
 signals:
 
@@ -196,6 +197,8 @@ private slots:
     void on_btnMoter5SetSpeed_clicked();
 
     void on_btnMoter6SetSpeed_clicked();
+
+    void on_edtRecieveData_textChanged();
 
 private:
     Ui::View *ui;

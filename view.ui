@@ -1468,7 +1468,7 @@
      <rect>
       <x>290</x>
       <y>10</y>
-      <width>211</width>
+      <width>261</width>
       <height>171</height>
      </rect>
     </property>
@@ -1478,7 +1478,7 @@
     <widget class="QLineEdit" name="edtRecieveId">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>20</y>
        <width>113</width>
        <height>20</height>
@@ -1488,11 +1488,14 @@
     <widget class="QTextEdit" name="edtRecieveData">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>50</y>
-       <width>181</width>
+       <width>221</width>
        <height>101</height>
       </rect>
+     </property>
+     <property name="overwriteMode">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -1559,10 +1562,10 @@
    <widget class="QGroupBox" name="grpEndPos">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>10</y>
+      <x>670</x>
+      <y>30</y>
       <width>161</width>
-      <height>171</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="title">
@@ -1571,8 +1574,8 @@
     <widget class="QLineEdit" name="edtLeftEndPosZ">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>100</y>
+       <x>20</x>
+       <y>80</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -1582,7 +1585,7 @@
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>60</y>
+       <y>50</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -1601,8 +1604,8 @@
     <widget class="QLineEdit" name="edtLeftEndPosY">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>60</y>
+       <x>20</x>
+       <y>50</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -1612,7 +1615,7 @@
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>100</y>
+       <y>80</y>
        <width>51</width>
        <height>20</height>
       </rect>
@@ -1621,7 +1624,7 @@
     <widget class="QLineEdit" name="edtLeftEndPosX">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>20</y>
        <width>51</width>
        <height>20</height>
@@ -1644,9 +1647,9 @@
     <widget class="QLineEdit" name="edtMoter1AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1680,9 +1683,9 @@
     <widget class="QLineEdit" name="edtMoter1AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1690,9 +1693,9 @@
     <widget class="QLineEdit" name="edtMoter1Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1765,9 +1768,9 @@
     <widget class="QLineEdit" name="edtMoter3AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1775,9 +1778,9 @@
     <widget class="QLineEdit" name="edtMoter3AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1785,9 +1788,9 @@
     <widget class="QLineEdit" name="edtMoter3Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1847,9 +1850,9 @@
     <widget class="QLineEdit" name="edtMoter5AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1857,9 +1860,9 @@
     <widget class="QLineEdit" name="edtMoter5AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1867,9 +1870,9 @@
     <widget class="QLineEdit" name="edtMoter5Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1929,9 +1932,9 @@
     <widget class="QLineEdit" name="edtMoter2AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1939,9 +1942,9 @@
     <widget class="QLineEdit" name="edtMoter2AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -1949,9 +1952,9 @@
     <widget class="QLineEdit" name="edtMoter2Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2011,9 +2014,9 @@
     <widget class="QLineEdit" name="edtMoter4AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2021,9 +2024,9 @@
     <widget class="QLineEdit" name="edtMoter4AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2031,9 +2034,9 @@
     <widget class="QLineEdit" name="edtMoter4Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2093,9 +2096,9 @@
     <widget class="QLineEdit" name="edtMoter6AbsAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>20</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2103,9 +2106,9 @@
     <widget class="QLineEdit" name="edtMoter6AddAngle">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>50</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2113,9 +2116,9 @@
     <widget class="QLineEdit" name="edtMoter6Current">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>50</x>
        <y>80</y>
-       <width>41</width>
+       <width>51</width>
        <height>20</height>
       </rect>
      </property>
@@ -2138,7 +2141,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>140</y>
+      <y>200</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2148,7 +2151,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>190</y>
+      <y>240</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2158,7 +2161,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>240</y>
+      <y>280</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2167,8 +2170,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>140</y>
+      <x>780</x>
+      <y>200</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2177,8 +2180,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>190</y>
+      <x>780</x>
+      <y>240</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2187,8 +2190,8 @@
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>240</y>
+      <x>780</x>
+      <y>280</y>
       <width>51</width>
       <height>22</height>
      </rect>
@@ -2198,7 +2201,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>60</y>
+      <y>160</y>
       <width>51</width>
       <height>23</height>
      </rect>
@@ -2210,8 +2213,8 @@
    <widget class="QPushButton" name="Btn3DWorkState">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>60</y>
+      <x>780</x>
+      <y>160</y>
       <width>51</width>
       <height>23</height>
      </rect>
@@ -2253,7 +2256,7 @@
      <x>0</x>
      <y>0</y>
      <width>1328</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
