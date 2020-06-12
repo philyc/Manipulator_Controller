@@ -277,6 +277,7 @@ void Controller::receive()
 {
     //    int i=0;
     QSqlite *m_sqlite2=new QSqlite();
+    int count=0;//收到角度反馈消息计数
 //    VCI_CAN_OBJ pCanObj[200];
     while(flagRecAndInq)
     {
@@ -350,7 +351,9 @@ void Controller::receive()
 
                 if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])
                 {
+
                     recIndex=ReceiveId-0x281;
+                    count++;
                     if(false==flagAbsOrInc)
                     {
                         absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
@@ -362,6 +365,11 @@ void Controller::receive()
                         incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
                         //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                         //emit recIncNum(incNum);  增量式角度暂不启用
+                    }
+                    if(count>6)//已完成一轮角度查询
+                    {
+                        flagDataRigth=true;
+                        emit initChart();
                     }
 
                     vector<double> leftAngle;

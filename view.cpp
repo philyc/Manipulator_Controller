@@ -29,6 +29,7 @@ View::View(QWidget *parent)
 
     //图表初始化
     connect(this,&View::open,this,&View::initChart);//开始时初始化图表
+    connect(m_receiver,&Controller::initChart,this,&View::initChart);//在接收到一组角度信息之后再初始化图表
 
     //数据库相关
     connect(this,&View::closeDB,m_sqlite,&QSqlite::closeDB);
@@ -84,7 +85,7 @@ View::~View()
 void View::initChart()
 {
     //绘图使用
-    if(flagIsOpen){
+    if(flagDataRigth){
         QTimer *timer=new QTimer(this);
         timer->start(30);
         connect(timer,&QTimer::timeout,this,&View::getNow);

@@ -6,6 +6,7 @@ bool flagAbsOrInc=false;
 bool flagIsOpen=false;//减少线程启动时所进行的判断
 bool flagDBOpen=false;
 bool flag3DState=false;//倒立状态，test
+bool flagDataRigth=false;//正常接收数据，使图表初始化时不产生突变
 vector<double> absAngle(10,0);
 vector<double> incAngle(10,0);
 vector<double> current(10,0);

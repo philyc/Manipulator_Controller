@@ -66,6 +66,8 @@ signals:
 
     void recInverseCal(vector<double> calAngel,bool isLeft);
 
+    void initChart();
+
 
 public slots:
     void btnOpenClick();
