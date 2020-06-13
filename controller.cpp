@@ -190,26 +190,30 @@ void Controller::btnSendClick(QString Id,QString Data)
 
 void Controller::CanSend()
 {
-    EnterCriticalSection(&send_syn);
-    int NumCanSend=static_cast<int>(VCI_Transmit(devtype,devindex,static_cast<DWORD>(0),sendbuf,1));
-    if(NumCanSend<1){
-        switch (NumCanSend) {
-        case -1:qDebug()<<"Device isn't open";
-            LeaveCriticalSection(&send_syn);return;
-            //        case 0:qDebug()<<"send error";return;
-        default:
-            LeaveCriticalSection(&send_syn);return;
+    if(flagRecAndInq==1)
+    {
+        EnterCriticalSection(&send_syn);
+        int NumCanSend=static_cast<int>(VCI_Transmit(devtype,devindex,static_cast<DWORD>(0),sendbuf,1));
+        if(NumCanSend<1){
+            switch (NumCanSend) {
+            case -1:qDebug()<<"Device isn't open";
+                LeaveCriticalSection(&send_syn);return;
+                //        case 0:qDebug()<<"send error";return;
+            default:
+                LeaveCriticalSection(&send_syn);return;
+            }
         }
+        //    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
+        //重新初始化sendbuf
+        sendbuf->ExternFlag=StandardFrame;//CAN帧初始化，ID为标准帧
+        sendbuf->DataLen=static_cast<BYTE>(CanDataLength);//数据长度为8位
+        sendbuf->RemoteFlag=DataFrame;//DATA为数据帧
+        for(int i=0;i<8;++i){
+            sendbuf->Data[i]=0x00;//DATA数据默认为0x00
+        }
+        LeaveCriticalSection(&send_syn);
     }
-//    qDebug()<<"Cansend success"<<sendbuf->ID<<" "<<sendbuf->Data[0];
-    //重新初始化sendbuf
-    sendbuf->ExternFlag=StandardFrame;//CAN帧初始化，ID为标准帧
-    sendbuf->DataLen=static_cast<BYTE>(CanDataLength);//数据长度为8位
-    sendbuf->RemoteFlag=DataFrame;//DATA为数据帧
-    for(int i=0;i<8;++i){
-        sendbuf->Data[i]=0x00;//DATA数据默认为0x00
-    }
-    LeaveCriticalSection(&send_syn);
+    else return;
 }
 
 void Controller::btnEnableClick()
@@ -278,12 +282,17 @@ void Controller::receive()
     //    int i=0;
     QSqlite *m_sqlite2=new QSqlite();
     int count=0;//收到角度反馈消息计数
-//    VCI_CAN_OBJ pCanObj[200];
+    VCI_CAN_OBJ pCanObj[200];
     while(flagRecAndInq)
     {
+        if(flagRecAndInq==2)
+        {
+            delete m_sqlite2;
+            return;
+        }
         int NumCanReceive;
         QString strRecId,strRecData,str;
-        VCI_CAN_OBJ pCanObj[200];
+//        VCI_CAN_OBJ pCanObj[200];
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
 
 //        //数据库插入--暂调试使用
@@ -366,7 +375,7 @@ void Controller::receive()
                         //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
                         //emit recIncNum(incNum);  增量式角度暂不启用
                     }
-                    if(count>6)//已完成一轮角度查询
+                    if(count>6&&false==flagDataRigth)//已完成一轮角度查询
                     {
                         flagDataRigth=true;
                         emit initChart();
@@ -389,7 +398,7 @@ void Controller::receive()
                     emit recEndPos(rightEnd,false);
                 }
                 //数据库插入
-                if(flagDBOpen==false){
+                if(flagDBOpen==false&&flagRecAndInq==1){
                     m_sqlite2->initDB();
 
                     flagDBOpen=true;
@@ -403,11 +412,7 @@ void Controller::receive()
 
             }
         }
-        if(flagRecAndInq==2)
-        {
-            delete m_sqlite2;
-            return;
-        }
+
     }
 }
 

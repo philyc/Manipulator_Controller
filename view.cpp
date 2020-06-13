@@ -28,7 +28,7 @@ View::View(QWidget *parent)
     connect(this,&View::setspeed,m_controller,&Controller::btnSetMoterSpeedClick);
 
     //图表初始化
-    connect(this,&View::open,this,&View::initChart);//开始时初始化图表
+//    connect(this,&View::open,this,&View::initChart);//开始时初始化图表
     connect(m_receiver,&Controller::initChart,this,&View::initChart);//在接收到一组角度信息之后再初始化图表
 
     //数据库相关
@@ -96,16 +96,16 @@ void View::initChart()
         //    ui->wgtMoter1->yAxis->setLabel("Angle/°");
         refreshTimer = startTimer(30, Qt::CoarseTimer);//刷新计数器
         sampleTimer = startTimer(30, Qt::CoarseTimer);//采样计数器
-//        for(UINT i=0;i<6;++i)
-//        {
-//            lastPoint[i].setX(timecount);
-//            lastPoint[i].setY(absAngle[i]);
-//        }
+        for(UINT i=0;i<6;++i)
+        {
+            lastPoint[i].setX(timecount);
+            lastPoint[i].setY(absAngle[i]);
+        }
 
         ui->wgtMoter1->xAxis->setTickLabels(true);//显示刻度标签
         ui->wgtMoter1->addGraph(ui->wgtMoter1->xAxis, ui->wgtMoter1->yAxis);
         ui->wgtMoter1->setInteractions(QCP::iRangeDrag //可平移
-//                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iSelectPlottables//使所有图例可见
                                        | QCP::iRangeZoom); //可滚轮缩放
         //                              | QCP::iSelectLegend );//可选中图例
         ui->wgtMoter1->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
@@ -116,7 +116,7 @@ void View::initChart()
         ui->wgtMoter2->xAxis->setTickLabels(true);//显示刻度标签
         ui->wgtMoter2->addGraph(ui->wgtMoter2->xAxis, ui->wgtMoter2->yAxis);
         ui->wgtMoter2->setInteractions(QCP::iRangeDrag //可平移
-//                                       | QCP::iSelectPlottables//使所有图例可见
+                                       | QCP::iSelectPlottables//使所有图例可见
                                        | QCP::iRangeZoom); //可滚轮缩放
         //                              | QCP::iSelectLegend );//可选中图例
         ui->wgtMoter2->yAxis->setRange(-30, 30);//设置y轴范围为-30至30
