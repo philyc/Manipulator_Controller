@@ -308,21 +308,21 @@ void Controller::receive()
 //        }
 
 
-//        //正解更新--暂调试使用
-//        vector<double> leftAngle;
-//        vector<double> rightAngle;
+        //正解更新--暂调试使用
+        vector<double> leftAngle;
+        vector<double> rightAngle;
 
-//        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
-//        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
+        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
 
-//        pointData leftEnd=ForwardKinematic(leftAngle);
-//        pointData rightEnd=ForwardKinematic(rightAngle);
+        pointData leftEnd=ForwardKinematic(leftAngle);
+        pointData rightEnd=ForwardKinematic(rightAngle);
 
-//        emit recEndPos(leftEnd,true);//更新末端坐标
-//        emit recEndPos(rightEnd,false);
+        emit recEndPos(leftEnd,true);//更新末端坐标
+        emit recEndPos(rightEnd,false);
 
-//        //角度更新--暂调试使用
-//        emit recAbsAngle(absAngle);
+        //角度更新--暂调试使用
+        emit recAbsAngle(absAngle);
 
         if(NumCanReceive<=0)
         {
@@ -558,10 +558,10 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
-//#define Link1Length 120
-//#define Link2Length 264
-//#define Link3WLength 127
-//#define Link3HLength 213
+//#define Link1Length 120 论文中d2
+//#define Link2Length 264  论文中a2
+//#define Link3WLength 127  论文中a3
+//#define Link3HLength 213   论文中d4
 
 pointData Controller::ForwardKinematic(vector<double> angleData)
 {
@@ -572,18 +572,20 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     angleTheta[i]=angleData[i]*PI/180.0;
     }
     out.cal_x=Link3WLength*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -Link2Length*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            -Link3HLength*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
             +Link2Length*cos(angleTheta[0])*cos(angleTheta[1])
             +Link1Length*sin(angleTheta[0]);
     out.cal_y=Link3WLength*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -Link2Length*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+            -Link3HLength*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
             +Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
             -Link1Length*cos(angleTheta[0]);
     out.cal_z=Link3WLength*sin(angleTheta[1]+angleTheta[2])
-            +Link2Length*cos(angleTheta[1]+angleTheta[2])
+            +Link3HLength*cos(angleTheta[1]+angleTheta[2])
             +Link2Length*sin(angleTheta[1]);
     return out;
 }
+
+
 
 void Controller::InverseKinematic(pointData point,bool isLeft)
 {
@@ -599,6 +601,10 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 
     vector<vector<double>> out;
     //反解计算有一定问题
+    //#define Link1Length 120 论文中d2
+    //#define Link2Length 264  论文中a2
+    //#define Link3WLength 127  论文中a3
+    //#define Link3HLength 213   论文中d4
 
     double ceta1_1=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);
     double ceta1_2=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);

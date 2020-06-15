@@ -324,15 +324,15 @@ void View::updateEndPos(pointData point,bool isLeft)
 {
     if(isLeft)
     {
-        ui->edtLeftEndPosX->setText(QString::number(point.cal_x,10,3));
-        ui->edtLeftEndPosY->setText(QString::number(point.cal_y,10,3));
-        ui->edtLeftEndPosZ->setText(QString::number(point.cal_z,10,3));
+        ui->edtLeftEndPosX->setText(QString::number(point.cal_x,10,1));
+        ui->edtLeftEndPosY->setText(QString::number(point.cal_y,10,1));
+        ui->edtLeftEndPosZ->setText(QString::number(point.cal_z,10,1));
     }
     else
     {
-        ui->edtRightEndPosX->setText(QString::number(point.cal_x,10,3));
-        ui->edtRightEndPosY->setText(QString::number(point.cal_y,10,3));
-        ui->edtRightEndPosZ->setText(QString::number(point.cal_z,10,3));
+        ui->edtRightEndPosX->setText(QString::number(point.cal_x,10,1));
+        ui->edtRightEndPosY->setText(QString::number(point.cal_y,10,1));
+        ui->edtRightEndPosZ->setText(QString::number(point.cal_z,10,1));
     }
 }
 
