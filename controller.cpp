@@ -558,10 +558,10 @@ void Controller::MoterRunRev(UINT index,QString strangle)
     Sleep(10);
 }
 
-//#define Link1Length 120 论文中d2
-//#define Link2Length 264  论文中a2
-//#define Link3WLength 127  论文中a3
-//#define Link3HLength 213   论文中d4
+//#define Link1Length 120.0 论文中d2
+//#define Link2Length 264.0  论文中a2
+//#define Link3WLength 127.0  论文中a3
+//#define Link3HLength 213.0   论文中d4
 
 pointData Controller::ForwardKinematic(vector<double> angleData)
 {
@@ -601,34 +601,68 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 
     vector<vector<double>> out;
     //反解计算有一定问题
-    //#define Link1Length 120 论文中d2
-    //#define Link2Length 264  论文中a2
-    //#define Link3WLength 127  论文中a3
-    //#define Link3HLength 213   论文中d4
+    //#define Link1Length 120.0 论文中d2
+    //#define Link2Length 264.0  论文中a2
+    //#define Link3WLength 127.0  论文中a3
+    //#define Link3HLength 213.0   论文中d4
 
-    double ceta1_1=atan2(sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);
-    double ceta1_2=atan2(-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length),Link1Length)-atan2(point.pos_x,point.pos_y);
+//    θ = ATan(y / x)求出的θ取值范围是[-PI/2, PI/2]
+//    θ = ATan2(y, x)求出的θ取值范围是[-PI, PI]
+
+    double theta1_1=atan((sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
+                   -atan(point.pos_x/point.pos_y);
+
+    double theta1_2=atan((-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
+                   -atan(point.pos_x/point.pos_y);
 
     double k=(pow(point.pos_x,2)+pow(point.pos_y,2)+pow(point.pos_z,2)-145594.0)/528.0;
-    double ceta3_1=atan2(Link3WLength,Link2Length)-atan2(k,sqrt(61498-pow(k,2)));
-    double ceta3_2=atan2(Link3WLength,Link2Length)-atan2(k,-sqrt(61498-pow(k,2)));
 
-    double ceta2_1=atan2((Link2Length*sin(ceta3_1)-Link2Length)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_1)),
-                         (Link3WLength+Link2Length*cos(ceta3_1))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(Link2Length*sin(ceta3_1)-Link2Length))-ceta3_1;//ceta1_1 +ceta3_1
+    double theta3_1=atan(Link3WLength/Link3HLength)
+                   -atan(k/sqrt(61498-pow(k,2)));
 
-    double ceta2_2=atan2((Link2Length*sin(ceta3_2)-Link2Length)*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_2)),
-                         (Link3WLength+Link2Length*cos(ceta3_2))*(point.pos_x*cos(ceta1_1)+point.pos_y*sin(ceta1_1))-point.pos_z*(Link2Length*sin(ceta3_2)-Link2Length))-ceta3_2;//ceta1_1 +ceta3_2
+    double theta3_2=atan(Link3WLength/Link3HLength)
+                   -atan(k/-sqrt(61498-pow(k,2)));
 
-    double ceta2_3=atan2((Link2Length*sin(ceta3_1)-Link2Length)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_1)),
-                         (Link3WLength+Link2Length*cos(ceta3_1))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(Link2Length*sin(ceta3_1)-Link2Length))-ceta3_1;//ceta1_2 +ceta3_1
+    double theta2_1=atan2(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_1)
+                            +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1))),
+                        ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                            -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
+                        -theta3_1;//theta1_1 +theta3_1   test ok
 
-    double ceta2_4=atan2((Link2Length*sin(ceta3_2)-Link2Length)*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(ceta3_2)),
-                         (Link3WLength+Link2Length*cos(ceta3_2))*(point.pos_x*cos(ceta1_2)+point.pos_y*sin(ceta1_2))-point.pos_z*(Link2Length*sin(ceta3_2)-Link2Length))-ceta3_2;//ceta1_2 +ceta3_2
 
-    out.push_back({ceta1_1,ceta2_1,ceta3_1});
-    out.push_back({ceta1_1,ceta2_2,ceta3_2});
-    out.push_back({ceta1_2,ceta2_3,ceta3_1});
-    out.push_back({ceta1_2,ceta2_4,ceta3_2});
+    double theta2_2=atan(((Link2Length*sin(theta3_2)-Link3HLength)*(point.pos_x*cos(theta1_1)
+                            +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
+                        ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                            -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
+                        -theta3_2;//theta1_1 +theta3_2
+
+    double theta2_3=atan(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_2)
+                            +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1)))/
+                       ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                            -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
+                       -theta3_1;//theta1_2 +theta3_1  test ok
+
+    double theta2_4=atan(((Link2Length*sin(theta3_2)-Link3HLength)*(point.pos_x*cos(theta1_2)
+                            +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
+                       ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                            -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
+                       -theta3_2;//theta1_2 +theta3_2
+
+    double angle1_1=theta1_1*180.0/PI;
+    double angle1_2=theta1_2*180.0/PI;
+
+    double angle3_1=theta3_1*180.0/PI;
+    double angle3_2=theta3_2*180.0/PI;
+
+    double angle2_1=theta2_1*180.0/PI;
+    double angle2_2=theta2_2*180.0/PI;
+    double angle2_3=theta2_3*180.0/PI;
+    double angle2_4=theta2_4*180.0/PI;
+
+    out.push_back({angle1_1,angle2_1,angle3_1});
+    out.push_back({angle1_1,angle2_2,angle3_2});
+    out.push_back({angle1_2,angle2_3,angle3_1});
+    out.push_back({angle1_2,angle2_4,angle3_2});
 
     double min=DBL_MAX;
     double result;
