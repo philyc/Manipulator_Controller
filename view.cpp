@@ -637,35 +637,35 @@ void View::on_btnMoter1SetSpeed_clicked()
 
 void View::on_btnMoter2SetSpeed_clicked()
 {
-    QString temp=ui->edtMoter1SetSpeed->text();
+    QString temp=ui->edtMoter2SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(2,speed);
 }
 
 void View::on_btnMoter3SetSpeed_clicked()
 {
-    QString temp=ui->edtMoter1SetSpeed->text();
+    QString temp=ui->edtMoter3SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(3,speed);
 }
 
 void View::on_btnMoter4SetSpeed_clicked()
 {
-    QString temp=ui->edtMoter1SetSpeed->text();
+    QString temp=ui->edtMoter4SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(4,speed);
 }
 
 void View::on_btnMoter5SetSpeed_clicked()
 {
-    QString temp=ui->edtMoter1SetSpeed->text();
+    QString temp=ui->edtMoter5SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(5,speed);
 }
 
 void View::on_btnMoter6SetSpeed_clicked()
 {
-    QString temp=ui->edtMoter1SetSpeed->text();
+    QString temp=ui->edtMoter6SetSpeed->text();
     int speed=temp.toInt();
     emit setspeed(6,speed);
 }

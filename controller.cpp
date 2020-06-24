@@ -218,26 +218,35 @@ void Controller::CanSend()
 
 void Controller::btnEnableClick()
 {
-    sendbuf->ID=0x00000302;
-    sendbuf->Data[0]=0x4D;
-    sendbuf->Data[1]=0x4F;
-    sendbuf->Data[4]=0x01;
-    CanSend();
-    Sleep(50);
+    for(size_t index=1;index<7;index++)
+    {
+        sendbuf->ID=0x0000300+index;
+        sendbuf->Data[0]=0x4D;
+        sendbuf->Data[1]=0x4F;
+        sendbuf->Data[4]=0x01;
+        CanSend();
+        Sleep(50);
+    }
+//    sendbuf->ID=0x00000301;
+//    sendbuf->Data[0]=0x4D;
+//    sendbuf->Data[1]=0x4F;
+//    sendbuf->Data[4]=0x01;
+//    CanSend();
+//    Sleep(50);
 
-    sendbuf->ID=0x00000303;
-    sendbuf->Data[0]=0x4D;
-    sendbuf->Data[1]=0x4F;
-    sendbuf->Data[4]=0x01;
-    CanSend();
-    Sleep(50);
+//    sendbuf->ID=0x00000302;
+//    sendbuf->Data[0]=0x4D;
+//    sendbuf->Data[1]=0x4F;
+//    sendbuf->Data[4]=0x01;
+//    CanSend();
+//    Sleep(50);
 
-    sendbuf->ID=0x00000304;
-    sendbuf->Data[0]=0x4D;
-    sendbuf->Data[1]=0x4F;
-    sendbuf->Data[4]=0x01;
-    CanSend();
-    Sleep(50);
+//    sendbuf->ID=0x00000303;
+//    sendbuf->Data[0]=0x4D;
+//    sendbuf->Data[1]=0x4F;
+//    sendbuf->Data[4]=0x01;
+//    CanSend();
+//    Sleep(50);
 }
 
 void Controller::inquire()
@@ -308,21 +317,21 @@ void Controller::receive()
 //        }
 
 
-        //正解更新--暂调试使用
-        vector<double> leftAngle;
-        vector<double> rightAngle;
+//        //正解更新--暂调试使用
+//        vector<double> leftAngle;
+//        vector<double> rightAngle;
 
-        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
-        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
+//        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+//        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
 
-        pointData leftEnd=ForwardKinematic(leftAngle);
-        pointData rightEnd=ForwardKinematic(rightAngle);
+//        pointData leftEnd=ForwardKinematic(leftAngle);
+//        pointData rightEnd=ForwardKinematic(rightAngle);
 
-        emit recEndPos(leftEnd,true);//更新末端坐标
-        emit recEndPos(rightEnd,false);
+//        emit recEndPos(leftEnd,true);//更新末端坐标
+//        emit recEndPos(rightEnd,false);
 
-        //角度更新--暂调试使用
-        emit recAbsAngle(absAngle);
+//        //角度更新--暂调试使用
+//        emit recAbsAngle(absAngle);
 
         if(NumCanReceive<=0)
         {
@@ -735,7 +744,7 @@ void Controller::btnMoterStopClick(UINT index)
 
 void Controller::btnSetMoterSpeedClick(UINT index,int speed)
 {
-    if(speed>1000||speed<-1000)//理论速度可达2500pulse/s
+    if(speed>1000||speed<-1000)//理论速度可达2500pulse/s，默认为1000pulse/s
     {
         qDebug()<<"Speed too fast";
         return;
