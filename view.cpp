@@ -261,10 +261,13 @@ void View::on_btnOpen_clicked()
 
 void View::on_btnClose_clicked()
 {
-    emit close();
-    emit closeDB(m_sqlite->db);
-    flagRecAndInq=2;
-    flagDBOpen=false;
+    if(2==flagRecAndInq)return;
+    else{
+        emit closeDB(m_sqlite->db);
+        emit close();
+        flagRecAndInq=2;
+        flagDBOpen=false;
+    }
 }
 
 void View::closeEvent(QCloseEvent *event)
@@ -272,11 +275,18 @@ void View::closeEvent(QCloseEvent *event)
     auto temp = QMessageBox::information(this, "close", QString::fromLocal8Bit("Close Program?"), QMessageBox::Yes | QMessageBox::No);
     if(QMessageBox::Yes==temp)
     {
-    emit close();
-    emit closeDB(m_sqlite->db);
-    flagRecAndInq=2;
-    flagDBOpen=false;
-    event->accept();
+        if(2!=flagRecAndInq)
+        {
+            emit closeDB(m_sqlite->db);
+            emit close();
+            flagRecAndInq=2;
+            flagDBOpen=false;
+        }
+        delete m_controller;
+        delete m_receiver;
+        delete m_inquirer;
+        delete m_sqlite;
+        event->accept();
     }
     else event->ignore();
 }
