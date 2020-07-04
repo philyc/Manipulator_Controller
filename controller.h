@@ -46,6 +46,8 @@ public:
 
     void btnMoterRunClick(UINT index,double angle);//用于反解
 
+    void InitIncNum();
+
 public:
     //    DWORD devindex;//CAN设备索引
     //    DWORD devtype;//CAN设备类型
@@ -67,6 +69,8 @@ signals:
     void recInverseCal(vector<double> calAngel,bool isLeft);
 
     void initChart();
+
+    void initInc();
 
 
 public slots:

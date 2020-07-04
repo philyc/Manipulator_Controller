@@ -29,7 +29,8 @@ View::View(QWidget *parent)
 
     //图表初始化
 //    connect(this,&View::open,this,&View::initChart);//开始时初始化图表
-    connect(m_receiver,&Controller::initChart,this,&View::initChart);//在接收到一组角度信息之后再初始化图表
+    connect(m_receiver,&Controller::initChart,this,&View::initChart);//在接收到一组绝对值编码器角度信息之后再初始化图表
+    connect(m_receiver,&Controller::initInc,m_receiver,&Controller::InitIncNum);//在接收到一组绝对值编码器角度信息后初始化增量式编码器数值
 
     //数据库相关
     connect(this,&View::closeDB,m_sqlite,&QSqlite::closeDB);
@@ -50,23 +51,23 @@ View::View(QWidget *parent)
     connect(this,&View::wheelEvent,openGLWidget,&OpenGLWidget::wheelEvent);
 
 
-    ui->doubleSpinBox->setRange(-90.0,90.0);
+    ui->doubleSpinBox->setRange(-180.0,180.0);
     ui->doubleSpinBox->setSingleStep(1);
     ui->doubleSpinBox->setValue(absAngle[0]);
-    ui->doubleSpinBox_2->setRange(-90.0,90.0);
+    ui->doubleSpinBox_2->setRange(-180.0,180.0);
     ui->doubleSpinBox_2->setSingleStep(1);
     ui->doubleSpinBox_2->setValue(absAngle[1]);
-    ui->doubleSpinBox_3->setRange(-90.0,90.0);
+    ui->doubleSpinBox_3->setRange(-180.0,180.0);
     ui->doubleSpinBox_3->setSingleStep(1);
     ui->doubleSpinBox_3->setValue(absAngle[2]);
 
-    ui->doubleSpinBox_4->setRange(-90.0,90.0);
+    ui->doubleSpinBox_4->setRange(-180.0,180.0);
     ui->doubleSpinBox_4->setSingleStep(1);
     ui->doubleSpinBox_4->setValue(absAngle[3]);
-    ui->doubleSpinBox_5->setRange(-90.0,90.0);
+    ui->doubleSpinBox_5->setRange(-180.0,180.0);
     ui->doubleSpinBox_5->setSingleStep(1);
     ui->doubleSpinBox_5->setValue(absAngle[4]);
-    ui->doubleSpinBox_6->setRange(-90.0,90.0);
+    ui->doubleSpinBox_6->setRange(-180.0,180.0);
     ui->doubleSpinBox_6->setSingleStep(1);
     ui->doubleSpinBox_6->setValue(absAngle[5]);
     this->setMinimumSize(1328,700);
@@ -275,7 +276,7 @@ void View::closeEvent(QCloseEvent *event)
     auto temp = QMessageBox::information(this, "close", QString::fromLocal8Bit("Close Program?"), QMessageBox::Yes | QMessageBox::No);
     if(QMessageBox::Yes==temp)
     {
-        if(2!=flagRecAndInq)
+        if(1==flagRecAndInq)//只有在运行时才需要进行关闭
         {
             emit closeDB(m_sqlite->db);
             emit close();
@@ -285,7 +286,7 @@ void View::closeEvent(QCloseEvent *event)
         delete m_controller;
         delete m_receiver;
         delete m_inquirer;
-        delete m_sqlite;
+//        delete m_sqlite;
         event->accept();
     }
     else event->ignore();
@@ -683,4 +684,18 @@ void View::on_btnMoter6SetSpeed_clicked()
 void View::on_edtRecieveData_textChanged()
 {
     ui->edtRecieveData->moveCursor(QTextCursor::End);
+}
+
+void View::on_BtnStopRec_clicked()
+{
+    if(flagIsOpen)
+    {
+        flagIsOpen=false;
+        ui->BtnStopRec->setText("Start");
+    }
+    else
+    {
+        flagIsOpen=true;
+        ui->BtnStopRec->setText("Stop");
+    }
 }

@@ -200,6 +200,8 @@ private slots:
 
     void on_edtRecieveData_textChanged();
 
+    void on_BtnStopRec_clicked();
+
 private:
     Ui::View *ui;
 

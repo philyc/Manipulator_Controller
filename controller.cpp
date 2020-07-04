@@ -253,34 +253,35 @@ void Controller::inquire()
 {
     while(flagRecAndInq)
     {
-        flagAbsOrInc=false;
-        for(UINT i=1;i<7;++i)
-        {
-            sendbuf->ID=0x0000300+i;
-            sendbuf->Data[0]=0x41;
-            sendbuf->Data[1]=0x45;
-            sendbuf->Data[2]=0x01;
-            CanSend();
-            Sleep(50);//Sleep不得低于50，否则处理不过来
-        }
-//        flagAbsOrInc=true;
-//        for(UINT i=1;i<7;++i)
-//        {
-//            sendbuf->ID=0x300+i;
-//            sendbuf->Data[0]=0x50;
-//            sendbuf->Data[1]=0x58;
-//            CanSend();
-//            Sleep(50);
-//        }
+        while(flagIsOpen){
+            for(UINT i=1;i<7;++i)
+            {
+                sendbuf->ID=0x0000300+i;
+                sendbuf->Data[0]=0x41;
+                sendbuf->Data[1]=0x45;
+                sendbuf->Data[2]=0x01;
+                CanSend();
+                Sleep(50);//Sleep不得低于50，否则处理不过来
+            }
+//            for(UINT i=1;i<7;++i)
+//            {
+//                sendbuf->ID=0x300+i;
+//                sendbuf->Data[0]=0x50;
+//                sendbuf->Data[1]=0x58;
+//                CanSend();
+//                Sleep(50);
+//            }
 
-//        Sleep(50);
-//        qDebug()<<"Inquire rest";
-        //        QString log;
-        //        log.sprintf("%p",QThread::currentThread());
-        //        qDebug()<<"testinquire"<<++i<<log;
-        if(flagRecAndInq==2)
-        {
-            return;
+            //        Sleep(50);
+            //        qDebug()<<"Inquire rest";
+            //        QString log;
+            //        log.sprintf("%p",QThread::currentThread());
+            //        qDebug()<<"testinquire"<<++i<<log;
+            if(flagRecAndInq==2)
+            {
+                return;
+            }
+            Sleep(50);
         }
     }
 }
@@ -291,6 +292,7 @@ void Controller::receive()
     //    int i=0;
     QSqlite *m_sqlite2=new QSqlite();
     int count=0;//收到角度反馈消息计数
+    UINT lastIndex=0;
     VCI_CAN_OBJ pCanObj[200];
     while(flagRecAndInq)
     {
@@ -317,21 +319,21 @@ void Controller::receive()
 //        }
 
 
-//        //正解更新--暂调试使用
-//        vector<double> leftAngle;
-//        vector<double> rightAngle;
+        //正解更新--暂调试使用
+        vector<double> leftAngle;
+        vector<double> rightAngle;
 
-//        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
-//        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
+        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
 
-//        pointData leftEnd=ForwardKinematic(leftAngle);
-//        pointData rightEnd=ForwardKinematic(rightAngle);
+        pointData leftEnd=ForwardKinematic(leftAngle);
+        pointData rightEnd=ForwardKinematic(rightAngle);
 
-//        emit recEndPos(leftEnd,true);//更新末端坐标
-//        emit recEndPos(rightEnd,false);
+        emit recEndPos(leftEnd,true);//更新末端坐标
+        emit recEndPos(rightEnd,false);
 
-//        //角度更新--暂调试使用
-//        emit recAbsAngle(absAngle);
+        //角度更新--暂调试使用
+        emit recAbsAngle(absAngle);
 
         if(NumCanReceive<=0)
         {
@@ -367,27 +369,19 @@ void Controller::receive()
 
 
 
-                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])
+                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//如果收到信号是绝对值查询反馈
                 {
 
                     recIndex=ReceiveId-0x281;
                     count++;
-                    if(false==flagAbsOrInc)
-                    {
-                        absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                        absAngle[recIndex]=(static_cast<double>(absNum[recIndex])/65536)*180;
-                        emit recAbsAngle(absAngle);
-                    }
-                    else
-                    {
-                        incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                        //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
-                        //emit recIncNum(incNum);  增量式角度暂不启用
-                    }
+                    absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                    absAngle[recIndex]=(static_cast<double>(absNum[recIndex])/65536)*180;
+                    emit recAbsAngle(absAngle);
                     if(count>6&&false==flagDataRigth)//已完成一轮角度查询
                     {
                         flagDataRigth=true;
-                        emit initChart();
+                        emit initChart();//用所查角度对图表进行初始化
+                        emit initInc();//用所查角度对增量式角度进行初始化
                     }
 
                     vector<double> leftAngle;
@@ -406,6 +400,15 @@ void Controller::receive()
                     emit recEndPos(leftEnd,true);//更新末端坐标
                     emit recEndPos(rightEnd,false);
                 }
+
+//                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//是增量式查询反馈
+//                {
+
+//                        incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+//                        //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
+//                        //emit recIncNum(incNum);  增量式角度暂不启用
+
+//                }
                 //数据库插入
                 if(flagDBOpen==false&&flagRecAndInq==1){
                     m_sqlite2->initDB();
@@ -414,14 +417,44 @@ void Controller::receive()
                 }
                 else
                 {
-                    QSqlite::robotData s;
-                    m_sqlite2->ExecAddSql(s);
+                    if(lastIndex!=recIndex)//只有查询到其他电机时才进行数据存储
+                    {
+                        QSqlite::robotData s;
+                        s.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
+                        switch (recIndex) {
+                        case 0:
+                            s.moter1angle=QString("%1").arg(absAngle[0]);
+                            //    recData.moter1current=QString("%1").arg(current[0]);
+                            break;//1号电机
+                        case 1:
+                            s.moter2angle=QString("%1").arg(absAngle[1]);
+                            //    recData.moter2current=QString("%1").arg(current[1]);
+                            break;//2号电机
+                        case 2:
+                            s.moter3angle=QString("%1").arg(absAngle[2]);
+                            //    recData.moter3current=QString("%1").arg(current[2]);
+                            break;//3号电机
+                        case 3:
+                            s.moter4angle=QString("%1").arg(absAngle[3]);
+                            //    recData.moter4current=QString("%1").arg(current[3]);
+                            break;//4号电机
+                        case 4:
+                            s.moter5angle=QString("%1").arg(absAngle[4]);
+                            //    recData.moter5current=QString("%1").arg(current[4]);
+                            break;//5号电机
+                        case 5:
+                            s.moter6angle=QString("%1").arg(absAngle[5]);
+                            //    recData.moter6current=QString("%1").arg(current[5]);
+                            break;//6号电机
+                        default:break;
+                        }
+                        s.description=description;
+                        m_sqlite2->ExecAddSql(s);
+                        lastIndex=recIndex;
+                    }
                 }
-
-
             }
         }
-
     }
 }
 
@@ -609,6 +642,7 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     }
 
     vector<vector<double>> out;
+    vector<vector<double>> res;
     //反解计算有一定问题
     //#define Link1Length 120.0 论文中d2
     //#define Link2Length 264.0  论文中a2
@@ -673,27 +707,39 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     out.push_back({angle1_2,angle2_3,angle3_1});
     out.push_back({angle1_2,angle2_4,angle3_2});
 
+    UINT index=0;
+    pointData temp;
+    for (UINT i=0;i<4;++i) {
+        temp=ForwardKinematic(out[i]);
+        if((-1<(temp.cal_x-point.pos_x)<1)&&
+           (-1<(temp.cal_y-point.pos_y)<1)&&
+           (-1<(temp.cal_z-point.pos_z)<1))
+        {
+            res.push_back(out[i]);
+        }
+    }
+
     double min=DBL_MAX;
     double result;
-    UINT index=0;
-    for(UINT i=0;i<4;++i)
+    UINT in=0;
+    for(UINT i=0;i<res.size();++i)
     {
-        result=(out[i][0]-now[0])*ArmWeight1+(out[i][1]-now[1])*ArmWeight2+(out[i][2]-now[2])*ArmWeight3;
+        result=(res[i][0]-now[0])*ArmWeight1+(res[i][1]-now[1])*ArmWeight2+(res[i][2]-now[2])*ArmWeight3;
         if(result<min)
         {
             min=result;
-            index=i;
+            in=i;
         }
         else continue;
     }
 
     if(isLeft)
     {
-        emit recInverseCal(out[index],true);
+        emit recInverseCal(res[in],true);
     }
     else
     {
-        emit recInverseCal(out[index],false);
+        emit recInverseCal(res[in],false);
     }
 
 
@@ -780,4 +826,13 @@ void Controller::btnSetMoterSpeedClick(UINT index,int speed)
     sendbuf->Data[7]=speedData[3];
     CanSend();
     Sleep(10);
+}
+
+
+void Controller::InitIncNum()
+{
+    for(size_t i=1;i<7;++i)
+    {
+        incNum[i]=absAngle[i]*65536.0/180.0;
+    }
 }

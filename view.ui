@@ -1219,19 +1219,6 @@
      <attribute name="title">
       <string>Motor</string>
      </attribute>
-     <widget class="QPushButton" name="BtnEnable">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>20</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Enable moter</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="grpSetSpeed">
       <property name="geometry">
        <rect>
@@ -1498,6 +1485,19 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QPushButton" name="BtnStopRec">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>10</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stop</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QCustomPlot" name="wgtMoter1" native="true">
     <property name="geometry">
@@ -1562,7 +1562,7 @@
    <widget class="QGroupBox" name="grpEndPos">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>680</x>
       <y>30</y>
       <width>161</width>
       <height>111</height>
@@ -2146,6 +2146,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
     <property name="geometry">
@@ -2155,6 +2158,9 @@
       <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
@@ -2166,6 +2172,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
     <property name="geometry">
@@ -2175,6 +2184,9 @@
       <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
@@ -2186,6 +2198,9 @@
       <height>22</height>
      </rect>
     </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
     <property name="geometry">
@@ -2195,6 +2210,9 @@
       <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <double>180.000000000000000</double>
     </property>
    </widget>
    <widget class="QPushButton" name="btn3DTestState">
@@ -2248,6 +2266,19 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="BtnEnable">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>10</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enable moter</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

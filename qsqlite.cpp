@@ -64,35 +64,35 @@ void QSqlite::initDB()
 
 void QSqlite::ExecAddSql(robotData recData)
 {
-    recData.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
-    switch (recIndex) {
-    case 0:
-        recData.moter1angle=QString("%1").arg(absAngle[0]);
-        //    recData.moter1current=QString("%1").arg(current[0]);
-        break;//1号电机
-    case 1:
-        recData.moter2angle=QString("%1").arg(absAngle[1]);
-        //    recData.moter2current=QString("%1").arg(current[1]);
-        break;//2号电机
-    case 2:
-        recData.moter3angle=QString("%1").arg(absAngle[2]);
-        //    recData.moter3current=QString("%1").arg(current[2]);
-        break;//3号电机
-    case 3:
-        recData.moter4angle=QString("%1").arg(absAngle[3]);
-        //    recData.moter4current=QString("%1").arg(current[3]);
-        break;//4号电机
-    case 4:
-        recData.moter5angle=QString("%1").arg(absAngle[4]);
-        //    recData.moter5current=QString("%1").arg(current[4]);
-        break;//5号电机
-    case 5:
-        recData.moter6angle=QString("%1").arg(absAngle[5]);
-        //    recData.moter6current=QString("%1").arg(current[5]);
-        break;//6号电机
-    default:break;
-    }
-    recData.description=description;
+//    recData.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
+//    switch (recIndex) {
+//    case 0:
+//        recData.moter1angle=QString("%1").arg(absAngle[0]);
+//        //    recData.moter1current=QString("%1").arg(current[0]);
+//        break;//1号电机
+//    case 1:
+//        recData.moter2angle=QString("%1").arg(absAngle[1]);
+//        //    recData.moter2current=QString("%1").arg(current[1]);
+//        break;//2号电机
+//    case 2:
+//        recData.moter3angle=QString("%1").arg(absAngle[2]);
+//        //    recData.moter3current=QString("%1").arg(current[2]);
+//        break;//3号电机
+//    case 3:
+//        recData.moter4angle=QString("%1").arg(absAngle[3]);
+//        //    recData.moter4current=QString("%1").arg(current[3]);
+//        break;//4号电机
+//    case 4:
+//        recData.moter5angle=QString("%1").arg(absAngle[4]);
+//        //    recData.moter5current=QString("%1").arg(current[4]);
+//        break;//5号电机
+//    case 5:
+//        recData.moter6angle=QString("%1").arg(absAngle[5]);
+//        //    recData.moter6current=QString("%1").arg(current[5]);
+//        break;//6号电机
+//    default:break;
+//    }
+//    recData.description=description;
 
 //    recData.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
 //    recData.moter1angle=QString("%1").arg(absAngle[0]);//以绝对值传感器反馈值为标准
