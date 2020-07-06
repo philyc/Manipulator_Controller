@@ -637,9 +637,12 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
 //            +Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
 //            -Link1Length*cos(angleTheta[0]);
 
-    out.cal_z=Link3WLength*sin(angleTheta[1]+angleTheta[2])
-            +Link3HLength*cos(angleTheta[1]+angleTheta[2])
-            +Link2Length*sin(angleTheta[1]);
+    out.cal_z=Link2Length*sin(angleTheta[1])
+             +Link3HLength*sin(angleTheta[1]+angleTheta[2]);
+
+//            Link3WLength*sin(angleTheta[1]+angleTheta[2])
+//            +Link3HLength*cos(angleTheta[1]+angleTheta[2])
+//            +Link2Length*sin(angleTheta[1]);
     return out;
 }
 
@@ -657,8 +660,8 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
         now={absAngle[3],absAngle[4],absAngle[5]};
     }
 
-    vector<vector<double>> out;
-    vector<vector<double>> res;
+    vector<vector<double>> out;//反解输出结果
+    vector<vector<double>> res;//最终可采用的结果
     //反解计算有一定问题
     //#define Link1Length 120.0 论文中d2
     //#define Link2Length 264.0  论文中a2
