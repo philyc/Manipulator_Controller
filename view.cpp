@@ -699,3 +699,20 @@ void View::on_BtnStopRec_clicked()
         ui->BtnStopRec->setText("Stop");
     }
 }
+
+void View::on_btnTest_clicked()
+{
+    QString temp=ui->btnTest->text();
+    if("MyTest"==temp)
+    {
+        flagTest=true;
+        ui->btnTest->setText("MyWork");
+    }
+    else
+    {
+        flagTest=false;
+        ui->btnTest->setText("MyTest");
+    }
+
+
+}

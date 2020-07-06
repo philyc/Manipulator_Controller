@@ -15,6 +15,7 @@ extern bool flagIsOpen;//是否打开CAN
 extern bool flagDBOpen;//数据库创建标志位
 extern bool flag3DState;//三维显示状态
 extern bool flagDataRigth;//图表初始化状态
+extern bool flagTest;
 
 extern vector<double> absAngle;//绝对式编码器值转化为角度
 extern vector<double> incAngle;//相对式编码器值转化为角度

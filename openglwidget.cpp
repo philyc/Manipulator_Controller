@@ -146,16 +146,16 @@ void OpenGLWidget::initializeGL()
     core->glEnable(GL_DEPTH_TEST);
 
     //与视频相关的摄像机变量初始化
-    cameraPos = QVector3D(0.0f, 1.5f,  7.0f);
-    cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
+    cameraPos = QVector3D(-2.0f, 2.0f,  4.0f);//摄像机初始位置
+    cameraFront = QVector3D(0.0f, 0.0f, -1.0f);//摄像机前后运动一下的步长
     cameraUp = QVector3D(0.0f, 1.0f,  0.0f);
     deltaTime = 0.0f;
     lastFrame = 0.0f;
 
     //与鼠标相关的摄像机变量初始化
     firstMouse = true;
-    yaw   = -90.0f;	// 偏航角如果是0.0f,指向的是 x轴正方向，即右方向，所以向里转90度，初始方向指向z轴负方向
-    pitch =  0.0f;
+    yaw   = -45.0f;	// 偏航角如果是0.0f,指向的是 x轴正方向，即右方向，所以向里转90度，初始方向指向z轴负方向
+    pitch =  -45.0f;
     lastX =  800.0f / 2.0;
     lastY =  600.0 / 2.0;
     fov   =  45.0f;
@@ -368,7 +368,7 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL2;
         modelL2.translate(QVector3D( -1.0f,  0.2f,  0.0f));
 
-        modelL2.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL2.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
 
         modelL2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
         recShader->setMat4("model", modelL2);
@@ -379,7 +379,7 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL3;
         modelL3.translate(QVector3D( -1.0f,  0.4f,  0.0f));
 
-        modelL3.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//运动相关
+        modelL3.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//运动相关
 
         modelL3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
         recShader->setMat4("model", modelL3);
@@ -391,7 +391,7 @@ void OpenGLWidget::paintGL()
         modelL4.translate(QVector3D( -1.3f,  0.4f,  0.0f));
         //--运动相关--
         modelL4.translate(QVector3D(0.3f,0,0));
-        modelL4.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL4.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
         modelL4.translate(QVector3D(-0.3f,0,0));
 
         modelL4.scale(QVector3D( 0.6f,  0.1f,  0.1f));
@@ -403,9 +403,9 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL5;
         modelL5.translate(QVector3D( -1.6f,  0.4f,  0.0f));
         modelL5.translate(QVector3D(0.6f,0,0));
-        modelL5.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL5.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL5.translate(QVector3D(-0.6f,0,0));
-        modelL5.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+        modelL5.rotate(-1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
 
         modelL5.scale(QVector3D( 0.2f,  0.2f,  0.2f));
         recShader->setMat4("model", modelL5);
@@ -417,10 +417,10 @@ void OpenGLWidget::paintGL()
         modelL6.translate(QVector3D( -1.6f,  1.06f,  0.0f));
 
         modelL6.translate(QVector3D(0.6f,0,0));
-        modelL6.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL6.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL6.translate(QVector3D(-0.6f,0,0));
         modelL6.translate(QVector3D(0,-0.66f,0));
-        modelL6.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+        modelL6.rotate(-1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
         modelL6.translate(QVector3D(0,0.66f,0));
 
         modelL6.scale(QVector3D(  0.1f,  1.32f,  0.1f));
@@ -434,10 +434,10 @@ void OpenGLWidget::paintGL()
         modelL7.translate(QVector3D( -1.6f,  1.72f,  0.0f));
 
         modelL7.translate(QVector3D(0.6f,0,0));
-        modelL7.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL7.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL7.translate(QVector3D(-0.6f,0,0));
         modelL7.translate(QVector3D(0,-1.32f,0));
-        modelL7.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+        modelL7.rotate(-1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
         modelL7.translate(QVector3D(0,1.32f,0));
         modelL7.scale(QVector3D( 0.2f,  0.2f,  0.2f));
 
@@ -450,10 +450,10 @@ void OpenGLWidget::paintGL()
         modelL8.translate(QVector3D( -1.28f,  1.72f,  0.0f));
 
         modelL8.translate(QVector3D(0.28f,0,0));
-        modelL8.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL8.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL8.translate(QVector3D(-0.28f,0,0));
         modelL8.translate(QVector3D(0,-1.32f,0));
-        modelL8.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+        modelL8.rotate(-1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
         modelL8.translate(QVector3D(0,1.32f,0));
         modelL8.rotate(1.0f * static_cast<float>(absAngle[2]),QVector3D( 1.0f,  0.0f,  0.0f));
         modelL8.scale(QVector3D( 0.64f,  0.1f,  0.1f));
@@ -467,10 +467,10 @@ void OpenGLWidget::paintGL()
         modelL9.translate(QVector3D( -1.01f,  2.3f,  0.0f));
 
         modelL9.translate(QVector3D(0.01f,0,0));
-        modelL9.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL9.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL9.translate(QVector3D(-0.01f,0,0));
         modelL9.translate(QVector3D(0,-1.9f,0));
-        modelL9.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
+        modelL9.rotate(-1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
         modelL9.translate(QVector3D(0,1.9f,0));
         modelL9.translate(QVector3D(0,-0.58f,0));
         modelL9.rotate(1.0f * static_cast<float>(absAngle[2]),QVector3D( 1.0f,  0.0f,  0.0f));
@@ -637,7 +637,7 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL2;
         modelL2.translate(QVector3D( -1.0f,  -0.2f,  0.0f));
 
-        modelL2.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL2.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
 
         modelL2.scale(QVector3D( 0.1f,  0.4f,  0.1f));
         recShader->setMat4("model", modelL2);
@@ -648,7 +648,7 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL3;
         modelL3.translate(QVector3D( -1.0f,  -0.4f,  0.0f));
 
-        modelL3.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//运动相关
+        modelL3.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));//运动相关
 
         modelL3.scale(QVector3D( 0.2f,  0.2f,  0.2f));
         recShader->setMat4("model", modelL3);
@@ -660,7 +660,7 @@ void OpenGLWidget::paintGL()
         modelL4.translate(QVector3D( -1.3f,  -0.4f,  0.0f));
         //--运动相关--
         modelL4.translate(QVector3D(0.3f,0,0));
-        modelL4.rotate(-1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL4.rotate(1.0f * static_cast<float>(absAngle[0]), QVector3D( 0.0f,  1.0f,  0.0f));
         modelL4.translate(QVector3D(-0.3f,0,0));
 
         modelL4.scale(QVector3D( 0.6f,  0.1f,  0.1f));
@@ -672,7 +672,7 @@ void OpenGLWidget::paintGL()
         QMatrix4x4 modelL5;
         modelL5.translate(QVector3D( -1.6f,  -0.4f,  0.0f));
         modelL5.translate(QVector3D(0.6f,0,0));
-        modelL5.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL5.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL5.translate(QVector3D(-0.6f,0,0));
         modelL5.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
 
@@ -686,7 +686,7 @@ void OpenGLWidget::paintGL()
         modelL6.translate(QVector3D( -1.6f,  -1.06f,  0.0f));
 
         modelL6.translate(QVector3D(0.6f,0,0));
-        modelL6.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL6.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL6.translate(QVector3D(-0.6f,0,0));
         modelL6.translate(QVector3D(0,0.66f,0));
         modelL6.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
@@ -703,7 +703,7 @@ void OpenGLWidget::paintGL()
         modelL7.translate(QVector3D( -1.6f,  -1.72f,  0.0f));
 
         modelL7.translate(QVector3D(0.6f,0,0));
-        modelL7.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL7.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL7.translate(QVector3D(-0.6f,0,0));
         modelL7.translate(QVector3D(0,1.32f,0));
         modelL7.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
@@ -719,7 +719,7 @@ void OpenGLWidget::paintGL()
         modelL8.translate(QVector3D( -1.28f,  -1.72f,  0.0f));
 
         modelL8.translate(QVector3D(0.28f,0,0));
-        modelL8.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL8.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL8.translate(QVector3D(-0.28f,0,0));
         modelL8.translate(QVector3D(0,1.32f,0));
         modelL8.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));
@@ -736,7 +736,7 @@ void OpenGLWidget::paintGL()
         modelL9.translate(QVector3D( -1.01f,  -2.3f,  0.0f));
 
         modelL9.translate(QVector3D(0.01f,0,0));
-        modelL9.rotate(-1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
+        modelL9.rotate(1.0f * static_cast<float>(absAngle[0]),QVector3D( 0.0f,  1.0f,  0.0f));
         modelL9.translate(QVector3D(-0.01f,0,0));
         modelL9.translate(QVector3D(0,1.9f,0));
         modelL9.rotate(1.0f * static_cast<float>(absAngle[1]),QVector3D( 1.0f,  0.0f,  0.0f));

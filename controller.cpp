@@ -227,26 +227,26 @@ void Controller::btnEnableClick()
         CanSend();
         Sleep(50);
     }
-//    sendbuf->ID=0x00000301;
-//    sendbuf->Data[0]=0x4D;
-//    sendbuf->Data[1]=0x4F;
-//    sendbuf->Data[4]=0x01;
-//    CanSend();
-//    Sleep(50);
+    //    sendbuf->ID=0x00000301;
+    //    sendbuf->Data[0]=0x4D;
+    //    sendbuf->Data[1]=0x4F;
+    //    sendbuf->Data[4]=0x01;
+    //    CanSend();
+    //    Sleep(50);
 
-//    sendbuf->ID=0x00000302;
-//    sendbuf->Data[0]=0x4D;
-//    sendbuf->Data[1]=0x4F;
-//    sendbuf->Data[4]=0x01;
-//    CanSend();
-//    Sleep(50);
+    //    sendbuf->ID=0x00000302;
+    //    sendbuf->Data[0]=0x4D;
+    //    sendbuf->Data[1]=0x4F;
+    //    sendbuf->Data[4]=0x01;
+    //    CanSend();
+    //    Sleep(50);
 
-//    sendbuf->ID=0x00000303;
-//    sendbuf->Data[0]=0x4D;
-//    sendbuf->Data[1]=0x4F;
-//    sendbuf->Data[4]=0x01;
-//    CanSend();
-//    Sleep(50);
+    //    sendbuf->ID=0x00000303;
+    //    sendbuf->Data[0]=0x4D;
+    //    sendbuf->Data[1]=0x4F;
+    //    sendbuf->Data[4]=0x01;
+    //    CanSend();
+    //    Sleep(50);
 }
 
 void Controller::inquire()
@@ -263,14 +263,14 @@ void Controller::inquire()
                 CanSend();
                 Sleep(50);//Sleep不得低于50，否则处理不过来
             }
-//            for(UINT i=1;i<7;++i)
-//            {
-//                sendbuf->ID=0x300+i;
-//                sendbuf->Data[0]=0x50;
-//                sendbuf->Data[1]=0x58;
-//                CanSend();
-//                Sleep(50);
-//            }
+            //            for(UINT i=1;i<7;++i)
+            //            {
+            //                sendbuf->ID=0x300+i;
+            //                sendbuf->Data[0]=0x50;
+            //                sendbuf->Data[1]=0x58;
+            //                CanSend();
+            //                Sleep(50);
+            //            }
 
             //        Sleep(50);
             //        qDebug()<<"Inquire rest";
@@ -303,154 +303,160 @@ void Controller::receive()
         }
         int NumCanReceive;
         QString strRecId,strRecData,str;
-//        VCI_CAN_OBJ pCanObj[200];
+        //        VCI_CAN_OBJ pCanObj[200];
         NumCanReceive=static_cast<int>(VCI_Receive(devtype,devindex,0,pCanObj,200,0));
 
-//        //数据库插入--暂调试使用
-//        if(flagDBOpen==false){
-//            m_sqlite2->initDB();
+        //        //数据库插入--暂调试使用
+        //        if(flagDBOpen==false){
+        //            m_sqlite2->initDB();
 
-//            flagDBOpen=true;
-//        }
-//        else
-//        {
-//            QSqlite::robotData s;
-//            m_sqlite2->ExecAddSql(s);
-//        }
+        //            flagDBOpen=true;
+        //        }
+        //        else
+        //        {
+        //            QSqlite::robotData s;
+        //            m_sqlite2->ExecAddSql(s);
+        //        }
 
 
-        //正解更新--暂调试使用
-        vector<double> leftAngle;
-        vector<double> rightAngle;
 
-        leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
-        rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
-
-        pointData leftEnd=ForwardKinematic(leftAngle);
-        pointData rightEnd=ForwardKinematic(rightAngle);
-
-        emit recEndPos(leftEnd,true);//更新末端坐标
-        emit recEndPos(rightEnd,false);
-
-        //角度更新--暂调试使用
-        emit recAbsAngle(absAngle);
-
-        if(NumCanReceive<=0)
+        if(true==flagTest)
         {
-//            Sleep(30);
-            //            qDebug()<<"receive error";
-            //            QString log;
-            //            log.sprintf("%p",QThread::currentThread());
-            //            qDebug()<<"test"<<++i<<log;
+            //正解更新--暂调试使用
+            vector<double> leftAngle;
+            vector<double> rightAngle;
+
+            leftAngle.assign(absAngle.begin(),absAngle.begin()+3);
+            rightAngle.assign(absAngle.begin()+3,absAngle.begin()+6);
+
+            pointData leftEnd=ForwardKinematic(leftAngle);
+            pointData rightEnd=ForwardKinematic(rightAngle);
+
+            emit recEndPos(leftEnd,true);//更新末端坐标
+            emit recEndPos(rightEnd,false);
+
+            //角度更新--暂调试使用
+            emit recAbsAngle(absAngle);
         }
         else
         {
-            for(int ind=0;ind<NumCanReceive;++ind)
+            if(NumCanReceive<=0)
             {
-                ReceiveId=pCanObj[ind].ID;
-                for(int i=0;i<8;++i)
+                //            Sleep(30);
+                //            qDebug()<<"receive error";
+                //            QString log;
+                //            log.sprintf("%p",QThread::currentThread());
+                //            qDebug()<<"test"<<++i<<log;
+            }
+            else
+            {
+                for(int ind=0;ind<NumCanReceive;++ind)
                 {
-                    ReceiveData[i]=pCanObj[ind].Data[i];
-                    str=QString::number(ReceiveData[i],16);
-                    str=QString("%2").arg(ReceiveData[i],2,16,QLatin1Char('0'));
-                    if(i<7)
+                    ReceiveId=pCanObj[ind].ID;
+                    for(int i=0;i<8;++i)
                     {
-                        strRecData=strRecData+str+" ";
+                        ReceiveData[i]=pCanObj[ind].Data[i];
+                        str=QString::number(ReceiveData[i],16);
+                        str=QString("%2").arg(ReceiveData[i],2,16,QLatin1Char('0'));
+                        if(i<7)
+                        {
+                            strRecData=strRecData+str+" ";
+                        }
+                        else
+                        {
+                            strRecData+=str;
+                            strRecData=strRecData.toUpper();
+                        }
+                    }
+                    strRecData+='\n';
+                    strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
+                    emit rec(strRecId,strRecData);
+
+
+
+                    if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//如果收到信号是绝对值查询反馈
+                    {
+
+                        recIndex=ReceiveId-0x281;
+                        count++;
+                        absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                        absAngle[recIndex]=(static_cast<double>(absNum[recIndex])/65536)*180;
+                        emit recAbsAngle(absAngle);
+                        if(count>6&&false==flagDataRigth)//已完成一轮角度查询
+                        {
+                            flagDataRigth=true;
+                            emit initChart();//用所查角度对图表进行初始化
+                            emit initInc();//用所查角度对增量式角度进行初始化
+                        }
+
+                        vector<double> leftAngle;
+                        vector<double> rightAngle;
+
+                        for(size_t i=0;i<3;++i)
+                        {
+                            leftAngle.push_back(absNum[i]);
+                            rightAngle.push_back(absNum[i+3]);
+
+                        }
+
+                        pointData leftEnd=ForwardKinematic(leftAngle);
+                        pointData rightEnd=ForwardKinematic(rightAngle);
+
+                        emit recEndPos(leftEnd,true);//更新末端坐标
+                        emit recEndPos(rightEnd,false);
+                    }
+
+                    //                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//是增量式查询反馈
+                    //                {
+
+                    //                        incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
+                    //                        //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
+                    //                        //emit recIncNum(incNum);  增量式角度暂不启用
+
+                    //                }
+                    //数据库插入
+                    if(flagDBOpen==false&&flagRecAndInq==1){
+                        m_sqlite2->initDB();
+
+                        flagDBOpen=true;
                     }
                     else
                     {
-                        strRecData+=str;
-                        strRecData=strRecData.toUpper();
-                    }
-                }
-                strRecData+='\n';
-                strRecId=QString("%8").arg(ReceiveId,8,16,QLatin1Char('0')).toUpper();
-                emit rec(strRecId,strRecData);
-
-
-
-                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//如果收到信号是绝对值查询反馈
-                {
-
-                    recIndex=ReceiveId-0x281;
-                    count++;
-                    absNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-                    absAngle[recIndex]=(static_cast<double>(absNum[recIndex])/65536)*180;
-                    emit recAbsAngle(absAngle);
-                    if(count>6&&false==flagDataRigth)//已完成一轮角度查询
-                    {
-                        flagDataRigth=true;
-                        emit initChart();//用所查角度对图表进行初始化
-                        emit initInc();//用所查角度对增量式角度进行初始化
-                    }
-
-                    vector<double> leftAngle;
-                    vector<double> rightAngle;
-
-                    for(size_t i=0;i<3;++i)
-                    {
-                        leftAngle.push_back(absNum[i]);
-                        rightAngle.push_back(absNum[i+3]);
-
-                    }
-
-                    pointData leftEnd=ForwardKinematic(leftAngle);
-                    pointData rightEnd=ForwardKinematic(rightAngle);
-
-                    emit recEndPos(leftEnd,true);//更新末端坐标
-                    emit recEndPos(rightEnd,false);
-                }
-
-//                if(0x41==ReceiveData[0] && 0x45 == ReceiveData[1] && 0x01==ReceiveData[2])//是增量式查询反馈
-//                {
-
-//                        incNum[recIndex]=(ReceiveData[7]<<24)+(ReceiveData[6]<<16)+(ReceiveData[5]<<8)+ReceiveData[4];
-//                        //                    incAngle[recIndex]=static_cast<double>(incNum[recIndex])/65536*180;
-//                        //emit recIncNum(incNum);  增量式角度暂不启用
-
-//                }
-                //数据库插入
-                if(flagDBOpen==false&&flagRecAndInq==1){
-                    m_sqlite2->initDB();
-
-                    flagDBOpen=true;
-                }
-                else
-                {
-                    if(lastIndex!=recIndex)//只有查询到其他电机时才进行数据存储
-                    {
-                        QSqlite::robotData s;
-                        s.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
-                        switch (recIndex) {
-                        case 0:
-                            s.moter1angle=QString("%1").arg(absAngle[0]);
-                            //    recData.moter1current=QString("%1").arg(current[0]);
-                            break;//1号电机
-                        case 1:
-                            s.moter2angle=QString("%1").arg(absAngle[1]);
-                            //    recData.moter2current=QString("%1").arg(current[1]);
-                            break;//2号电机
-                        case 2:
-                            s.moter3angle=QString("%1").arg(absAngle[2]);
-                            //    recData.moter3current=QString("%1").arg(current[2]);
-                            break;//3号电机
-                        case 3:
-                            s.moter4angle=QString("%1").arg(absAngle[3]);
-                            //    recData.moter4current=QString("%1").arg(current[3]);
-                            break;//4号电机
-                        case 4:
-                            s.moter5angle=QString("%1").arg(absAngle[4]);
-                            //    recData.moter5current=QString("%1").arg(current[4]);
-                            break;//5号电机
-                        case 5:
-                            s.moter6angle=QString("%1").arg(absAngle[5]);
-                            //    recData.moter6current=QString("%1").arg(current[5]);
-                            break;//6号电机
-                        default:break;
+                        if(lastIndex!=recIndex)//只有查询到其他电机时才进行数据存储
+                        {
+                            QSqlite::robotData s;
+                            s.time=QDateTime::currentDateTime().toString(("hh:mm:ss.z"));
+                            switch (recIndex) {
+                            case 0:
+                                s.moter1angle=QString("%1").arg(absAngle[0]);
+                                //    recData.moter1current=QString("%1").arg(current[0]);
+                                break;//1号电机
+                            case 1:
+                                s.moter2angle=QString("%1").arg(absAngle[1]);
+                                //    recData.moter2current=QString("%1").arg(current[1]);
+                                break;//2号电机
+                            case 2:
+                                s.moter3angle=QString("%1").arg(absAngle[2]);
+                                //    recData.moter3current=QString("%1").arg(current[2]);
+                                break;//3号电机
+                            case 3:
+                                s.moter4angle=QString("%1").arg(absAngle[3]);
+                                //    recData.moter4current=QString("%1").arg(current[3]);
+                                break;//4号电机
+                            case 4:
+                                s.moter5angle=QString("%1").arg(absAngle[4]);
+                                //    recData.moter5current=QString("%1").arg(current[4]);
+                                break;//5号电机
+                            case 5:
+                                s.moter6angle=QString("%1").arg(absAngle[5]);
+                                //    recData.moter6current=QString("%1").arg(current[5]);
+                                break;//6号电机
+                            default:break;
+                            }
+                            s.description=description;
+                            m_sqlite2->ExecAddSql(s);
+                            lastIndex=recIndex;
                         }
-                        s.description=description;
-                        m_sqlite2->ExecAddSql(s);
-                        lastIndex=recIndex;
                     }
                 }
             }
@@ -611,16 +617,26 @@ pointData Controller::ForwardKinematic(vector<double> angleData)
     pointData out;
     for(size_t i=0;i<3;++i)
     {
-    angleTheta[i]=angleData[i]*PI/180.0;
+        angleTheta[i]=angleData[i]*PI/180.0;
     }
-    out.cal_x=Link3WLength*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -Link3HLength*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
-            +Link2Length*cos(angleTheta[0])*cos(angleTheta[1])
-            +Link1Length*sin(angleTheta[0]);
-    out.cal_y=Link3WLength*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
-            -Link3HLength*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
-            +Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
-            -Link1Length*cos(angleTheta[0]);
+    out.cal_x=Link2Length*cos(angleTheta[0])*cos(angleTheta[1])
+             +Link3HLength*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+             -(Link3WLength-Link1Length)*sin(angleTheta[0]);
+
+//            Link3WLength*cos(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+//            -Link3HLength*cos(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+//            +Link2Length*cos(angleTheta[0])*cos(angleTheta[1])
+//            +Link1Length*sin(angleTheta[0]);
+
+    out.cal_y=Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
+            +Link3HLength*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+            +(Link3WLength-Link1Length)*cos(angleTheta[0]);
+
+//            Link3WLength*sin(angleTheta[0])*cos(angleTheta[1]+angleTheta[2])
+//            -Link3HLength*sin(angleTheta[0])*sin(angleTheta[1]+angleTheta[2])
+//            +Link2Length*sin(angleTheta[0])*cos(angleTheta[1])
+//            -Link1Length*cos(angleTheta[0]);
+
     out.cal_z=Link3WLength*sin(angleTheta[1]+angleTheta[2])
             +Link3HLength*cos(angleTheta[1]+angleTheta[2])
             +Link2Length*sin(angleTheta[1]);
@@ -649,47 +665,47 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     //#define Link3WLength 127.0  论文中a3
     //#define Link3HLength 213.0   论文中d4
 
-//    θ = ATan(y / x)求出的θ取值范围是[-PI/2, PI/2]
-//    θ = ATan2(y, x)求出的θ取值范围是[-PI, PI]
+    //    θ = ATan(y / x)求出的θ取值范围是[-PI/2, PI/2]
+    //    θ = ATan2(y, x)求出的θ取值范围是[-PI, PI]
 
     double theta1_1=atan((sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
-                   -atan(point.pos_x/point.pos_y);
+            -atan(point.pos_x/point.pos_y);
 
     double theta1_2=atan((-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
-                   -atan(point.pos_x/point.pos_y);
+            -atan(point.pos_x/point.pos_y);
 
     double k=(pow(point.pos_x,2)+pow(point.pos_y,2)+pow(point.pos_z,2)-145594.0)/528.0;
 
     double theta3_1=atan(Link3WLength/Link3HLength)
-                   -atan(k/sqrt(61498-pow(k,2)));
+            -atan(k/sqrt(61498-pow(k,2)));
 
     double theta3_2=atan(Link3WLength/Link3HLength)
-                   -atan(k/-sqrt(61498-pow(k,2)));
+            -atan(k/-sqrt(61498-pow(k,2)));
 
     double theta2_1=atan2(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_1)
-                            +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1))),
-                        ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
-                            -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
-                        -theta3_1;//theta1_1 +theta3_1   test ok
+                                                                     +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1))),
+                          ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                           -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
+            -theta3_1;//theta1_1 +theta3_1   test ok
 
 
     double theta2_2=atan(((Link2Length*sin(theta3_2)-Link3HLength)*(point.pos_x*cos(theta1_1)
-                            +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
-                        ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
-                            -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
-                        -theta3_2;//theta1_1 +theta3_2
+                                                                    +point.pos_y*sin(theta1_1))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
+                         ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                          -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
+            -theta3_2;//theta1_1 +theta3_2
 
     double theta2_3=atan(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_2)
-                            +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1)))/
-                       ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
-                            -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
-                       -theta3_1;//theta1_2 +theta3_1  test ok
+                                                                    +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1)))/
+                         ((Link3WLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                          -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
+            -theta3_1;//theta1_2 +theta3_1  test ok
 
     double theta2_4=atan(((Link2Length*sin(theta3_2)-Link3HLength)*(point.pos_x*cos(theta1_2)
-                            +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
-                       ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
-                            -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
-                       -theta3_2;//theta1_2 +theta3_2
+                                                                    +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
+                         ((Link3WLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                          -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
+            -theta3_2;//theta1_2 +theta3_2
 
     double angle1_1=theta1_1*180.0/PI;
     double angle1_2=theta1_2*180.0/PI;
@@ -712,8 +728,8 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     for (UINT i=0;i<4;++i) {
         temp=ForwardKinematic(out[i]);
         if((-1<(temp.cal_x-point.pos_x)<1)&&
-           (-1<(temp.cal_y-point.pos_y)<1)&&
-           (-1<(temp.cal_z-point.pos_z)<1))
+                (-1<(temp.cal_y-point.pos_y)<1)&&
+                (-1<(temp.cal_z-point.pos_z)<1))
         {
             res.push_back(out[i]);
         }
@@ -744,17 +760,17 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 
 
 
-//    if(isLeft)
-//    {
-//        btnMoterRunClick(1,out[index][0]);
-//        btnMoterRunClick(2,out[index][1]);
-//        btnMoterRunClick(3,out[index][2]);
-//    }
-//    else {
-//        btnMoterRunClick(4,out[index][0]);
-//        btnMoterRunClick(5,out[index][1]);
-//        btnMoterRunClick(6,out[index][2]);
-//    }
+    //    if(isLeft)
+    //    {
+    //        btnMoterRunClick(1,out[index][0]);
+    //        btnMoterRunClick(2,out[index][1]);
+    //        btnMoterRunClick(3,out[index][2]);
+    //    }
+    //    else {
+    //        btnMoterRunClick(4,out[index][0]);
+    //        btnMoterRunClick(5,out[index][1]);
+    //        btnMoterRunClick(6,out[index][2]);
+    //    }
 }
 
 void Controller::btnMoterRunClick(UINT index,double angle)

@@ -202,6 +202,8 @@ private slots:
 
     void on_BtnStopRec_clicked();
 
+    void on_btnTest_clicked();
+
 private:
     Ui::View *ui;
 
