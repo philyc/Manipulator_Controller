@@ -8,7 +8,7 @@
 #include <QPushButton>
 #include <QDebug>
 #include <QString>
-#include <QtMath>
+#include <cmath>
 #include <QMessageBox>
 #include <synchapi.h>
 #include <QWidget>

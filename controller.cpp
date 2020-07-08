@@ -671,15 +671,16 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     //    θ = ATan(y / x)求出的θ取值范围是[-PI/2, PI/2]
     //    θ = ATan2(y, x)求出的θ取值范围是[-PI, PI]
 
-    double theta1_1=atan2(point.pos_y,point.pos_x)
-                   -atan2(sqrt(pow(point.pos_x,2) + pow(point.pos_y,2) -pow(Link3WLength-Link1Length,2)),
-                                 Link3WLength-Link1Length);
-//            atan((sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
-//            -atan(point.pos_x/point.pos_y);
+    double theta1_1=atan(point.pos_y/point.pos_x)
+                   -atan2(Link3WLength-Link1Length
+                   ,sqrt(pow(point.pos_x,2) + pow(point.pos_y,2) -pow(Link3WLength-Link1Length,2)));
 
-    double theta1_2=atan2(point.pos_y,point.pos_x)
-                   -atan2(-sqrt(pow(point.pos_x,2) + pow(point.pos_y,2) -pow(Link3WLength-Link1Length,2)),
-                          Link3WLength-Link1Length);
+    //            atan((sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
+    //            -atan(point.pos_x/point.pos_y);
+
+    double theta1_2=atan(point.pos_y/point.pos_x)
+                   +atan2(Link3WLength-Link1Length
+                   ,sqrt(pow(point.pos_x,2) + pow(point.pos_y,2) -pow(Link3WLength-Link1Length,2)));
 
 //            atan((-sqrt(pow(point.pos_x,2)+pow(point.pos_y,2)-Link1Length*Link1Length))/Link1Length)
 //            -atan(point.pos_x/point.pos_y);
@@ -693,13 +694,16 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 
     double theta3_2=atan2(-sqrt(1-pow(k,2)),k);
 
-//            atan(Link3WLength/Link3HLength)
-//            -atan(k/-sqrt(61498-pow(k,2)));
+            atan(Link3WLength/Link3HLength)
+            -atan(k/-sqrt(61498-pow(k,2)));
+
+
 
     double theta2_1=atan2(Link2Length*sin(theta3_1)*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
                           +point.pos_z*(Link3HLength+Link2Length*cos(theta3_1)),
                           (Link3HLength+Link2Length*cos(theta3_1))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
                           -Link2Length*point.pos_z*sin(theta3_1))-theta3_1;//theta1_1 +theta3_1
+
 
 
 //            atan2(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_1)
@@ -720,10 +724,12 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 //                          -point.pos_z*(Link2Length*sin(theta3_2)-Link3HLength)))
 //            -theta3_2;//theta1_1 +theta3_2
 
-    double theta2_3=atan2(Link2Length*sin(theta3_2)*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
-                          +point.pos_z*(Link3HLength+Link2Length*cos(theta3_2)),
-                          (Link3HLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
-                          -Link2Length*point.pos_z*sin(theta3_2))-theta3_2;//theta1_1 +theta3_2
+
+
+    double theta2_3=atan2(264*sin(theta3_2)*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                          +point.pos_z*(213+264*cos(theta3_2)),
+                          (213+264*cos(theta3_2))*(point.pos_x*cos(theta1_1)+point.pos_y*sin(theta1_1))
+                          -264*point.pos_z*sin(theta3_2))-theta3_2;//theta1_1 +theta3_2
 
 //            atan(((Link2Length*sin(theta3_1)-Link3HLength)*(point.pos_x*cos(theta1_2)
 //                                                                    +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_1)))/
@@ -731,10 +737,10 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
 //                          -point.pos_z*(Link2Length*sin(theta3_1)-Link3HLength)))
 //            -theta3_1;//theta1_2 +theta3_1  test ok
 
-    double theta2_4=atan2(Link2Length*sin(theta3_2)*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
-                          +point.pos_z*(Link3HLength+Link2Length*cos(theta3_2)),
-                          (Link3HLength+Link2Length*cos(theta3_2))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
-                          -Link2Length*point.pos_z*sin(theta3_2))-theta3_2;//theta1_2 +theta3_2
+    double theta2_4=atan2(264*sin(theta3_2)*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                          +point.pos_z*(213+264*cos(theta3_2)),
+                          (213+264*cos(theta3_2))*(point.pos_x*cos(theta1_2)+point.pos_y*sin(theta1_2))
+                          -264*point.pos_z*sin(theta3_2))-theta3_2;//theta1_2 +theta3_2
 
 //            atan(((Link2Length*sin(theta3_2)-Link3HLength)*(point.pos_x*cos(theta1_2)
 //                                                                    +point.pos_y*sin(theta1_2))+point.pos_z*(Link3WLength+Link2Length*cos(theta3_2)))/
@@ -754,28 +760,28 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
     double angle2_4=theta2_4*180.0/PI;
 
     out.push_back({angle1_1,angle2_1,angle3_1});
-    out.push_back({angle1_1,angle2_2,angle3_2});
-    out.push_back({angle1_2,angle2_3,angle3_1});
+    out.push_back({angle1_2,angle2_2,angle3_1});
+    out.push_back({angle1_1,angle2_3,angle3_2});
     out.push_back({angle1_2,angle2_4,angle3_2});
 
-//    UINT index=0;
-//    pointData temp;
-//    for (UINT i=0;i<4;++i) {
-//        temp=ForwardKinematic(out[i]);
-//        if((-1<(temp.cal_x-point.pos_x)<1)&&
-//                (-1<(temp.cal_y-point.pos_y)<1)&&
-//                (-1<(temp.cal_z-point.pos_z)<1))
-//        {
-//            res.push_back(out[i]);
-//        }
-//    }
+    pointData temp;
+    for (UINT i=0;i<4;++i) {
+        temp=ForwardKinematic(out[i]);
+        double err_x=temp.cal_x-point.pos_x;
+        double err_y=temp.cal_y-point.pos_y;
+        double err_z=temp.cal_z-point.pos_z;
+        if(-1<err_x&&err_x<1&&-1<err_y&&err_y<1&&-1<err_z&&err_z<1)
+        {
+            res.push_back(out[i]);
+        }
+    }
 
     double min=DBL_MAX;
     double result;
     UINT in=0;
     for(UINT i=0;i<res.size();++i)
     {
-        result=(res[i][0]-now[0])*ArmWeight1+(res[i][1]-now[1])*ArmWeight2+(res[i][2]-now[2])*ArmWeight3;
+        result=abs((res[i][0]-now[0]))*ArmWeight1+abs((res[i][1]-now[1]))*ArmWeight2+abs((res[i][2]-now[2]))*ArmWeight3;
         if(result<min)
         {
             min=result;
@@ -784,13 +790,20 @@ void Controller::InverseKinematic(pointData point,bool isLeft)
         else continue;
     }
 
-    if(isLeft)
+    if(res.size()==0)
     {
-        emit recInverseCal(res[in],true);
+        qDebug()<<"NO Inverse Result!";
+        return;
     }
-    else
-    {
-        emit recInverseCal(res[in],false);
+    else{
+        if(isLeft)
+        {
+            emit recInverseCal(res[in],true);
+        }
+        else
+        {
+            emit recInverseCal(res[in],false);
+        }
     }
 
 

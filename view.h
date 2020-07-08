@@ -99,7 +99,7 @@ private slots:
 
     void updateEndPos(pointData point,bool isLeft);
 
-    void updateiInverseCal(vector<double> calAngel,bool isLeft);
+    void updateInverseCal(vector<double> calAngel,bool isLeft);
 
     void on_btnMoter1RunFor_clicked();
 

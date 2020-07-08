@@ -40,7 +40,7 @@ View::View(QWidget *parent)
     connect(m_receiver,&Controller::recAbsAngle,this,&View::updateAbsAngle);
     connect(m_receiver,&Controller::recIncNum,this,&View::updateIncNum);
     connect(m_receiver,&Controller::recEndPos,this,&View::updateEndPos);
-    connect(m_controller,&Controller::recInverseCal,this,&View::updateiInverseCal);
+    connect(m_controller,&Controller::recInverseCal,this,&View::updateInverseCal);
 
     //opengl窗口
     QVBoxLayout* centralLayout = new QVBoxLayout();
@@ -553,7 +553,7 @@ void View::on_btnCalcRightRev_clicked()
     emit inverseCal(aim,false);
 }
 
-void View::updateiInverseCal(vector<double> calAngel,bool isLeft)
+void View::updateInverseCal(vector<double> calAngel,bool isLeft)
 {
     if(isLeft)
     {
